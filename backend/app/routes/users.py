@@ -2,33 +2,25 @@ from flask import Blueprint, request, jsonify
 from ..models import User, db
 from marshmallow import Schema, fields, ValidationError
 
+bp = Blueprint('users', __name__, url_prefix='/users')
+
 class UserSchema(Schema):
-    name = fields.Str(required=True)
+    name = fields.String(required=True)
 
 user_schema = UserSchema()
 
-# Define the Blueprint
-users_bp = Blueprint('users', __name__, url_prefix='/users')
-
-@users_bp.route('/', methods=['GET'])
+@bp.route('/', methods=['GET'])
 def get_users():
-    page = request.args.get('page', 1, type=int)
-    per_page = request.args.get('per_page', 10, type=int)
-    users = User.query.paginate(page=page, per_page=per_page)
-    return jsonify({
-        "total": users.total,
-        "pages": users.pages,
-        "current_page": users.page,
-        "data": [{"id": user.id, "name": user.name} for user in users.items]
-    })
+    users = User.query.all()
+    return jsonify([{"id": user.id, "name": user.name} for user in users])
 
-@users_bp.route('/', methods=['POST'])
+@bp.route('/', methods=['POST'])
 def add_user():
     try:
         data = user_schema.load(request.json)
-        new_user = User(name=data['name'])
-        db.session.add(new_user)
+        user = User(name=data['name'])
+        db.session.add(user)
         db.session.commit()
-        return jsonify({'success': True, 'user_id': new_user.id})
-    except ValidationError as err:
-        return jsonify({"error": err.messages}), 400
+        return jsonify({"success": True, "user_id": user.id}), 201
+    except ValidationError as e:
+        return jsonify({"error": e.messages}), 400
