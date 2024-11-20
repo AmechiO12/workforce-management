@@ -7,9 +7,10 @@ class UserSchema(Schema):
 
 user_schema = UserSchema()
 
-bp = Blueprint('users', __name__, url_prefix='/users')
+# Define the Blueprint
+users_bp = Blueprint('users', __name__, url_prefix='/users')
 
-@bp.route('/', methods=['GET'])
+@users_bp.route('/', methods=['GET'])
 def get_users():
     page = request.args.get('page', 1, type=int)
     per_page = request.args.get('per_page', 10, type=int)
@@ -21,7 +22,7 @@ def get_users():
         "data": [{"id": user.id, "name": user.name} for user in users.items]
     })
 
-@bp.route('/', methods=['POST'])
+@users_bp.route('/', methods=['POST'])
 def add_user():
     try:
         data = user_schema.load(request.json)

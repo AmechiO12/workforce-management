@@ -20,4 +20,3 @@ class CheckIn(db.Model):
     longitude = db.Column(db.Float, nullable=False)
     timestamp = db.Column(db.DateTime, server_default=db.func.now())
     is_verified = db.Column(db.Boolean, default=False)
-
