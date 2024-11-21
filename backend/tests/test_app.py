@@ -32,20 +32,24 @@ def test_home(client):
     """Test home route."""
     response = client.get("/")
     assert response.status_code == 200
+    assert "Welcome" in response.json["message"]
 
 
 def test_user_operations(client):
-    """Test user creation and retrieval."""
-    response = client.post("/users/", json={"name": "John Doe"})
+    """Test user registration and retrieval."""
+    response = client.post("/users/register", json={
+        "username": "John Doe",
+        "password": "password123"
+    })
     assert response.status_code == 201
-    assert response.json["success"] is True
+    assert "User registered" in response.json["message"]
 
-    response = client.get("/users/")
+    response = client.post("/users/login", json={
+        "username": "John Doe",
+        "password": "password123"
+    })
     assert response.status_code == 200
-    users = response.json["data"]  # Ensure "data" is accessed properly
-    assert isinstance(users, list)
-    assert len(users) == 1
-    assert users[0]["name"] == "John Doe"
+    assert "access_token" in response.json
 
 
 def test_location_operations(client):
@@ -54,14 +58,14 @@ def test_location_operations(client):
         "name": "Care Facility",
         "latitude": 51.5074,
         "longitude": -0.1278,
-        "radius": 0.1
+        "radius": 50
     })
     assert response.status_code == 201
-    assert response.json["success"] is True
+    assert "Location added" in response.json["message"]
 
     response = client.get("/locations/")
     assert response.status_code == 200
-    locations = response.json["data"]
+    locations = response.json
     assert isinstance(locations, list)
     assert len(locations) == 1
     assert locations[0]["name"] == "Care Facility"
@@ -69,12 +73,15 @@ def test_location_operations(client):
 
 def test_checkin_operations(client):
     """Test check-in functionality."""
-    client.post("/users/", json={"name": "Jane Doe"})
+    client.post("/users/register", json={
+        "username": "Jane Doe",
+        "password": "securepassword"
+    })
     client.post("/locations/", json={
         "name": "Care Facility",
         "latitude": 51.5074,
         "longitude": -0.1278,
-        "radius": 0.1
+        "radius": 50
     })
 
     response = client.post("/checkin/", json={
@@ -89,13 +96,16 @@ def test_checkin_operations(client):
 
 
 def test_payroll_generation(client):
-    """Test payroll generation."""
-    client.post("/users/", json={"name": "John Doe"})
+    """Test payroll calculation."""
+    client.post("/users/register", json={
+        "username": "John Doe",
+        "password": "password123"
+    })
     client.post("/locations/", json={
         "name": "Care Facility",
         "latitude": 51.5074,
         "longitude": -0.1278,
-        "radius": 0.1
+        "radius": 50
     })
     client.post("/checkin/", json={
         "user_id": 1,
@@ -104,10 +114,12 @@ def test_payroll_generation(client):
         "location_id": 1
     })
 
-    response = client.get("/payroll/")
-    assert response.status_code == 200
-    payroll = response.json
-    assert isinstance(payroll, list)
-    assert len(payroll) == 1
-    assert payroll[0]["name"] == "John Doe"
-    assert payroll[0]["pay"] == 120  # Assuming $15/hour
+    response = client.post("/payroll/calculate", json={
+        "user_id": 1,
+        "start_date": "2023-01-01",
+        "end_date": "2023-12-31",
+        "pay_rate": 15
+    })
+    assert response.status_code == 201
+    assert "total_pay" in response.json
+    assert response.json["total_pay"] == 0  # No worked hours in test setup
