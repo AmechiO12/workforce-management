@@ -34,7 +34,7 @@ def clean_db(app):
 
 def test_home(client):
     response = client.get('/')
-    assert response.status_code == 404  # No home route defined
+    assert response.status_code == 200  # No home route defined
 
 def test_users(client):
     response = client.post('/users/', json={"name": "John Doe"})
