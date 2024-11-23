@@ -7,6 +7,7 @@ from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
 from dotenv import load_dotenv
 from backend.app.extensions import db
+from flask_mail import Mail
 
 # Initialize extensions globally
 migrate = Migrate()
@@ -33,6 +34,17 @@ def create_app(test_config=None):
     # Apply test configuration if provided
     if test_config:
         app.config.update(test_config)
+
+    # Configure Flask-Mail
+    app.config.update(
+        MAIL_SERVER='smtp.example.com',
+        MAIL_PORT=587,
+        MAIL_USE_TLS=True,
+        MAIL_USERNAME='your-email@example.com',
+        MAIL_PASSWORD='your-email-password'
+    )
+
+    mail = Mail(app)  # Initialize the mail instance
 
     # Initialize extensions
     db.init_app(app)

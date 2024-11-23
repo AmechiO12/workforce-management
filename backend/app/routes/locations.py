@@ -26,29 +26,23 @@ def get_locations():
 def add_location():
     """
     Add a new location.
-    Admin-only route.
     """
-    current_user = get_jwt_identity()
-    if current_user['role'] != 'Admin':
-        return jsonify({"message": "Access denied"}), 403
-
     data = request.json
-
-    # Validate required fields
-    required_fields = ['name', 'latitude', 'longitude', 'radius']
-    if not all(field in data for field in required_fields):
+    if not all(key in data for key in ('name', 'latitude', 'longitude', 'radius')):
         return jsonify({"message": "Missing required fields"}), 400
 
-    # Add the location
-    location = Location(
+    new_location = Location(
         name=data['name'],
         latitude=data['latitude'],
         longitude=data['longitude'],
         radius=data['radius']
     )
-    db.session.add(location)
+    db.session.add(new_location)
     db.session.commit()
-    return jsonify({"message": "Location added successfully."}), 201
+
+    return jsonify({"message": "Location added successfully.", "id": new_location.id}), 201
+
+
 
 
 @bp.route('/<int:location_id>', methods=['GET'])

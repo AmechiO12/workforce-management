@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from ..models import CheckIn, Location, db
+from ..models import CheckIn, Location, User, db
 from geopy.distance import geodesic
 
 # Define the blueprint for check-in routes
@@ -12,32 +12,30 @@ def check_in():
     """
     Record a user's check-in and verify their proximity to a location.
     """
+    user_id = get_jwt_identity()  # Securely retrieve the logged-in user's ID
     data = request.json
-    user_id = get_jwt_identity()  # Fetch user ID from JWT token
     latitude = data.get('latitude')
     longitude = data.get('longitude')
     location_id = data.get('location_id')
 
-    # Validate input data
     if not all([latitude, longitude, location_id]):
         return jsonify({'error': 'Missing required fields'}), 400
 
-    # Fetch the location
+    # Validate location
     location = db.session.get(Location, location_id)
     if not location:
         return jsonify({'error': 'Invalid location ID'}), 400
 
-    # Calculate the distance between user and location
+    # Calculate distance
     user_coords = (latitude, longitude)
     facility_coords = (location.latitude, location.longitude)
     distance = geodesic(user_coords, facility_coords).km
-
-    # Verify if the user is within the location's radius
     is_verified = distance <= location.radius
 
-    # Record the check-in
+    # Record check-in
     checkin = CheckIn(
-        user_id=user_id,
+        user_id=user_id,  # Tie check-in to the logged-in user
+        location_id=location_id,
         latitude=latitude,
         longitude=longitude,
         is_verified=is_verified
@@ -45,7 +43,6 @@ def check_in():
     db.session.add(checkin)
     db.session.commit()
 
-    # Respond with the verification status
     return jsonify({
         'success': True,
         'is_verified': is_verified,
@@ -57,15 +54,20 @@ def check_in():
 @jwt_required()
 def get_checkins():
     """
-    Retrieve all check-ins for the logged-in user.
+    Retrieve all check-ins (admin only).
     """
-    user_id = get_jwt_identity()
-    checkins = CheckIn.query.filter_by(user_id=user_id).all()
+    current_user_id = get_jwt_identity()
+    current_user = db.session.get(User, current_user_id)
 
+    if not current_user or current_user.role != 'Admin':
+        return jsonify({"message": "Access denied"}), 403
+
+    checkins = CheckIn.query.all()
     return jsonify([{
-        'id': checkin.id,
-        'latitude': checkin.latitude,
-        'longitude': checkin.longitude,
-        'timestamp': checkin.timestamp,
-        'is_verified': checkin.is_verified
+        "id": checkin.id,
+        "user_id": checkin.user_id,
+        "location_id": checkin.location_id,
+        "latitude": checkin.latitude,
+        "longitude": checkin.longitude,
+        "is_verified": checkin.is_verified
     } for checkin in checkins]), 200

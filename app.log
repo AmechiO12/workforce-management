@@ -459,3 +459,4 @@ WHERE users.username = ?
 2024-11-23 17:26:19,344 - INFO - User 'testuser123' registered successfully
 2024-11-23 17:26:19,346 - INFO - New User ID: 3
 2024-11-23 17:26:19,347 - INFO - 127.0.0.1 - - [23/Nov/2024 17:26:19] "[35m[1mPOST /auth/register HTTP/1.1[0m" 201 -
+2024-11-23 21:24:43,315 - INFO - Application initialized successfully.

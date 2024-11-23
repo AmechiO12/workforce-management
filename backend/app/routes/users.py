@@ -1,35 +1,48 @@
-from flask import Blueprint, jsonify, request, current_app
-from backend.app.models import User, db
-from flask_bcrypt import generate_password_hash, check_password_hash
+from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
+from backend.app.models import User, db
+import logging
+from backend.app.auth import role_required  # Import the helper function
 
-# Define the Blueprint
+
+# Initialize Blueprint
 bp = Blueprint('users_bp', __name__, url_prefix='/users')
 
-# Route: Get All Users
+
 @bp.route('/', methods=['GET'])
 @jwt_required()
 def get_users():
-    """Fetch all users (admin only)."""
-    current_user = get_jwt_identity()
-    if current_user['role'] != 'Admin':
+    """
+    Fetch all users (admin only).
+    """
+    user_id = get_jwt_identity()  # Now returns user ID
+    user = db.session.get(User, user_id)
+
+    if not user or user.role != 'Admin':  # Validate role via database
+        logging.warning(f"Access denied for user ID {user_id}")
         return jsonify({"message": "Access denied"}), 403
 
     users = User.query.all()
     return jsonify([{
-        'id': user.id,
-        'username': user.username,
-        'email': user.email,
-        'role': user.role
+        "id": user.id,
+        "username": user.username,
+        "email": user.email,
+        "role": user.role
     } for user in users]), 200
 
-# Route: Add a New User
+
 @bp.route('/', methods=['POST'])
 @jwt_required()
+@role_required('Admin')  # Protect the route
 def add_user():
-    """Add a new user (admin only)."""
-    current_user = get_jwt_identity()
-    if current_user['role'] != 'Admin':
+    """
+    Add a new user (admin only).
+    """
+    user_id = get_jwt_identity()  # Now returns user ID
+    admin_user = db.session.get(User, user_id)
+
+    if not admin_user or admin_user.role != 'Admin':  # Validate role via database
+        logging.warning(f"Access denied for user ID {user_id}")
         return jsonify({"message": "Access denied"}), 403
 
     data = request.json
@@ -47,62 +60,30 @@ def add_user():
     new_user.set_password(data['password'])
     db.session.add(new_user)
     db.session.commit()
-    return jsonify({"message": "User added successfully."}), 201
 
-# Route: Get User by ID
+    return jsonify({"message": "User added successfully.", "id": new_user.id}), 201
+
+
 @bp.route('/<int:user_id>', methods=['GET'])
 @jwt_required()
 def get_user(user_id):
-    """Fetch a single user by ID."""
-    current_user = get_jwt_identity()
-    if current_user['role'] != 'Admin' and current_user['id'] != user_id:
+    """
+    Fetch a single user by ID.
+    """
+    current_user_id = get_jwt_identity()  # Now returns user ID
+    current_user = User.query.get(current_user_id)
+
+    if not current_user or (current_user.role != 'Admin' and current_user.id != user_id):
+        logging.warning(f"Access denied for user ID {current_user_id}")
         return jsonify({"message": "Access denied"}), 403
 
-    user = User.query.get(user_id)
+    user = db.session.get(User, user_id)
     if not user:
         return jsonify({"message": "User not found"}), 404
 
     return jsonify({
-        'id': user.id,
-        'username': user.username,
-        'email': user.email,
-        'role': user.role
+        "id": user.id,
+        "username": user.username,
+        "email": user.email,
+        "role": user.role
     }), 200
-
-# Route: Update a User
-@bp.route('/<int:user_id>', methods=['PUT'])
-@jwt_required()
-def update_user(user_id):
-    """Update a user's information (admin or user self)."""
-    current_user = get_jwt_identity()
-    if current_user['role'] != 'Admin' and current_user['id'] != user_id:
-        return jsonify({"message": "Access denied"}), 403
-
-    user = User.query.get(user_id)
-    if not user:
-        return jsonify({"message": "User not found"}), 404
-
-    data = request.json
-    user.username = data.get('username', user.username)
-    user.email = data.get('email', user.email)
-    if current_user['role'] == 'Admin':
-        user.role = data.get('role', user.role)
-    db.session.commit()
-    return jsonify({"message": "User updated successfully."}), 200
-
-# Route: Delete a User
-@bp.route('/<int:user_id>', methods=['DELETE'])
-@jwt_required()
-def delete_user(user_id):
-    """Delete a user (admin only)."""
-    current_user = get_jwt_identity()
-    if current_user['role'] != 'Admin':
-        return jsonify({"message": "Access denied"}), 403
-
-    user = User.query.get(user_id)
-    if not user:
-        return jsonify({"message": "User not found"}), 404
-
-    db.session.delete(user)
-    db.session.commit()
-    return jsonify({"message": "User deleted successfully."}), 200

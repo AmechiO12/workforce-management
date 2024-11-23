@@ -20,7 +20,6 @@ def validate_fields(data, fields):
 
 
 # User Registration Route
-# User Registration Route
 @auth_bp.route('/register', methods=['POST'])
 def register():
     """
@@ -63,14 +62,12 @@ def register():
         logging.info(f"User '{username}' registered successfully")
         logging.info(f"New User ID: {new_user.id}")  # Log the new user ID for debugging
 
-        return jsonify({
-            "message": "User added successfully.",
-            "id": new_user.id  # Ensure ID is included in the response
-        }), 201
+        return jsonify({"message": "User added successfully.", "id": new_user.id}), 201
 
     except Exception as e:
         logging.exception(f"Unexpected error during registration: {e}")
         return jsonify({"error": "Internal server error"}), 500
+
 
 # User Login Route
 @auth_bp.route('/login', methods=['POST'])
@@ -96,12 +93,8 @@ def login():
             logging.warning(f"Login failed: Invalid credentials for username '{username}'")
             return jsonify({"error": "Invalid username or password"}), 401
 
-        # Generate JWT token
-        token = create_access_token(identity={
-            "id": str(user.id),  # Ensure ID is a string
-            "username": user.username,
-            "role": user.role
-        })
+        # Generate JWT token with only user ID as the identity
+        token = create_access_token(identity=user.id)
 
         logging.info(f"User '{username}' logged in successfully")
         return jsonify({
@@ -122,12 +115,13 @@ def admin_only():
     An example of role-based access control for Admin users.
     """
     try:
-        claims = get_jwt_identity()  # Get the identity payload from the token
-        if claims.get('role') != 'Admin':
-            logging.warning(f"Access denied for user '{claims.get('username')}' to Admin route")
+        user_id = get_jwt_identity()
+        user = db.session.get(User, user_id)
+        if user.role != 'Admin':  # Fetch the role from the database
+            logging.warning(f"Access denied for user with ID '{user_id}' to Admin route")
             return jsonify({"error": "Access forbidden: Admins only"}), 403
 
-        logging.info(f"Admin access granted to user '{claims.get('username')}'")
+        logging.info(f"Admin access granted to user '{user.username}'")
         return jsonify({"message": "Welcome, Admin!"}), 200
 
     except Exception as e:
@@ -143,11 +137,16 @@ def protected():
     A generic example of a protected route.
     """
     try:
-        claims = get_jwt_identity()
-        logging.info(f"Protected route accessed by user '{claims.get('username')}'")
+        user_id = get_jwt_identity()
+        user = db.session.get(User, user_id)
+        logging.info(f"Protected route accessed by user '{user.username}'")
         return jsonify({
             "message": "This is a protected route",
-            "user": claims
+            "user": {
+                "id": user.id,
+                "username": user.username,
+                "role": user.role
+            }
         }), 200
 
     except Exception as e:
