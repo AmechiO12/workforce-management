@@ -1,5 +1,6 @@
-Flask
-Flask-SQLAlchemy
-geopy
-pandas
-openpyxl
+flask
+flask-sqlalchemy
+flask-migrate
+flask-jwt-extended
+flask-bcrypt
+python-dotenv

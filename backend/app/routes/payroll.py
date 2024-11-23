@@ -1,31 +1,50 @@
-from flask import Blueprint, jsonify, make_response
+from flask import Blueprint, jsonify, make_response, request
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from ..models import User, CheckIn
 import pandas as pd
 import io
 
-bp = Blueprint('payroll', __name__, url_prefix='/payroll')
+bp = Blueprint('payroll_bp', __name__, url_prefix='/payroll')
 
 @bp.route('/', methods=['GET'])
+@jwt_required()
 def generate_payroll():
-    """Generate payroll in JSON format."""
+    """
+    Generate payroll in JSON format.
+    Accessible by Admin users only.
+    """
+    current_user = get_jwt_identity()
+    if current_user['role'] != 'Admin':
+        return jsonify({"message": "Access denied"}), 403
+
     data = []
     users = User.query.all()
 
     for user in users:
+        # Only include verified check-ins
         checkins = CheckIn.query.filter_by(user_id=user.id, is_verified=True).all()
         hours_worked = len(checkins) * 8  # Assuming 8 hours per check-in
         data.append({
             'user_id': user.id,
-            'name': user.name,
+            'username': user.username,
             'hours_worked': hours_worked,
             'pay': hours_worked * 15  # Assuming $15/hour
         })
 
-    return jsonify(data)
+    return jsonify(data), 200
+
 
 @bp.route('/export', methods=['GET'])
+@jwt_required()
 def export_payroll():
-    """Export payroll as an Excel file."""
+    """
+    Export payroll as an Excel file.
+    Accessible by Admin users only.
+    """
+    current_user = get_jwt_identity()
+    if current_user['role'] != 'Admin':
+        return jsonify({"message": "Access denied"}), 403
+
     users = User.query.all()
     data = []
 
@@ -34,7 +53,7 @@ def export_payroll():
         hours_worked = len(checkins) * 8  # Assuming 8 hours per check-in
         data.append({
             'User ID': user.id,
-            'Name': user.name,
+            'Username': user.username,
             'Hours Worked': hours_worked,
             'Pay ($)': hours_worked * 15  # Assuming $15/hour
         })

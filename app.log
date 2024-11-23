@@ -1,0 +1,453 @@
+2024-11-22 22:05:54,423 - INFO - Application started successfully.
+2024-11-22 22:05:54,909 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-11-22 22:05:54,910 - INFO - [33mPress CTRL+C to quit[0m
+2024-11-22 22:06:15,975 - INFO - 127.0.0.1 - - [22/Nov/2024 22:06:15] "[31m[1mDELETE / HTTP/1.1[0m" 405 -
+2024-11-22 22:06:22,884 - INFO - 127.0.0.1 - - [22/Nov/2024 22:06:22] "[31m[1mDELETE / HTTP/1.1[0m" 405 -
+2024-11-22 22:06:28,323 - INFO - 127.0.0.1 - - [22/Nov/2024 22:06:28] "GET / HTTP/1.1" 200 -
+2024-11-22 22:06:35,410 - INFO - 127.0.0.1 - - [22/Nov/2024 22:06:35] "GET / HTTP/1.1" 200 -
+2024-11-22 22:37:00,533 - INFO - Application started successfully.
+2024-11-22 22:37:01,000 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-11-22 22:37:01,000 - INFO - [33mPress CTRL+C to quit[0m
+2024-11-22 22:38:08,539 - INFO - 127.0.0.1 - - [22/Nov/2024 22:38:08] "[33mPOST /auth/register HTTP/1.1[0m" 404 -
+2024-11-22 22:38:28,273 - INFO - 127.0.0.1 - - [22/Nov/2024 22:38:28] "[33mPOST /auth/register HTTP/1.1[0m" 404 -
+2024-11-22 22:39:07,729 - INFO - 127.0.0.1 - - [22/Nov/2024 22:39:07] "[33mPOST /auth/register HTTP/1.1[0m" 404 -
+2024-11-22 22:41:39,492 - INFO - 127.0.0.1 - - [22/Nov/2024 22:41:39] "[33mPOST /auth/register HTTP/1.1[0m" 404 -
+2024-11-22 22:41:51,780 - INFO - 127.0.0.1 - - [22/Nov/2024 22:41:51] "[31m[1mPOST / HTTP/1.1[0m" 405 -
+2024-11-22 22:41:57,255 - INFO - 127.0.0.1 - - [22/Nov/2024 22:41:57] "[31m[1mPOST / HTTP/1.1[0m" 405 -
+2024-11-22 22:42:03,015 - INFO - 127.0.0.1 - - [22/Nov/2024 22:42:03] "GET / HTTP/1.1" 200 -
+2024-11-22 22:42:04,054 - INFO - 127.0.0.1 - - [22/Nov/2024 22:42:04] "GET / HTTP/1.1" 200 -
+2024-11-22 22:42:04,982 - INFO - 127.0.0.1 - - [22/Nov/2024 22:42:04] "GET / HTTP/1.1" 200 -
+2024-11-22 22:42:46,615 - INFO - 127.0.0.1 - - [22/Nov/2024 22:42:46] "[33mGET /auth/registor HTTP/1.1[0m" 404 -
+2024-11-22 22:43:01,616 - INFO - 127.0.0.1 - - [22/Nov/2024 22:43:01] "[33mPOST /auth/registor HTTP/1.1[0m" 404 -
+2024-11-22 22:44:54,376 - INFO - 127.0.0.1 - - [22/Nov/2024 22:44:54] "[33mPOST /auth/registor HTTP/1.1[0m" 404 -
+2024-11-22 22:49:45,944 - INFO - Application started successfully.
+2024-11-22 22:51:22,075 - INFO - Application started successfully.
+2024-11-22 22:51:22,516 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-11-22 22:51:22,516 - INFO - [33mPress CTRL+C to quit[0m
+2024-11-22 22:51:30,728 - INFO - 127.0.0.1 - - [22/Nov/2024 22:51:30] "GET / HTTP/1.1" 200 -
+2024-11-22 22:52:20,046 - INFO - 127.0.0.1 - - [22/Nov/2024 22:52:20] "[33mPOST /auth/registor HTTP/1.1[0m" 404 -
+2024-11-22 22:53:01,055 - INFO - 127.0.0.1 - - [22/Nov/2024 22:53:01] "[33mGET /auth/registor HTTP/1.1[0m" 404 -
+2024-11-22 22:53:47,984 - ERROR - Exception on /auth/register [POST]
+Traceback (most recent call last):
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\backend\app\routes\auth_routes.py", line 22, in register
+    if User.query.filter_by(username=username).first():
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2728, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+        params,
+        ^^^^^^^
+        execution_options={"_sa_orm_load_options": self.load_options},
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2362, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2235, in _execute_internal
+    bind = self.get_bind(**bind_arguments)
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\flask_sqlalchemy\session.py", line 53, in get_bind
+    engines = self._db.engines
+              ^^^^^^^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\flask_sqlalchemy\extension.py", line 690, in engines
+    raise RuntimeError(
+    ...<3 lines>...
+    )
+RuntimeError: The current Flask app is not registered with this 'SQLAlchemy' instance. Did you forget to call 'init_app', or did you create multiple 'SQLAlchemy' instances?
+2024-11-22 22:53:48,002 - INFO - 127.0.0.1 - - [22/Nov/2024 22:53:48] "[35m[1mPOST /auth/register HTTP/1.1[0m" 500 -
+2024-11-22 22:54:23,499 - ERROR - Exception on /auth/register [POST]
+Traceback (most recent call last):
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\backend\app\routes\auth_routes.py", line 22, in register
+    if User.query.filter_by(username=username).first():
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2728, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+        params,
+        ^^^^^^^
+        execution_options={"_sa_orm_load_options": self.load_options},
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2362, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2235, in _execute_internal
+    bind = self.get_bind(**bind_arguments)
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\flask_sqlalchemy\session.py", line 53, in get_bind
+    engines = self._db.engines
+              ^^^^^^^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\flask_sqlalchemy\extension.py", line 690, in engines
+    raise RuntimeError(
+    ...<3 lines>...
+    )
+RuntimeError: The current Flask app is not registered with this 'SQLAlchemy' instance. Did you forget to call 'init_app', or did you create multiple 'SQLAlchemy' instances?
+2024-11-22 22:54:23,506 - INFO - 127.0.0.1 - - [22/Nov/2024 22:54:23] "[35m[1mPOST /auth/register HTTP/1.1[0m" 500 -
+2024-11-22 22:57:30,932 - INFO - Application started successfully.
+2024-11-22 22:57:31,401 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-11-22 22:57:31,402 - INFO - [33mPress CTRL+C to quit[0m
+2024-11-22 22:58:15,849 - INFO - 127.0.0.1 - - [22/Nov/2024 22:58:15] "[31m[1mPOST /auth/register HTTP/1.1[0m" 415 -
+2024-11-22 22:58:39,661 - ERROR - Exception on /auth/register [POST]
+Traceback (most recent call last):
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\backend\app\routes\auth_routes.py", line 22, in register
+    if User.query.filter_by(username=username).first():
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2728, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+        params,
+        ^^^^^^^
+        execution_options={"_sa_orm_load_options": self.load_options},
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2362, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2235, in _execute_internal
+    bind = self.get_bind(**bind_arguments)
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\flask_sqlalchemy\session.py", line 53, in get_bind
+    engines = self._db.engines
+              ^^^^^^^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\flask_sqlalchemy\extension.py", line 690, in engines
+    raise RuntimeError(
+    ...<3 lines>...
+    )
+RuntimeError: The current Flask app is not registered with this 'SQLAlchemy' instance. Did you forget to call 'init_app', or did you create multiple 'SQLAlchemy' instances?
+2024-11-22 22:58:39,670 - INFO - 127.0.0.1 - - [22/Nov/2024 22:58:39] "[35m[1mPOST /auth/register HTTP/1.1[0m" 500 -
+2024-11-22 23:08:17,587 - INFO - Application started successfully.
+2024-11-22 23:08:18,025 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-11-22 23:08:18,025 - INFO - [33mPress CTRL+C to quit[0m
+2024-11-22 23:11:30,035 - ERROR - Exception on /auth/register [POST]
+Traceback (most recent call last):
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: users
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\backend\app\routes\auth_routes.py", line 24, in register
+    if User.query.filter_by(username=username).first():
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2728, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+        params,
+        ^^^^^^^
+        execution_options={"_sa_orm_load_options": self.load_options},
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2362, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2247, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\context.py", line 305, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1418, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: users
+[SQL: SELECT users.id AS users_id, users.username AS users_username, users.email AS users_email, users.password AS users_password, users.role AS users_role 
+FROM users 
+WHERE users.username = ?
+ LIMIT ? OFFSET ?]
+[parameters: ('testuser', 1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2024-11-22 23:11:30,073 - INFO - 127.0.0.1 - - [22/Nov/2024 23:11:30] "[35m[1mPOST /auth/register HTTP/1.1[0m" 500 -
+2024-11-22 23:14:40,056 - INFO - Application started successfully.
+2024-11-22 23:19:17,184 - INFO - Application started successfully.
+2024-11-22 23:19:17,639 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-11-22 23:19:17,639 - INFO - [33mPress CTRL+C to quit[0m
+2024-11-22 23:19:21,243 - INFO - 127.0.0.1 - - [22/Nov/2024 23:19:21] "[31m[1mGET /auth/register HTTP/1.1[0m" 405 -
+2024-11-22 23:19:26,387 - ERROR - Exception on /auth/register [POST]
+Traceback (most recent call last):
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: users
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\backend\app\routes\auth_routes.py", line 24, in register
+    if User.query.filter_by(username=username).first():
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2728, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+        params,
+        ^^^^^^^
+        execution_options={"_sa_orm_load_options": self.load_options},
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2362, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2247, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\context.py", line 305, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1418, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: users
+[SQL: SELECT users.id AS users_id, users.username AS users_username, users.email AS users_email, users.password AS users_password, users.role AS users_role 
+FROM users 
+WHERE users.username = ?
+ LIMIT ? OFFSET ?]
+[parameters: ('testuser', 1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2024-11-22 23:19:26,407 - INFO - 127.0.0.1 - - [22/Nov/2024 23:19:26] "[35m[1mPOST /auth/register HTTP/1.1[0m" 500 -
+2024-11-22 23:30:46,572 - INFO - Application started successfully.
+2024-11-22 23:31:00,803 - INFO - Application started successfully.
+2024-11-22 23:31:02,462 - INFO - Application started successfully.
+2024-11-22 23:31:13,812 - INFO - Application started successfully.
+2024-11-22 23:31:15,296 - INFO - Application started successfully.
+2024-11-22 23:31:23,959 - INFO - Application started successfully.
+2024-11-22 23:31:24,399 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-11-22 23:31:24,399 - INFO - [33mPress CTRL+C to quit[0m
+2024-11-22 23:31:42,539 - INFO - 127.0.0.1 - - [22/Nov/2024 23:31:42] "[35m[1mPOST /auth/register HTTP/1.1[0m" 201 -
+2024-11-22 23:36:19,280 - INFO - Application initialized successfully.
+2024-11-22 23:36:19,682 - INFO - Database tables created or already exist.
+2024-11-22 23:36:19,684 - ERROR - Error: Directory migrations already exists and is not empty
+2024-11-22 23:36:20,715 - INFO - Application initialized successfully.
+2024-11-22 23:36:21,167 - INFO - Database tables created or already exist.
+2024-11-22 23:36:22,301 - INFO - Application initialized successfully.
+2024-11-22 23:36:22,785 - INFO - Database tables created or already exist.
+2024-11-22 23:36:28,964 - INFO - Application initialized successfully.
+2024-11-22 23:36:29,380 - INFO - Database tables created or already exist.
