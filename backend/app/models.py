@@ -1,17 +1,15 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
-from datetime import datetime
+from backend.app.extensions import db
 
-# Extensions (to be imported and initialized in the app factory)
-db = SQLAlchemy()
+# Extensions
 bcrypt = Bcrypt()
-
 
 class User(db.Model):
     """User model for the workforce management system."""
     __tablename__ = 'users'
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(80), unique=True, nullable=False, index=True)
     email = db.Column(db.String(120), unique=True, nullable=False, index=True)
     password = db.Column(db.String(128), nullable=False)
@@ -32,6 +30,15 @@ class User(db.Model):
     def check_password(self, password: str) -> bool:
         """Check the provided password against the stored hash."""
         return bcrypt.check_password_hash(self.password, password)
+
+    def serialize(self):
+        """Convert the User object into a dictionary."""
+        return {
+            "id": self.id,
+            "username": self.username,
+            "email": self.email,
+            "role": self.role
+        }
 
     def __repr__(self) -> str:
         return f"<User {self.username}>"
@@ -55,6 +62,16 @@ class Location(db.Model):
         lazy='dynamic'
     )
 
+    def serialize(self):
+        """Convert the Location object into a dictionary."""
+        return {
+            "id": self.id,
+            "name": self.name,
+            "latitude": self.latitude,
+            "longitude": self.longitude,
+            "radius": self.radius
+        }
+
     def __repr__(self) -> str:
         return f"<Location {self.name}>"
 
@@ -74,6 +91,18 @@ class CheckIn(db.Model):
     # Explicit relationships
     user = db.relationship('User', back_populates='checkins')
     location = db.relationship('Location', back_populates='checkins')
+
+    def serialize(self):
+        """Convert the CheckIn object into a dictionary."""
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "location_id": self.location_id,
+            "latitude": self.latitude,
+            "longitude": self.longitude,
+            "timestamp": self.timestamp.isoformat() if self.timestamp else None,
+            "is_verified": self.is_verified
+        }
 
     def __repr__(self) -> str:
         return f"<CheckIn User: {self.user_id}, Location: {self.location_id}, Verified: {self.is_verified}>"

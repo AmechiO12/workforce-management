@@ -1,68 +1,155 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, create_access_token, get_jwt_identity
-from ..models import User, db  # Corrected relative import for User and db
-from ..auth import hash_password, check_password  # Corrected relative import for auth utilities
 from backend.app.models import User, db
-from backend.app.auth import hash_password
+from backend.app.auth import hash_password, check_password
+import logging
 
+# Initialize Blueprint for authentication-related routes
 auth_bp = Blueprint('auth_bp', __name__, url_prefix='/auth')
 
-# User Registration
+
+# Utility function for input validation
+def validate_fields(data, fields):
+    """
+    Validate if required fields are present in the request payload.
+    """
+    missing_fields = [field for field in fields if not data.get(field)]
+    if missing_fields:
+        return False, f"Missing fields: {', '.join(missing_fields)}"
+    return True, None
+
+
+# User Registration Route
+# User Registration Route
 @auth_bp.route('/register', methods=['POST'])
 def register():
-    """Register a new user."""
-    data = request.json
-    username = data.get('username')
-    email = data.get('email')
-    password = data.get('password')
+    """
+    Register a new user.
+    """
+    try:
+        data = request.get_json()
 
-    # Validate input
-    if not username or not email or not password:
-        return jsonify({"message": "All fields are required"}), 400
+        # Validate input fields
+        valid, error_message = validate_fields(data, ['username', 'email', 'password'])
+        if not valid:
+            logging.warning(f"Registration failed: {error_message}")
+            return jsonify({"error": error_message}), 400
 
-    # Check if user exists
-    if User.query.filter_by(username=username).first():
-        return jsonify({"message": "User already exists"}), 400
+        username = data['username']
+        email = data['email']
+        password = data['password']
+        role = data.get('role', 'Employee')  # Default role is Employee
 
-    # Hash password and create user
-    hashed_password = hash_password(password)
-    new_user = User(
-        username=username,
-        email=email,
-        password=hashed_password,
-        role=data.get('role', 'Employee')  # Default role is Employee
-    )
-    db.session.add(new_user)
-    db.session.commit()
-    return jsonify({"message": "User registered successfully"}), 201
+        # Check if username or email already exists
+        if User.query.filter_by(username=username).first():
+            logging.warning(f"Registration failed: Username '{username}' already exists")
+            return jsonify({"error": "Username already exists"}), 400
 
-# User Login
+        if User.query.filter_by(email=email).first():
+            logging.warning(f"Registration failed: Email '{email}' already exists")
+            return jsonify({"error": "Email already exists"}), 400
+
+        # Hash the password and create a new user
+        hashed_password = hash_password(password)
+        new_user = User(
+            username=username,
+            email=email,
+            password=hashed_password,
+            role=role
+        )
+        db.session.add(new_user)
+        db.session.commit()
+
+        logging.info(f"User '{username}' registered successfully")
+        logging.info(f"New User ID: {new_user.id}")  # Log the new user ID for debugging
+
+        return jsonify({
+            "message": "User added successfully.",
+            "id": new_user.id  # Ensure ID is included in the response
+        }), 201
+
+    except Exception as e:
+        logging.exception(f"Unexpected error during registration: {e}")
+        return jsonify({"error": "Internal server error"}), 500
+
+# User Login Route
 @auth_bp.route('/login', methods=['POST'])
 def login():
-    """Log in an existing user and return a JWT token."""
-    data = request.json
-    username = data.get('username')
-    password = data.get('password')
+    """
+    Log in an existing user and return a JWT token.
+    """
+    try:
+        data = request.get_json()
 
-    # Validate input
-    if not username or not password:
-        return jsonify({"message": "Username and password are required"}), 400
+        # Validate input fields
+        valid, error_message = validate_fields(data, ['username', 'password'])
+        if not valid:
+            logging.warning(f"Login failed: {error_message}")
+            return jsonify({"error": error_message}), 400
 
-    # Fetch user and check credentials
-    user = User.query.filter_by(username=username).first()
-    if not user or not check_password(user.password, password):
-        return jsonify({"message": "Invalid credentials"}), 401
+        username = data['username']
+        password = data['password']
 
-    # Generate JWT token
-    token = create_access_token(identity={"id": user.id, "username": user.username, "role": user.role})
-    return jsonify({"access_token": token}), 200
+        # Fetch user and validate credentials
+        user = User.query.filter_by(username=username).first()
+        if not user or not check_password(user.password, password):
+            logging.warning(f"Login failed: Invalid credentials for username '{username}'")
+            return jsonify({"error": "Invalid username or password"}), 401
 
-# Role-Based Access Example
+        # Generate JWT token
+        token = create_access_token(identity={
+            "id": str(user.id),  # Ensure ID is a string
+            "username": user.username,
+            "role": user.role
+        })
+
+        logging.info(f"User '{username}' logged in successfully")
+        return jsonify({
+            "message": "Login successful",
+            "access_token": token
+        }), 200
+
+    except Exception as e:
+        logging.exception(f"Unexpected error during login: {e}")
+        return jsonify({"error": "Internal server error"}), 500
+
+
+# Admin-Only Route Example
 @auth_bp.route('/admin', methods=['GET'])
 @jwt_required()
 def admin_only():
-    """An example of role-based access control."""
-    claims = get_jwt_identity()  # Get the identity payload from the token
-    if claims.get('role') != 'Admin':
-        return jsonify({"message": "Access forbidden: Insufficient permissions"}), 403
-    return jsonify({"message": "Welcome, Admin!"})
+    """
+    An example of role-based access control for Admin users.
+    """
+    try:
+        claims = get_jwt_identity()  # Get the identity payload from the token
+        if claims.get('role') != 'Admin':
+            logging.warning(f"Access denied for user '{claims.get('username')}' to Admin route")
+            return jsonify({"error": "Access forbidden: Admins only"}), 403
+
+        logging.info(f"Admin access granted to user '{claims.get('username')}'")
+        return jsonify({"message": "Welcome, Admin!"}), 200
+
+    except Exception as e:
+        logging.exception(f"Unexpected error in Admin-only route: {e}")
+        return jsonify({"error": "Internal server error"}), 500
+
+
+# Example Protected Route
+@auth_bp.route('/protected', methods=['GET'])
+@jwt_required()
+def protected():
+    """
+    A generic example of a protected route.
+    """
+    try:
+        claims = get_jwt_identity()
+        logging.info(f"Protected route accessed by user '{claims.get('username')}'")
+        return jsonify({
+            "message": "This is a protected route",
+            "user": claims
+        }), 200
+
+    except Exception as e:
+        logging.exception(f"Unexpected error in protected route: {e}")
+        return jsonify({"error": "Internal server error"}), 500
