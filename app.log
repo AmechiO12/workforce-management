@@ -460,3 +460,9 @@ WHERE users.username = ?
 2024-11-23 17:26:19,346 - INFO - New User ID: 3
 2024-11-23 17:26:19,347 - INFO - 127.0.0.1 - - [23/Nov/2024 17:26:19] "[35m[1mPOST /auth/register HTTP/1.1[0m" 201 -
 2024-11-23 21:24:43,315 - INFO - Application initialized successfully.
+2024-11-23 21:27:03,722 - INFO - Application initialized successfully.
+2024-11-23 21:27:04,210 - INFO - Database tables created or already exist.
+2024-11-23 21:27:04,224 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-11-23 21:27:04,224 - INFO - [33mPress CTRL+C to quit[0m
+2024-11-23 21:28:03,046 - INFO - 127.0.0.1 - - [23/Nov/2024 21:28:03] "[33mPOST /auth/password_reset_request HTTP/1.1[0m" 404 -
