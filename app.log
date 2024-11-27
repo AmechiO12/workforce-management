@@ -1205,3 +1205,28 @@ sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed
 [parameters: ('testuser', 'testuser_7b29cf58@example.com', '$2b$12$BXiM6EoiGbDomCNABQaJAOryxxNDlKcMw7OHvTun7UxWnNFdDQJr6', 'Employee')]
 (Background on this error at: https://sqlalche.me/e/20/gkpj)
 2024-11-23 22:12:10,799 - INFO - 127.0.0.1 - - [23/Nov/2024 22:12:10] "[35m[1mPOST /auth/register HTTP/1.1[0m" 500 -
+2024-11-27 18:14:29,169 - INFO - Application initialized successfully.
+2024-11-27 18:20:41,786 - INFO - Application initialized successfully.
+2024-11-27 18:20:44,188 - INFO - Database tables created or already exist.
+2024-11-27 18:22:51,819 - INFO - Application initialized successfully.
+2024-11-27 18:22:52,703 - INFO - Database tables created or already exist.
+2024-11-27 19:10:48,773 - INFO - Application initialized successfully.
+2024-11-27 19:10:50,120 - INFO - Database tables created or already exist.
+2024-11-27 19:23:31,311 - INFO - Application initialized successfully.
+2024-11-27 19:23:32,206 - INFO - Database tables created or already exist.
+2024-11-27 19:25:39,183 - INFO - Application initialized successfully.
+2024-11-27 19:25:40,068 - INFO - Database tables created or already exist.
+2024-11-27 19:26:14,271 - INFO - Application initialized successfully.
+2024-11-27 19:26:14,279 - INFO - Database tables created or already exist.
+2024-11-27 19:27:05,987 - INFO - Application initialized successfully.
+2024-11-27 19:27:05,994 - INFO - Database tables created or already exist.
+2024-11-27 19:28:16,662 - INFO - Application initialized successfully.
+2024-11-27 19:28:16,678 - INFO - Database tables created or already exist.
+2024-11-27 19:28:21,124 - INFO - Application initialized successfully.
+2024-11-27 19:28:21,131 - INFO - Database tables created or already exist.
+2024-11-27 19:29:28,995 - INFO - Application initialized successfully.
+2024-11-27 19:29:29,003 - INFO - Database tables created or already exist.
+2024-11-27 19:33:12,466 - INFO - Application initialized successfully.
+2024-11-27 19:33:13,367 - INFO - Database tables created or already exist.
+2024-11-27 19:50:02,051 - INFO - Application initialized successfully.
+2024-11-27 19:50:03,872 - INFO - Database tables created or already exist.

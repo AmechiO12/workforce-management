@@ -33,3 +33,23 @@ config_dict = {
     'testing': TestingConfig,
     'production': ProductionConfig
 }
+
+class Config:
+    SECRET_KEY = os.getenv('SECRET_KEY', 'your_default_secret_key')
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URI', 'sqlite:///workforce.db')
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    # Flask-Mail configuration for MailHog
+    MAIL_SERVER = os.getenv('MAIL_SERVER', 'localhost')
+    MAIL_PORT = int(os.getenv('MAIL_PORT', 1025))
+    MAIL_USE_TLS = os.getenv('MAIL_USE_TLS', 'False') == 'True'
+    MAIL_USE_SSL = os.getenv('MAIL_USE_SSL', 'False') == 'True'
+    MAIL_USERNAME = os.getenv('MAIL_USERNAME', None)
+    MAIL_PASSWORD = os.getenv('MAIL_PASSWORD', None)
+    MAIL_DEFAULT_SENDER = os.getenv('MAIL_DEFAULT_SENDER', 'noreply@example.com')
+    
+    class Config:
+        SECRET_KEY = "your_secret_key"  # Flask secret key
+        SQLALCHEMY_DATABASE_URI = "sqlite:///workforce.db"
+        SQLALCHEMY_TRACK_MODIFICATIONS = False
+        JWT_SECRET_KEY = "your_jwt_secret_key"  # JWT secret key

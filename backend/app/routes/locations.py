@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from ..models import Location, db
+from backend.app import db
+from backend.app.models import Location
 
 bp = Blueprint('locations_bp', __name__, url_prefix='/locations')
 

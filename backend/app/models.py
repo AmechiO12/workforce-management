@@ -1,4 +1,3 @@
-from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from backend.app.extensions import db
 
