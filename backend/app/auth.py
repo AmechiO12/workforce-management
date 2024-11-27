@@ -94,34 +94,45 @@ def login():
     """Log in a user and generate a JWT token."""
     try:
         data = request.get_json()
-        if not data:
-            return jsonify({"error": "No input data provided"}), 400
+        print(f"DEBUG: Received data = {data}")  # Log received data
 
-        email = data.get('email')
+        email = data.get('email').strip().lower()
         password = data.get('password')
+        print(f"DEBUG: Email = {email}, Password = {password}")
 
         if not email or not password:
             return jsonify({"error": "Missing email or password"}), 400
 
         # Retrieve the user from the database
         user = User.query.filter_by(email=email).first()
+        if not user:
+            print(f"DEBUG: No user found with email = {email}")
+            return jsonify({"error": "Invalid email or password"}), 401
 
         # Validate the user's password
-        if not user or not check_password_hash(user.password, password):
+        if not user.check_password(password):
+            print(f"DEBUG: Password mismatch for user: {email}")
+            print(f"DEBUG: Provided password: {password}")
+            print(f"DEBUG: Stored hash: {user.password}")
             return jsonify({"error": "Invalid email or password"}), 401
 
         # Generate the JWT token
         token = create_access_token(identity={"id": user.id, "role": user.role})
-
+        print(f"DEBUG: Login successful for email: {email}")
         return jsonify({
             "message": "Login successful",
             "access_token": token
         }), 200
 
     except Exception as e:
-        # Catch any unexpected errors and log them if necessary
+        print(f"DEBUG: Exception occurred: {str(e)}")
         return jsonify({"error": f"Internal Server Error: {str(e)}"}), 500
+
     
+
+
+
+    flal
 @auth_bp.route('/request-reset', methods=['POST'])
 def request_reset():
     """Request a password reset."""
@@ -177,3 +188,4 @@ def reset_password():
         return jsonify({"message": "Password reset successfully"}), 200
     except Exception as e:
         return jsonify({"error": f"Internal Server Error: {str(e)}"}), 500
+
