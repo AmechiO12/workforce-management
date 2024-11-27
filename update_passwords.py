@@ -1,29 +1,18 @@
-from werkzeug.security import generate_password_hash
-import sqlite3
+from backend.app.models import User
+from backend.app.extensions import db
+from flask_bcrypt import generate_password_hash
+from backend.app import create_app  # Import your app factory
 
-# Path to your database
-db_path = 'workforce.db'
+# Create the app context
+app = create_app()
+app.app_context().push()
 
-# Connect to the database
-connection = sqlite3.connect(db_path)
-cursor = connection.cursor()
+# Rehash passwords for all users
+print("Rehashing passwords...")
+users = User.query.all()
+for user in users:
+    user.password = generate_password_hash("password123").decode('utf-8')  # Reset to a test password
+    db.session.add(user)
+db.session.commit()
 
-# Update passwords with known plaintext values
-test_users = [
-    {"email": "admin@example.com", "password": "adminpassword"},
-    {"email": "employee@example.com", "password": "employeepassword"}
-]
-
-# Hash passwords and update the database
-for user in test_users:
-    hashed_password = generate_password_hash(user["password"])
-    cursor.execute(
-        "UPDATE users SET password = ? WHERE email = ?",
-        (hashed_password, user["email"])
-    )
-
-# Commit changes and close the connection
-connection.commit()
-connection.close()
-
-print("Passwords successfully updated!")
+print("Passwords rehashed successfully!")

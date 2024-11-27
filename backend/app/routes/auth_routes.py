@@ -1,8 +1,9 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, create_access_token, get_jwt_identity
 from backend.app.models import User, db
-from backend.app.auth import hash_password, check_password
+from backend.app.auth import hash_password, verify_password
 import logging
+from werkzeug.security import generate_password_hash
 
 # Initialize Blueprint for authentication-related routes
 auth_bp = Blueprint('auth_bp', __name__, url_prefix='/auth')
@@ -10,9 +11,7 @@ auth_bp = Blueprint('auth_bp', __name__, url_prefix='/auth')
 
 # Utility function for input validation
 def validate_fields(data, fields):
-    """
-    Validate if required fields are present in the request payload.
-    """
+    """Validate if required fields are present in the request payload."""
     missing_fields = [field for field in fields if not data.get(field)]
     if missing_fields:
         return False, f"Missing fields: {', '.join(missing_fields)}"
@@ -34,10 +33,14 @@ def register():
             logging.warning(f"Registration failed: {error_message}")
             return jsonify({"error": error_message}), 400
 
-        username = data['username']
-        email = data['email']
-        password = data['password']
-        role = data.get('role', 'Employee')  # Default role is Employee
+        username = data.get('username', '').strip()
+        email = data.get('email', '').strip().lower()
+        password = data.get('password', '').strip()
+        role = data.get('role', 'Employee').strip()  # Default role is Employee
+
+        # Ensure fields are not empty
+        if not username or not email or not password:
+            return jsonify({"error": "Username, email, and password cannot be empty"}), 400
 
         # Check if username or email already exists
         if User.query.filter_by(username=username).first():
@@ -60,13 +63,11 @@ def register():
         db.session.commit()
 
         logging.info(f"User '{username}' registered successfully")
-        logging.info(f"New User ID: {new_user.id}")  # Log the new user ID for debugging
-
         return jsonify({"message": "User added successfully.", "id": new_user.id}), 201
 
     except Exception as e:
         logging.exception(f"Unexpected error during registration: {e}")
-        return jsonify({"error": "Internal server error"}), 500
+        return jsonify({"error": f"Internal Server Error: {str(e)}"}), 500
 
 
 # User Login Route
@@ -84,17 +85,21 @@ def login():
             logging.warning(f"Login failed: {error_message}")
             return jsonify({"error": error_message}), 400
 
-        username = data['username']
-        password = data['password']
+        username = data.get('username', '').strip()
+        password = data.get('password', '').strip()
 
-        # Fetch user and validate credentials
+        # Ensure fields are not empty
+        if not username or not password:
+            return jsonify({"error": "Username and password cannot be empty"}), 400
+
+        # Fetch user by username
         user = User.query.filter_by(username=username).first()
-        if not user or not check_password(user.password, password):
+        if not user or not verify_password(user.password, password):
             logging.warning(f"Login failed: Invalid credentials for username '{username}'")
             return jsonify({"error": "Invalid username or password"}), 401
 
-        # Generate JWT token with only user ID as the identity
-        token = create_access_token(identity=user.id)
+        # Generate JWT token with user identity
+        token = create_access_token(identity={"id": user.id, "role": user.role})
 
         logging.info(f"User '{username}' logged in successfully")
         return jsonify({
@@ -104,7 +109,7 @@ def login():
 
     except Exception as e:
         logging.exception(f"Unexpected error during login: {e}")
-        return jsonify({"error": "Internal server error"}), 500
+        return jsonify({"error": "Internal Server Error"}), 500
 
 
 # Admin-Only Route Example
@@ -152,3 +157,16 @@ def protected():
     except Exception as e:
         logging.exception(f"Unexpected error in protected route: {e}")
         return jsonify({"error": "Internal server error"}), 500
+
+@auth_bp.route('/rehash-passwords', methods=['POST'])
+def rehash_passwords():
+    """Rehash all user passwords with a test password."""
+    try:
+        users = User.query.all()
+        for user in users:
+            user.password = generate_password_hash("password123").decode('utf-8')  # Set to a test password
+            db.session.add(user)
+        db.session.commit()
+        return jsonify({"message": "Passwords rehashed successfully"}), 200
+    except Exception as e:
+        return jsonify({"error": f"Failed to rehash passwords: {str(e)}"}), 500

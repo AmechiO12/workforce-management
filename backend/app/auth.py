@@ -1,5 +1,5 @@
+import logging
 from flask import Blueprint, request, jsonify
-from flask_bcrypt import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token, decode_token, get_jwt_identity
 from flask_mail import Message
 from datetime import timedelta
@@ -7,17 +7,8 @@ from sqlalchemy.exc import IntegrityError
 from backend.app.models import User
 from backend.app.extensions import db, mail
 from functools import wraps
-from werkzeug.security import check_password_hash
 
 auth_bp = Blueprint('auth_bp', __name__)
-
-# Helper: Hash a password
-def hash_password(password):
-    return generate_password_hash(password).decode('utf-8')
-
-# Helper: Check a password against its hash
-def check_password(hashed_password, plain_password):
-    return check_password_hash(hashed_password, plain_password)
 
 # Helper: Generate a JWT token
 def generate_token(identity, expires_delta=timedelta(hours=1)):
@@ -65,19 +56,24 @@ def register():
         if not data:
             return jsonify({"error": "No input data provided"}), 400
 
-        email = data.get('email')
-        password = data.get('password')
-        username = data.get('username')
-        role = data.get('role', 'Employee')  # Default role is Employee
+        username = data.get('username', '').strip()
+        email = data.get('email', '').strip().lower()
+        password = data.get('password', '').strip()
+        role = data.get('role', 'Employee').strip()  # Default role is Employee
 
-        if not email or not password or not username:
+        if not username or not email or not password:
             return jsonify({"error": "Missing required fields"}), 400
 
         if User.query.filter_by(email=email).first():
             return jsonify({"error": "Email already exists"}), 400
 
-        hashed_password = hash_password(password)
-        new_user = User(username=username, email=email, password=hashed_password, role=role)
+        if User.query.filter_by(username=username).first():
+            return jsonify({"error": "Username already exists"}), 400
+
+        new_user = User(username=username, email=email)
+        new_user.set_password(password)  # Use model's password hashing method
+        new_user.role = role
+
         db.session.add(new_user)
         db.session.commit()
 
@@ -94,51 +90,48 @@ def login():
     """Log in a user and generate a JWT token."""
     try:
         data = request.get_json()
-        print(f"DEBUG: Received data = {data}")  # Log received data
+        if not data:
+            logging.error("No data received in login request")
+            return jsonify({"error": "Missing request body"}), 400
 
-        email = data.get('email').strip().lower()
-        password = data.get('password')
-        print(f"DEBUG: Email = {email}, Password = {password}")
+        email = data.get('email', '').strip().lower()
+        password = data.get('password', '').strip()
+
+        logging.debug(f"Login attempt with email: {email}")
 
         if not email or not password:
+            logging.warning("Missing email or password")
             return jsonify({"error": "Missing email or password"}), 400
 
         # Retrieve the user from the database
         user = User.query.filter_by(email=email).first()
         if not user:
-            print(f"DEBUG: No user found with email = {email}")
+            logging.warning(f"User not found with email: {email}")
             return jsonify({"error": "Invalid email or password"}), 401
+
+        logging.debug(f"User found: {user.email}, verifying password")
 
         # Validate the user's password
-        if not user.check_password(password):
-            print(f"DEBUG: Password mismatch for user: {email}")
-            print(f"DEBUG: Provided password: {password}")
-            print(f"DEBUG: Stored hash: {user.password}")
+        if not user.check_password(password):  # Assuming check_password exists in User model
+            logging.warning(f"Password mismatch for user: {email}")
             return jsonify({"error": "Invalid email or password"}), 401
 
-        # Generate the JWT token
+        # Generate JWT token
         token = create_access_token(identity={"id": user.id, "role": user.role})
-        print(f"DEBUG: Login successful for email: {email}")
-        return jsonify({
-            "message": "Login successful",
-            "access_token": token
-        }), 200
+        logging.info(f"User {email} logged in successfully")
+        return jsonify({"message": "Login successful", "access_token": token}), 200
 
     except Exception as e:
-        print(f"DEBUG: Exception occurred: {str(e)}")
+        logging.exception(f"Unexpected error during login: {str(e)}")
         return jsonify({"error": f"Internal Server Error: {str(e)}"}), 500
 
-    
 
-
-
-    flal
 @auth_bp.route('/request-reset', methods=['POST'])
 def request_reset():
     """Request a password reset."""
     try:
         data = request.get_json()
-        email = data.get('email')
+        email = data.get('email', '').strip()
 
         if not email:
             return jsonify({"error": "Email is required"}), 400
@@ -162,30 +155,24 @@ def reset_password():
     """Reset a password using a valid token."""
     try:
         data = request.get_json()
-        token = data.get('token')
-        new_password = data.get('new_password')
+        token = data.get('token', '').strip()
+        new_password = data.get('new_password', '').strip()
 
         if not token or not new_password:
             return jsonify({"error": "Token and new password are required"}), 400
 
         # Decode the token
         decoded_token = decode_token(token)
-        user_info = decoded_token.get('sub')  # Extract the 'sub' field from the token
+        user_id = decoded_token.get("id")
 
-        if not user_info or 'id' not in user_info:
-            return jsonify({"error": "Invalid token"}), 400
-
-        user_id = user_info['id']
         user = User.query.get(user_id)
-
         if not user:
             return jsonify({"error": "User does not exist"}), 404
 
         # Update the password
-        user.set_password(new_password)
+        user.set_password(new_password)  # Use model's password hashing method
         db.session.commit()
 
         return jsonify({"message": "Password reset successfully"}), 200
     except Exception as e:
         return jsonify({"error": f"Internal Server Error: {str(e)}"}), 500
-

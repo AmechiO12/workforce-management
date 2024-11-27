@@ -1230,3 +1230,11 @@ sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed
 2024-11-27 19:33:13,367 - INFO - Database tables created or already exist.
 2024-11-27 19:50:02,051 - INFO - Application initialized successfully.
 2024-11-27 19:50:03,872 - INFO - Database tables created or already exist.
+2024-11-27 23:29:17,914 - INFO - Application initialized successfully.
+2024-11-27 23:29:19,301 - INFO - Database tables created or already exist.
+2024-11-27 23:39:19,644 - INFO - Application initialized successfully.
+2024-11-27 23:39:20,534 - INFO - Database tables created or already exist.
+2024-11-27 23:43:03,452 - INFO - Application initialized successfully.
+2024-11-27 23:43:04,349 - INFO - Database tables created or already exist.
+2024-11-27 23:46:18,087 - INFO - Application initialized successfully.
+2024-11-27 23:46:18,967 - INFO - Database tables created or already exist.
