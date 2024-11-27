@@ -1,3 +1,5 @@
+# backend/app/__init__.py
+
 import os
 import logging
 from flask import Flask, jsonify
@@ -5,21 +7,21 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
-from dotenv import load_dotenv
-from backend.app.extensions import db
 from flask_mail import Mail
+from dotenv import load_dotenv
+from backend.app.extensions import db  # Ensure this is properly defined or replace it with `SQLAlchemy()` here.
 
-# Initialize extensions globally
+# Initialize Flask extensions
 migrate = Migrate()
 bcrypt = Bcrypt()
 jwt = JWTManager()
-
+mail = Mail()  # Initialize the mail instance
 
 def create_app(test_config=None):
     """
     Factory function to create and configure the Flask application.
     """
-    # Load environment variables
+    # Load environment variables from .env file
     load_dotenv()
 
     # Initialize Flask app
@@ -31,26 +33,29 @@ def create_app(test_config=None):
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY', 'your_jwt_secret_key')
 
+    # Mail configuration
+    app.config.update(
+        MAIL_SERVER=os.getenv('MAIL_SERVER', 'smtp.example.com'),
+        MAIL_PORT=os.getenv('MAIL_PORT', 587),
+        MAIL_USE_TLS=os.getenv('MAIL_USE_TLS', True),
+        MAIL_USERNAME=os.getenv('MAIL_USERNAME', 'your-email@example.com'),
+        MAIL_PASSWORD=os.getenv('MAIL_PASSWORD', 'your-email-password')
+    )
+
     # Apply test configuration if provided
     if test_config:
         app.config.update(test_config)
 
-    # Configure Flask-Mail
-    app.config.update(
-        MAIL_SERVER='smtp.example.com',
-        MAIL_PORT=587,
-        MAIL_USE_TLS=True,
-        MAIL_USERNAME='your-email@example.com',
-        MAIL_PASSWORD='your-email-password'
-    )
-
-    mail = Mail(app)  # Initialize the mail instance
-
     # Initialize extensions
     db.init_app(app)
     migrate.init_app(app, db)
-    jwt.init_app(app)
     bcrypt.init_app(app)
+    jwt.init_app(app)
+    mail.init_app(app)
+    
+    app.config['DEBUG'] = True
+    app.config['TESTING'] = True
+
 
     # Logging setup
     logging.basicConfig(
@@ -68,7 +73,7 @@ def create_app(test_config=None):
     from backend.app.routes.payroll import bp as payroll_bp
     from backend.app.routes.users import bp as users_bp
     from backend.app.routes.locations import bp as locations_bp
-    from backend.app.routes.auth_routes import auth_bp
+    from backend.app.auth import auth_bp
 
     app.register_blueprint(auth_bp, url_prefix='/auth')
     app.register_blueprint(checkins_bp, url_prefix='/checkins')
@@ -90,9 +95,9 @@ def create_app(test_config=None):
     def internal_server_error(error):
         return jsonify({"error": "Internal Server Error"}), 500
 
-    # Create tables
+    # Create database tables if not already existing
     with app.app_context():
-        from backend.app.models import User, Location, CheckIn
+        from backend.app.models import User, Location, CheckIn  # Import models here to avoid circular imports
         db.create_all()
         logging.info("Database tables created or already exist.")
 

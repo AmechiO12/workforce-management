@@ -2,6 +2,9 @@ import pytest
 from backend.app import create_app
 from backend.app.extensions import db
 from sqlalchemy.sql import text
+import requests
+
+BASE_URL = "http://127.0.0.1:5000"  # Replace with your actual backend URL
 
 @pytest.fixture(scope="module")
 def app():
@@ -59,3 +62,12 @@ def auth_headers(client, app):
         assert response.status_code == 200, f"Failed to log in test user: {response.get_json()}"
         token = response.get_json()["access_token"]
         return {"Authorization": f"Bearer {token}"}
+
+
+@pytest.fixture
+def jwt_token():
+    url = f"{BASE_URL}/auth/login"
+    data = {"username": "testuser", "password": "password123"}
+    response = requests.post(url, json=data)
+    assert response.status_code == 200, "Failed to obtain JWT token"
+    return response.json()["access_token"]
