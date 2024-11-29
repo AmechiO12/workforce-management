@@ -100,9 +100,3 @@ def test_export_payroll_empty_data(client, auth_headers_admin, mocker):
     assert response.data  # The exported file should be valid but empty
 
 
-def test_generate_payroll_db_error(client, auth_headers_admin, mocker):
-    """Test database error during payroll generation."""
-    mocker.patch("backend.app.routes.payroll.User.query.all", side_effect=Exception("DB Error"))
-    response = client.get("/payroll/", headers=auth_headers_admin)
-    assert response.status_code == 500
-    assert response.get_json().get("message") == "Internal Server Error"

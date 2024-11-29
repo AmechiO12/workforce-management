@@ -7,8 +7,15 @@ from backend.app.routes.locations import bp as locations_bp  # Include location 
 from backend.app.routes.users import bp as users_bp          # Include user blueprint
 from backend.app.routes.payroll import bp as payroll_bp      # Include payroll blueprint
 import logging
+from backend.app.utils import validate_fields, calculate_distance, success_response, error_response, export_to_excel
 
-def create_app():
+from backend.app.config import DevelopmentConfig, ProductionConfig
+
+def create_app(config_class=DevelopmentConfig):
+    app = Flask(__name__)
+    app.config.from_object(config_class)
+    ...
+
     """
     Factory function to create and configure the Flask application.
     """
@@ -62,7 +69,6 @@ def create_app():
         return {"error": "An internal server error occurred"}, 500
 
     return app
-
 
 if __name__ == "__main__":
     # Run the application

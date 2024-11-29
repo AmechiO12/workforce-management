@@ -9,6 +9,8 @@ from flask_migrate import Migrate
 from flask_mail import Mail
 from dotenv import load_dotenv
 from backend.app.extensions import db  # Ensure this is properly defined.
+from .utils import validate_fields, calculate_distance, success_response, error_response, export_to_excel
+
 
 # Initialize Flask extensions
 migrate = Migrate()
