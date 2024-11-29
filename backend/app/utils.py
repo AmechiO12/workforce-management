@@ -12,9 +12,9 @@ def validate_fields(data, required_fields):
     Returns:
         dict or None: An error message if validation fails, otherwise None.
     """
-    missing_fields = [field for field in required_fields if field not in data]
+    missing_fields = [field for field in required_fields if field not in data or data[field] is None]
     if missing_fields:
-        return {'error': f'Missing required fields: {', '.join(missing_fields)}'}
+        return {'error': f"Missing required fields: {', '.join(missing_fields)}"}
     return None
 
 def calculate_distance(coord1, coord2):
@@ -26,9 +26,12 @@ def calculate_distance(coord1, coord2):
         coord2 (tuple): The second coordinate (latitude, longitude).
 
     Returns:
-        float: The distance in kilometers.
+        float: The distance in kilometers, rounded to two decimal places.
     """
-    return geopy_distance(coord1, coord2).km
+    try:
+        return round(geopy_distance(coord1, coord2).km, 2)
+    except Exception as e:
+        raise ValueError(f"Error calculating distance: {str(e)}")
 
 def success_response(data=None, message='Success'):
     """
@@ -70,6 +73,9 @@ def export_to_excel(data, filename):
     Returns:
         str: The filename of the exported file.
     """
-    df = pd.DataFrame(data)
-    df.to_excel(filename, index=False)
-    return filename
+    try:
+        df = pd.DataFrame(data)
+        df.to_excel(filename, index=False)
+        return filename
+    except Exception as e:
+        raise IOError(f"Error exporting data to Excel: {str(e)}")

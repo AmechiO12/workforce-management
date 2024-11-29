@@ -1,52 +1,60 @@
 import logging
 from logging.config import fileConfig
-
 from flask import current_app
 from alembic import context
 
-# Alembic Config object
+# Alembic Config object, providing access to the .ini file
 config = context.config
 
-# Configure logging from alembic.ini
+# Configure logging using the settings from alembic.ini
 fileConfig(config.config_file_name)
 logger = logging.getLogger('alembic.env')
 
-
 def get_engine():
-    """Retrieve the SQLAlchemy engine from Flask app context."""
+    """
+    Retrieve the SQLAlchemy engine from the Flask application context.
+    This ensures compatibility with Flask-SQLAlchemy versions.
+    """
     try:
-        # This works with Flask-SQLAlchemy<3 and Alchemical
+        # For Flask-SQLAlchemy < 3.0
         return current_app.extensions['migrate'].db.get_engine()
     except (TypeError, AttributeError):
-        # This works with Flask-SQLAlchemy>=3
+        # For Flask-SQLAlchemy >= 3.0
         return current_app.extensions['migrate'].db.engine
 
 
 def get_engine_url():
-    """Retrieve the database URL from Flask app context."""
+    """
+    Retrieve the database connection URL from the SQLAlchemy engine.
+    """
     try:
         return get_engine().url.render_as_string(hide_password=False).replace('%', '%%')
     except AttributeError:
         return str(get_engine().url).replace('%', '%%')
 
 
-# Set the SQLAlchemy URL dynamically
-config.set_main_option('sqlalchemy.url', get_engine_url())
-target_db = current_app.extensions['migrate'].db
-
-
 def get_metadata():
-    """Fetch the appropriate metadata for schema autogeneration."""
-    if hasattr(target_db, 'metadatas'):
-        return target_db.metadatas[None]
-    return target_db.metadata
+    """
+    Get the target metadata for schema autogeneration.
+    Handles cases where multiple metadatas are used.
+    """
+    target_db = current_app.extensions['migrate'].db
+    return target_db.metadatas.get(None, target_db.metadata)
 
+
+# Set the SQLAlchemy URL dynamically from the Flask application
+config.set_main_option('sqlalchemy.url', get_engine_url())
 
 def run_migrations_offline():
-    """Run migrations in offline mode."""
+    """
+    Execute migrations in offline mode.
+    Configures the context with just a database URL.
+    """
     url = config.get_main_option("sqlalchemy.url")
     context.configure(
-        url=url, target_metadata=get_metadata(), literal_binds=True
+        url=url,
+        target_metadata=get_metadata(),
+        literal_binds=True
     )
 
     with context.begin_transaction():
@@ -54,15 +62,20 @@ def run_migrations_offline():
 
 
 def run_migrations_online():
-    """Run migrations in online mode."""
+    """
+    Execute migrations in online mode.
+    Connects to the database and applies migrations directly.
+    """
 
     def process_revision_directives(context, revision, directives):
-        """Prevent empty migration files."""
+        """
+        Prevent creation of empty migration files.
+        """
         if getattr(config.cmd_opts, 'autogenerate', False):
             script = directives[0]
             if script.upgrade_ops.is_empty():
                 directives[:] = []
-                logger.info('No changes in schema detected.')
+                logger.info('No schema changes detected.')
 
     conf_args = current_app.extensions['migrate'].configure_args
     if conf_args.get("process_revision_directives") is None:
@@ -81,6 +94,7 @@ def run_migrations_online():
             context.run_migrations()
 
 
+# Determine the mode and execute migrations
 if context.is_offline_mode():
     run_migrations_offline()
 else:

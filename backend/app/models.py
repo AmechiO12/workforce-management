@@ -1,7 +1,7 @@
 from flask_bcrypt import Bcrypt
 from backend.app.extensions import db
 
-# Extensions
+# Initialize Flask-Bcrypt for password hashing
 bcrypt = Bcrypt()
 
 class User(db.Model):
@@ -23,15 +23,24 @@ class User(db.Model):
     )
 
     def set_password(self, password: str):
-        """Hash and set the user's password."""
+        """
+        Hash and set the user's password.
+        Uses Flask-Bcrypt for secure hashing.
+        """
         self.password = bcrypt.generate_password_hash(password).decode('utf-8')
 
     def check_password(self, password: str) -> bool:
-        """Check the provided password against the stored hash."""
+        """
+        Validate the provided password against the stored hash.
+        Returns True if the password matches.
+        """
         return bcrypt.check_password_hash(self.password, password)
 
     def serialize(self):
-        """Convert the User object into a dictionary."""
+        """
+        Serialize the User object into a dictionary.
+        Useful for API responses.
+        """
         return {
             "id": self.id,
             "username": self.username,
@@ -62,7 +71,9 @@ class Location(db.Model):
     )
 
     def serialize(self):
-        """Convert the Location object into a dictionary."""
+        """
+        Serialize the Location object into a dictionary.
+        """
         return {
             "id": self.id,
             "name": self.name,
@@ -92,7 +103,10 @@ class CheckIn(db.Model):
     location = db.relationship('Location', back_populates='checkins')
 
     def serialize(self):
-        """Convert the CheckIn object into a dictionary."""
+        """
+        Serialize the CheckIn object into a dictionary.
+        Includes related data for user and location.
+        """
         return {
             "id": self.id,
             "user_id": self.user_id,
