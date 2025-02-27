@@ -1418,3 +1418,61 @@ sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed
 2025-02-20 08:32:10,577 - INFO - 127.0.0.1 - - [20/Feb/2025 08:32:10] "OPTIONS /auth/login HTTP/1.1" 200 -
 2025-02-20 08:32:10,796 - INFO - User 'admin' logged in successfully.
 2025-02-20 08:32:10,796 - INFO - 127.0.0.1 - - [20/Feb/2025 08:32:10] "POST /auth/login HTTP/1.1" 200 -
+2025-02-27 21:03:31,376 - INFO - Application initialized successfully.
+2025-02-27 21:03:31,412 - INFO - Database tables created or already exist.
+2025-02-27 21:03:31,823 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-02-27 21:03:31,824 - INFO - [33mPress CTRL+C to quit[0m
+2025-02-27 21:03:31,826 - INFO -  * Restarting with stat
+2025-02-27 21:03:33,448 - INFO - Application initialized successfully.
+2025-02-27 21:03:33,468 - INFO - Database tables created or already exist.
+2025-02-27 21:03:33,484 - WARNING -  * Debugger is active!
+2025-02-27 21:03:33,496 - INFO -  * Debugger PIN: 533-922-284
+2025-02-27 21:04:12,617 - INFO - 127.0.0.1 - - [27/Feb/2025 21:04:12] "OPTIONS /auth/login HTTP/1.1" 200 -
+2025-02-27 21:04:12,859 - INFO - User 'admin' logged in successfully.
+2025-02-27 21:04:12,860 - INFO - 127.0.0.1 - - [27/Feb/2025 21:04:12] "POST /auth/login HTTP/1.1" 200 -
+2025-02-27 21:04:16,380 - INFO - 127.0.0.1 - - [27/Feb/2025 21:04:16] "OPTIONS /payroll/?start_date=2025-02-01&end_date=2025-02-27 HTTP/1.1" 200 -
+2025-02-27 21:04:16,387 - INFO - 127.0.0.1 - - [27/Feb/2025 21:04:16] "GET /payroll/?start_date=2025-02-01&end_date=2025-02-27 HTTP/1.1" 200 -
+2025-02-27 21:04:16,851 - INFO - 127.0.0.1 - - [27/Feb/2025 21:04:16] "OPTIONS /locations/ HTTP/1.1" 200 -
+2025-02-27 21:04:16,853 - INFO - 127.0.0.1 - - [27/Feb/2025 21:04:16] "OPTIONS /locations/ HTTP/1.1" 200 -
+2025-02-27 21:04:16,856 - INFO - 127.0.0.1 - - [27/Feb/2025 21:04:16] "GET /locations/ HTTP/1.1" 200 -
+2025-02-27 21:04:16,862 - INFO - 127.0.0.1 - - [27/Feb/2025 21:04:16] "GET /locations/ HTTP/1.1" 200 -
+2025-02-27 21:04:17,905 - INFO - 127.0.0.1 - - [27/Feb/2025 21:04:17] "GET /payroll/?start_date=2025-02-01&end_date=2025-02-27 HTTP/1.1" 200 -
+2025-02-27 21:04:19,348 - INFO - 127.0.0.1 - - [27/Feb/2025 21:04:19] "GET /locations/ HTTP/1.1" 200 -
+2025-02-27 21:04:19,352 - INFO - 127.0.0.1 - - [27/Feb/2025 21:04:19] "GET /locations/ HTTP/1.1" 200 -
+2025-02-27 21:05:02,883 - INFO - 127.0.0.1 - - [27/Feb/2025 21:05:02] "OPTIONS /auth/register HTTP/1.1" 200 -
+2025-02-27 21:05:03,117 - INFO - User 'jake' registered successfully.
+2025-02-27 21:05:03,117 - INFO - 127.0.0.1 - - [27/Feb/2025 21:05:03] "[35m[1mPOST /auth/register HTTP/1.1[0m" 201 -
+2025-02-27 21:05:08,781 - INFO - User 'jake' logged in successfully.
+2025-02-27 21:05:08,782 - INFO - 127.0.0.1 - - [27/Feb/2025 21:05:08] "POST /auth/login HTTP/1.1" 200 -
+2025-02-27 21:05:15,203 - INFO - 127.0.0.1 - - [27/Feb/2025 21:05:15] "GET /locations/ HTTP/1.1" 200 -
+2025-02-27 21:05:15,207 - INFO - 127.0.0.1 - - [27/Feb/2025 21:05:15] "GET /locations/ HTTP/1.1" 200 -
+2025-02-27 21:05:16,085 - INFO - 127.0.0.1 - - [27/Feb/2025 21:05:16] "[31m[1mGET /payroll/?start_date=2025-02-01&end_date=2025-02-27 HTTP/1.1[0m" 403 -
+2025-02-27 21:08:17,417 - INFO -  * Detected change in 'C:\\Users\\amech\\Documents\\workforce-management\\backend\\app\\run.py', reloading
+2025-02-27 21:08:17,625 - INFO -  * Restarting with stat
+2025-02-27 21:08:19,747 - INFO - Application initialized successfully.
+2025-02-27 21:08:19,769 - INFO - Database tables created or already exist.
+2025-02-27 21:08:19,787 - WARNING -  * Debugger is active!
+2025-02-27 21:08:19,794 - INFO -  * Debugger PIN: 533-922-284
+2025-02-27 21:18:02,283 - INFO - 127.0.0.1 - - [27/Feb/2025 21:18:02] "OPTIONS /auth/login HTTP/1.1" 200 -
+2025-02-27 21:18:02,517 - INFO - User 'jake' logged in successfully.
+2025-02-27 21:18:02,518 - INFO - 127.0.0.1 - - [27/Feb/2025 21:18:02] "POST /auth/login HTTP/1.1" 200 -
+2025-02-27 21:18:05,303 - INFO - 127.0.0.1 - - [27/Feb/2025 21:18:05] "OPTIONS /locations/ HTTP/1.1" 200 -
+2025-02-27 21:18:05,305 - INFO - 127.0.0.1 - - [27/Feb/2025 21:18:05] "OPTIONS /locations/ HTTP/1.1" 200 -
+2025-02-27 21:18:05,309 - INFO - 127.0.0.1 - - [27/Feb/2025 21:18:05] "GET /locations/ HTTP/1.1" 200 -
+2025-02-27 21:18:05,314 - INFO - 127.0.0.1 - - [27/Feb/2025 21:18:05] "GET /locations/ HTTP/1.1" 200 -
+2025-02-27 21:18:13,954 - INFO - 127.0.0.1 - - [27/Feb/2025 21:18:13] "OPTIONS /checkins/ HTTP/1.1" 200 -
+2025-02-27 21:18:13,960 - INFO - Check-in failed for user jake: Distance 8423.33 km exceeds radius 1.00 km
+2025-02-27 21:18:13,961 - INFO - 127.0.0.1 - - [27/Feb/2025 21:18:13] "[31m[1mPOST /checkins/ HTTP/1.1[0m" 400 -
+2025-02-27 21:18:20,655 - INFO - 127.0.0.1 - - [27/Feb/2025 21:18:20] "OPTIONS /payroll/?start_date=2025-02-01&end_date=2025-02-27 HTTP/1.1" 200 -
+2025-02-27 21:18:20,659 - INFO - 127.0.0.1 - - [27/Feb/2025 21:18:20] "[31m[1mGET /payroll/?start_date=2025-02-01&end_date=2025-02-27 HTTP/1.1[0m" 403 -
+2025-02-27 21:18:21,275 - INFO - 127.0.0.1 - - [27/Feb/2025 21:18:21] "GET /locations/ HTTP/1.1" 200 -
+2025-02-27 21:18:21,279 - INFO - 127.0.0.1 - - [27/Feb/2025 21:18:21] "GET /locations/ HTTP/1.1" 200 -
+2025-02-27 21:18:49,990 - INFO - 127.0.0.1 - - [27/Feb/2025 21:18:49] "[31m[1mGET /payroll/?start_date=2025-02-01&end_date=2025-02-27 HTTP/1.1[0m" 403 -
+2025-02-27 21:18:54,831 - INFO - 127.0.0.1 - - [27/Feb/2025 21:18:54] "OPTIONS /payroll/?start_date=2025-02-26&end_date=2025-02-27 HTTP/1.1" 200 -
+2025-02-27 21:18:54,833 - INFO - 127.0.0.1 - - [27/Feb/2025 21:18:54] "[31m[1mGET /payroll/?start_date=2025-02-26&end_date=2025-02-27 HTTP/1.1[0m" 403 -
+2025-02-27 21:18:57,513 - INFO - 127.0.0.1 - - [27/Feb/2025 21:18:57] "OPTIONS /payroll/?start_date=2025-02-26&end_date=2025-03-01 HTTP/1.1" 200 -
+2025-02-27 21:18:57,517 - INFO - 127.0.0.1 - - [27/Feb/2025 21:18:57] "[31m[1mGET /payroll/?start_date=2025-02-26&end_date=2025-03-01 HTTP/1.1[0m" 403 -
+2025-02-27 21:18:59,297 - INFO - 127.0.0.1 - - [27/Feb/2025 21:18:59] "[31m[1mGET /payroll/?start_date=2025-02-26&end_date=2025-03-01 HTTP/1.1[0m" 403 -
+2025-02-27 21:19:04,107 - INFO - 127.0.0.1 - - [27/Feb/2025 21:19:04] "GET /locations/ HTTP/1.1" 200 -
+2025-02-27 21:19:04,111 - INFO - 127.0.0.1 - - [27/Feb/2025 21:19:04] "GET /locations/ HTTP/1.1" 200 -

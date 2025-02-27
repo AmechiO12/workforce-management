@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { locations, checkIns } from '../utils/api';
 
 const CheckInForm = () => {
-  const [locations, setLocations] = useState([]);
+  const [locationsList, setLocationsList] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState('');
   const [coordinates, setCoordinates] = useState({ latitude: null, longitude: null });
   const [isLoading, setIsLoading] = useState(false);
@@ -13,16 +14,10 @@ const CheckInForm = () => {
   useEffect(() => {
     const fetchLocations = async () => {
       try {
-        const token = localStorage.getItem('access_token');
-        const response = await fetch('http://127.0.0.1:5000/locations/', {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-        const data = await response.json();
+        const data = await locations.getAll();
         
         if (Array.isArray(data)) {
-          setLocations(data);
+          setLocationsList(data);
           if (data.length > 0) {
             setSelectedLocation(data[0].id);
           }
@@ -35,7 +30,7 @@ const CheckInForm = () => {
       } catch (error) {
         setStatus({
           type: 'error',
-          message: 'Error connecting to server. Please try again later.'
+          message: error.message || 'Error connecting to server. Please try again later.'
         });
       } finally {
         setLocationsLoading(false);
@@ -113,34 +108,19 @@ const CheckInForm = () => {
     setStatus({ type: '', message: '' });
 
     try {
-      const token = localStorage.getItem('access_token');
-      const response = await fetch('http://127.0.0.1:5000/checkins/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          location_id: selectedLocation,
-          latitude: coordinates.latitude,
-          longitude: coordinates.longitude
-        })
-      });
-
-      const data = await response.json();
+      const checkInData = {
+        location_id: selectedLocation,
+        latitude: coordinates.latitude,
+        longitude: coordinates.longitude
+      };
       
-      if (response.ok) {
-        if (data.success) {
-          setStatus({
-            type: 'success',
-            message: `Check-in successful! You are ${data.distance_km?.toFixed(2) || '0'} km from the location.`
-          });
-        } else {
-          setStatus({
-            type: 'error',
-            message: data.error || 'Check-in failed. Please try again.'
-          });
-        }
+      const data = await checkIns.create(checkInData);
+      
+      if (data.success) {
+        setStatus({
+          type: 'success',
+          message: `Check-in successful! You are ${data.distance_km?.toFixed(2) || '0'} km from the location.`
+        });
       } else {
         setStatus({
           type: 'error',
@@ -150,7 +130,7 @@ const CheckInForm = () => {
     } catch (error) {
       setStatus({
         type: 'error',
-        message: 'Error connecting to server. Please try again later.'
+        message: error.message || 'Error connecting to server. Please try again later.'
       });
     } finally {
       setIsLoading(false);
@@ -208,12 +188,12 @@ const CheckInForm = () => {
               className="shadow-sm appearance-none border border-gray-300 rounded-md w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               value={selectedLocation}
               onChange={(e) => setSelectedLocation(e.target.value)}
-              disabled={locations.length === 0}
+              disabled={locationsList.length === 0}
             >
-              {locations.length === 0 ? (
+              {locationsList.length === 0 ? (
                 <option value="">No locations available</option>
               ) : (
-                locations.map((location) => (
+                locationsList.map((location) => (
                   <option key={location.id} value={location.id}>
                     {location.name}
                   </option>
