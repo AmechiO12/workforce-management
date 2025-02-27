@@ -1,17 +1,13 @@
 from backend.app import create_app, db
-from backend.app.models import User, Location, CheckIn
+from backend.app.models import User, Location, CheckIn, Payroll, Shift, Invoice
 from sqlalchemy import inspect
 import os
-
-
 
 app = create_app()
 
 # Debug: Print the absolute path to the database
 print(f"Absolute path to database: {os.path.abspath('workforce.db')}")
 print(f"Using database at: {app.config['SQLALCHEMY_DATABASE_URI']}")
-
-
 
 with app.app_context():
     print("Recreating database tables...")

@@ -13,19 +13,20 @@ from functools import wraps
 import re
 
 
-# Configure logging
+# ✅ Configure logging
 logging.basicConfig(level=logging.INFO)
 
-# Initialize the Blueprint for authentication-related routes
+# 🔐 Initialize Blueprint for authentication routes
 auth_bp = Blueprint('auth_bp', __name__, url_prefix='/auth')
 
 
-# Helper function: Generate JWT token
+# 🌐 Helper function: Generate JWT token
 def generate_token(identity, expires_delta=timedelta(hours=1)):
     """Generate a JWT token with the given identity and expiration."""
     return create_access_token(identity=identity, expires_delta=expires_delta)
 
-# Helper function: Send email for password reset
+
+# 📧 Helper function: Send email for password reset
 def send_reset_email(email, token):
     """Send a password reset email with the given token."""
     reset_url = f"http://example.com/reset-password?token={token}"
@@ -42,11 +43,12 @@ def send_reset_email(email, token):
         logging.error(f"Failed to send reset email: {e}")
         raise
 
-# Helper function: Validate password strength
+
+# 🛡️ Helper function: Validate password strength
 def validate_password(password):
     """
     Validate the password strength.
-    Must be at least 8 characters long, include uppercase, lowercase, number, and special character.
+    Must include uppercase, lowercase, number, and special character.
     """
     if len(password) < 8:
         return False, "Password must be at least 8 characters long."
@@ -60,12 +62,14 @@ def validate_password(password):
         return False, "Password must include at least one special character."
     return True, None
 
-# Helper function: Centralized error response
+
+# ⚡ Helper function: Centralized error response
 def error_response(message, status_code):
     """Generate a standardized error response."""
     return jsonify({"error": message}), status_code
 
-# Role-based access decorator
+
+# 🎯 Role-based access decorator
 def role_required(required_role):
     """Decorator to enforce role-based access control."""
     def decorator(f):
@@ -81,7 +85,8 @@ def role_required(required_role):
         return decorated_function
     return decorator
 
-# User registration endpoint
+
+# 📝 User registration endpoint
 @auth_bp.route('/register', methods=['POST'])
 def register():
     """
@@ -102,28 +107,26 @@ def register():
         password = data.get('password', '').strip()
         role = data.get('role', 'Employee').strip()
 
-        if not username or not email or not password:
-            return error_response("Missing required fields: username, email, or password", 400)
+        # ✅ Validate required fields
+        if not username or not password:
+            return error_response("Missing required fields: username or password", 400)
 
         valid, error_message = validate_password(password)
         if not valid:
             return error_response(error_message, 400)
 
-        if User.query.filter_by(email=email).first():
-            return error_response("Email already exists", 400)
-
+        # 🔄 Check for duplicates
         if User.query.filter_by(username=username).first():
             return error_response("Username already exists", 400)
 
-        new_user = User(username=username, email=email)
+        new_user = User(username=username, email=email, role=role)
         new_user.set_password(password)
-        new_user.role = role
-
         db.session.add(new_user)
         db.session.commit()
 
-        logging.info(f"User '{username}' registered successfully")
+        logging.info(f"User '{username}' registered successfully.")
         return jsonify({"message": "User registered successfully"}), 201
+
     except IntegrityError:
         db.session.rollback()
         return error_response("Database error. Possible duplicate or constraint issue", 400)
@@ -131,42 +134,45 @@ def register():
         logging.exception(f"Unexpected error during registration: {e}")
         return error_response(f"Internal Server Error: {e}", 500)
 
-# User login endpoint
+
+# 🔓 User login endpoint (USERNAME & PASSWORD ONLY)
 @auth_bp.route('/login', methods=['POST'])
 def login():
     """
-    Log in an existing user and generate a JWT token.
+    Log in an existing user and generate a JWT token using only username and password.
 
     Expected JSON:
     {
-        "email": "example@example.com",
+        "username": "example",
         "password": "SecureP@ssw0rd"
     }
     """
     try:
         data = request.get_json()
-        email = data.get('email', '').strip().lower()
+        username = data.get('username', '').strip()
         password = data.get('password', '').strip()
 
-        if not email or not password:
-            return error_response("Missing email or password", 400)
+        if not username or not password:
+            return error_response("Missing username or password", 400)
 
-        user = User.query.filter_by(email=email).first()
+        user = User.query.filter_by(username=username).first()
         if not user or not user.check_password(password):
-            return error_response("Invalid email or password", 401)
+            return error_response("Invalid username or password", 401)
 
         token = generate_token(identity={"id": user.id, "role": user.role})
-        logging.info(f"User '{email}' logged in successfully")
+        logging.info(f"User '{username}' logged in successfully.")
         return jsonify({"message": "Login successful", "access_token": token}), 200
+
     except Exception as e:
         logging.exception(f"Unexpected error during login: {e}")
         return error_response(f"Internal Server Error: {e}", 500)
 
-# Password reset request endpoint
+
+# 🔄 Password reset request endpoint (STILL REQUIRES EMAIL TO SEND RESET LINK)
 @auth_bp.route('/request-reset', methods=['POST'])
 def request_reset():
     """
-    Request a password reset.
+    Request a password reset (requires email to send reset link).
 
     Expected JSON:
     {
@@ -178,21 +184,23 @@ def request_reset():
         email = data.get('email', '').strip()
 
         if not email:
-            return error_response("Email is required", 400)
+            return error_response("Email is required for password reset", 400)
 
         user = User.query.filter_by(email=email).first()
         if not user:
             return error_response("User with this email does not exist", 404)
 
-        token = generate_token(identity={"id": user.id, "email": user.email}, expires_delta=timedelta(minutes=15))
+        token = generate_token(identity={"id": user.id, "username": user.username}, expires_delta=timedelta(minutes=15))
         send_reset_email(email, token)
 
         return jsonify({"message": "Password reset email sent"}), 200
+
     except Exception as e:
         logging.exception(f"Error during password reset request: {e}")
         return error_response(f"Internal Server Error: {e}", 500)
 
-# Password reset endpoint
+
+# 🔐 Password reset endpoint
 @auth_bp.route('/reset-password', methods=['POST'])
 def reset_password():
     """
@@ -231,6 +239,7 @@ def reset_password():
 
         logging.info(f"Password reset successfully for user ID {user_id}")
         return jsonify({"message": "Password reset successfully"}), 200
+
     except Exception as e:
         logging.exception(f"Error during password reset: {e}")
         return error_response(f"Internal Server Error: {e}", 500)
