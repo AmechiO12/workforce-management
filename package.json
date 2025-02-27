@@ -3,5 +3,11 @@
     "@heroicons/react": "^2.2.0",
     "axios": "^1.7.9",
     "recharts": "^2.15.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.0.9",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.0.9"
   }
 }
