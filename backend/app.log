@@ -1,0 +1,18 @@
+2025-02-27 12:47:30,933 - INFO - Application initialized successfully.
+2025-02-27 12:47:31,008 - INFO - Database tables created or already exist.
+2025-02-27 12:47:31,036 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.122.195.103:5000
+2025-02-27 12:47:31,037 - INFO - [33mPress CTRL+C to quit[0m
+2025-02-27 12:47:43,166 - INFO - 127.0.0.1 - - [27/Feb/2025 12:47:43] "OPTIONS /auth/login HTTP/1.1" 200 -
+2025-02-27 12:47:44,751 - INFO - 127.0.0.1 - - [27/Feb/2025 12:47:44] "OPTIONS /auth/login HTTP/1.1" 200 -
+2025-02-27 12:48:09,744 - INFO - 127.0.0.1 - - [27/Feb/2025 12:48:09] "OPTIONS /auth/login HTTP/1.1" 200 -
+2025-02-27 12:50:42,603 - INFO - Application initialized successfully.
+2025-02-27 12:50:42,631 - INFO - Database tables created or already exist.
+2025-02-27 12:50:42,642 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.122.195.103:5000
+2025-02-27 12:50:42,643 - INFO - [33mPress CTRL+C to quit[0m
+2025-02-27 12:50:49,713 - INFO - 127.0.0.1 - - [27/Feb/2025 12:50:49] "OPTIONS /auth/login HTTP/1.1" 200 -
