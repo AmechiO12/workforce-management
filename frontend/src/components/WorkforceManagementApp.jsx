@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import LoginForm from './LoginForm';
+import RegisterForm from './RegisterForm';
 import Dashboard from './Dashboard';
 import CheckInForm from './CheckInForm';
 import LocationsManagement from './LocationsManagement';
@@ -26,7 +27,7 @@ const WorkforceManagementApp = () => {
     setIsLoading(false);
   }, []);
 
-  // Simulate login functionality
+  // Handle login
   const handleLogin = (token, role = 'Employee') => {
     localStorage.setItem('access_token', token);
     localStorage.setItem('user_role', role);
@@ -35,11 +36,21 @@ const WorkforceManagementApp = () => {
     setCurrentPage('dashboard');
   };
 
-  // Simulate logout functionality
+  // Handle logout
   const handleLogout = () => {
     localStorage.removeItem('access_token');
     localStorage.removeItem('user_role');
     setIsAuthenticated(false);
+    setCurrentPage('login');
+  };
+
+  // Switch to registration page
+  const handleSwitchToRegister = () => {
+    setCurrentPage('register');
+  };
+
+  // Switch to login page
+  const handleSwitchToLogin = () => {
     setCurrentPage('login');
   };
 
@@ -55,7 +66,10 @@ const WorkforceManagementApp = () => {
   // Render appropriate content based on current page
   const renderContent = () => {
     if (!isAuthenticated) {
-      return <LoginForm onLogin={handleLogin} />;
+      if (currentPage === 'register') {
+        return <RegisterForm onSwitchToLogin={handleSwitchToLogin} />;
+      }
+      return <LoginForm onLogin={handleLogin} onSwitchToRegister={handleSwitchToRegister} />;
     }
 
     switch (currentPage) {

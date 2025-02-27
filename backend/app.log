@@ -44,3 +44,31 @@
 2025-02-27 20:01:01,953 - INFO - 127.0.0.1 - - [27/Feb/2025 20:01:01] "OPTIONS /payroll/?start_date=2025-02-01&end_date=2025-02-27 HTTP/1.1" 200 -
 2025-02-27 20:01:02,591 - INFO - 127.0.0.1 - - [27/Feb/2025 20:01:02] "OPTIONS /locations/ HTTP/1.1" 200 -
 2025-02-27 20:01:02,592 - INFO - 127.0.0.1 - - [27/Feb/2025 20:01:02] "OPTIONS /locations/ HTTP/1.1" 200 -
+2025-02-27 20:12:35,704 - INFO - 127.0.0.1 - - [27/Feb/2025 20:12:35] "OPTIONS /auth/register HTTP/1.1" 200 -
+2025-02-27 20:13:08,518 - INFO - 127.0.0.1 - - [27/Feb/2025 20:13:08] "OPTIONS /auth/register HTTP/1.1" 200 -
+2025-02-27 20:19:34,308 - INFO - 127.0.0.1 - - [27/Feb/2025 20:19:34] "OPTIONS /auth/register HTTP/1.1" 200 -
+2025-02-27 20:20:26,073 - INFO - 127.0.0.1 - - [27/Feb/2025 20:20:26] "OPTIONS /auth/register HTTP/1.1" 200 -
+2025-02-27 20:22:49,902 - INFO - 127.0.0.1 - - [27/Feb/2025 20:22:49] "OPTIONS /auth/register HTTP/1.1" 200 -
+2025-02-27 20:22:51,718 - INFO - 127.0.0.1 - - [27/Feb/2025 20:22:51] "OPTIONS /auth/register HTTP/1.1" 200 -
+2025-02-27 20:36:22,978 - INFO - 127.0.0.1 - - [27/Feb/2025 20:36:22] "OPTIONS /auth/register HTTP/1.1" 200 -
+2025-02-27 20:37:17,065 - INFO - 127.0.0.1 - - [27/Feb/2025 20:37:17] "OPTIONS /auth/register HTTP/1.1" 200 -
+2025-02-27 20:37:17,876 - INFO - 127.0.0.1 - - [27/Feb/2025 20:37:17] "OPTIONS /auth/register HTTP/1.1" 200 -
+2025-02-27 20:37:34,629 - INFO - 127.0.0.1 - - [27/Feb/2025 20:37:34] "OPTIONS /auth/register HTTP/1.1" 200 -
+2025-02-27 20:41:43,593 - INFO - Application initialized successfully.
+2025-02-27 20:41:43,644 - INFO - Database tables created or already exist.
+2025-02-27 20:41:43,658 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.122.195.103:5000
+2025-02-27 20:41:43,659 - INFO - [33mPress CTRL+C to quit[0m
+2025-02-27 20:42:55,226 - INFO - 127.0.0.1 - - [27/Feb/2025 20:42:55] "OPTIONS /auth/register HTTP/1.1" 200 -
+2025-02-27 20:44:30,054 - INFO - 127.0.0.1 - - [27/Feb/2025 20:44:30] "[31m[1mGET /auth/register HTTP/1.1[0m" 405 -
+2025-02-27 20:44:30,097 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-02-27 20:44:30,098 - INFO - 127.0.0.1 - - [27/Feb/2025 20:44:30] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-02-27 20:48:24,431 - INFO - 127.0.0.1 - - [27/Feb/2025 20:48:24] "OPTIONS /auth/register HTTP/1.1" 200 -
+2025-02-27 20:48:25,389 - INFO - 127.0.0.1 - - [27/Feb/2025 20:48:25] "OPTIONS /auth/register HTTP/1.1" 200 -
+2025-02-27 20:51:37,804 - INFO - 127.0.0.1 - - [27/Feb/2025 20:51:37] "OPTIONS /auth/register HTTP/1.1" 200 -
+2025-02-27 20:52:19,506 - INFO - 127.0.0.1 - - [27/Feb/2025 20:52:19] "OPTIONS /auth/register HTTP/1.1" 200 -
+2025-02-27 20:52:37,187 - INFO - 127.0.0.1 - - [27/Feb/2025 20:52:37] "OPTIONS /auth/register HTTP/1.1" 200 -
+2025-02-27 20:54:43,163 - INFO - 127.0.0.1 - - [27/Feb/2025 20:54:43] "OPTIONS /auth/register HTTP/1.1" 200 -
+2025-02-27 20:59:13,696 - INFO - 127.0.0.1 - - [27/Feb/2025 20:59:13] "OPTIONS /auth/register HTTP/1.1" 200 -

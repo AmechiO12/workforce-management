@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const LoginForm = ({ onLogin }) => {
+const LoginForm = ({ onLogin, onSwitchToRegister }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -17,15 +17,22 @@ const LoginForm = ({ onLogin }) => {
     setError('');
     
     try {
-      // In a real app, this would be a fetch call to your API
-      setTimeout(() => {
-        onLogin('sample-token');
-        setIsLoading(false);
-      }, 1000);
-    } catch (err) {
-      setError('Authentication failed. Please check your credentials.');
+        const response = await fetch('http://127.0.0.1:5000/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+        
+        const data = await response.json();
+        if (data.error) {
+          setError(data.error);
+        } else {
+          onLogin(data.access_token, data.role);
+        }
+      } catch (err) {
+        setError('Server error. Please try again later.');
+      }
       setIsLoading(false);
-    }
   };
 
   return (
@@ -110,9 +117,12 @@ const LoginForm = ({ onLogin }) => {
             <div className="mt-4 text-center">
               <p className="text-sm text-gray-600">
                 Don't have an account?{' '}
-                <a href="#" className="font-medium text-blue-600 hover:text-blue-500">
+                <button 
+                  onClick={onSwitchToRegister}
+                  className="font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150"
+                >
                   Register now
-                </a>
+                </button>
               </p>
             </div>
           </div>

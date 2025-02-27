@@ -1,117 +1,265 @@
 import logging
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, create_access_token, get_jwt_identity
-from backend.app.models import User, bcrypt
+from backend.app.models import User
 from backend.app.extensions import db
+from flask_cors import CORS
 
 # Initialize Blueprint for authentication routes
 auth_bp = Blueprint('auth_bp', __name__, url_prefix='/auth')
+CORS(auth_bp, resources={r"/*": {"origins": "*"}})
+
 
 # Configure logging
-logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-# ⚡ Utility: Validate input fields
-def validate_fields(data, fields):
-    missing_fields = [field for field in fields if not data.get(field)]
+# CORS configuration
+CORS_HEADERS = {
+    'Access-Control-Allow-Origin': 'http://localhost:5173',
+    'Access-Control-Allow-Headers': 'Content-Type,Authorization',
+    'Access-Control-Allow-Methods': 'GET,POST,PUT,DELETE,OPTIONS',
+    'Access-Control-Allow-Credentials': 'true'
+}
+
+def validate_request_data(data, required_fields):
+    """
+    Validate that all required fields are present in the request data.
+    
+    Args:
+        data (dict): Request data to validate
+        required_fields (list): List of required field names
+        
+    Returns:
+        tuple: (is_valid, error_message)
+    """
+    if not data:
+        return False, "Missing request data"
+        
+    missing_fields = [field for field in required_fields if not data.get(field)]
     if missing_fields:
-        return False, f"Missing fields: {', '.join(missing_fields)}"
+        return False, f"Missing required fields: {', '.join(missing_fields)}"
+    
     return True, None
 
 
-# ✅ User Registration Route
+@auth_bp.after_request
+def add_cors_headers(response):
+    """Add CORS headers to all responses"""
+    for header, value in CORS_HEADERS.items():
+        response.headers.add(header, value)
+    return response
+
+
+# Handle OPTIONS requests for CORS preflight
+@auth_bp.route('/<path:path>', methods=['OPTIONS'])
+def handle_options(path):
+    """Handle OPTIONS requests for CORS preflight"""
+    return jsonify({}), 200
+
+
 @auth_bp.route('/register', methods=['POST'])
 def register():
     """
-    Register a new user (requires email, username, and password).
-    Passwords are hashed using Flask-Bcrypt.
+    Register a new user.
+    
+    Requires:
+        - username: String
+        - email: String
+        - password: String
+        
+    Optional:
+        - role: String (default: 'Employee')
+        
+    Returns:
+        201: User registered successfully
+        400: Validation error
+        500: Server error
     """
     try:
         data = request.get_json()
-        valid, error_message = validate_fields(data, ['username', 'email', 'password'])
-        if not valid:
-            logging.warning(f"Registration failed: {error_message}")
+        
+        # Validate request data
+        is_valid, error_message = validate_request_data(data, ['username', 'email', 'password'])
+        if not is_valid:
+            logger.warning(f"Registration failed: {error_message}")
             return jsonify({"error": error_message}), 400
 
+        # Process and sanitize input
         username = data.get('username', '').strip()
         email = data.get('email', '').strip().lower()
         password = data.get('password', '').strip()
         role = data.get('role', 'Employee').strip()
 
-        # ✅ Check for duplicates
+        # Check for existing user
         if User.query.filter_by(username=username).first():
+            logger.info(f"Registration failed: Username '{username}' already exists")
             return jsonify({"error": "Username already exists"}), 400
+            
         if User.query.filter_by(email=email).first():
+            logger.info(f"Registration failed: Email '{email}' already exists")
             return jsonify({"error": "Email already exists"}), 400
 
-        # ✅ Create user & hash password
+        # Create new user
         new_user = User(username=username, email=email, role=role)
         new_user.set_password(password)
+        
         db.session.add(new_user)
         db.session.commit()
 
-        logging.info(f"User '{username}' registered successfully.")
-        return jsonify({"message": "User registered successfully", "id": new_user.id}), 201
+        logger.info(f"User '{username}' registered successfully")
+        return jsonify({
+            "message": "User registered successfully", 
+            "id": new_user.id
+        }), 201
 
     except Exception as e:
-        logging.exception(f"Unexpected error during registration: {e}")
-        return jsonify({"error": f"Internal Server Error: {str(e)}"}), 500
+        logger.exception(f"Unexpected error during registration: {str(e)}")
+        db.session.rollback()
+        return jsonify({"error": "Internal server error"}), 500
 
 
-# ✅ User Login Route (username & password only)
 @auth_bp.route('/login', methods=['POST'])
 def login():
     """
-    Log in a user using username and password only.
-    Returns a JWT access token if successful.
+    Authenticate a user and return a JWT token.
+    
+    Requires:
+        - username: String
+        - password: String
+        
+    Returns:
+        200: Login successful with JWT token
+        400: Validation error
+        401: Authentication failed
+        500: Server error
     """
     try:
         data = request.get_json()
-
-        # ✅ Validate input fields
-        valid, error_message = validate_fields(data, ['username', 'password'])
-        if not valid:
-            logging.warning(f"Login failed: {error_message}")
+        
+        # Validate request data
+        is_valid, error_message = validate_request_data(data, ['username', 'password'])
+        if not is_valid:
+            logger.warning(f"Login failed: {error_message}")
             return jsonify({"error": error_message}), 400
 
         username = data.get('username', '').strip()
         password = data.get('password', '').strip()
 
-        # ✅ Fetch user & validate credentials
+        # Authenticate user
         user = User.query.filter_by(username=username).first()
+        
         if not user or not user.check_password(password):
-            logging.warning(f"Login failed: Invalid credentials for username '{username}'")
+            logger.warning(f"Login failed: Invalid credentials for username '{username}'")
             return jsonify({"error": "Invalid username or password"}), 401
 
-        # ✅ Generate JWT token
-        token = create_access_token(identity={"id": user.id, "role": user.role})
-        logging.info(f"User '{username}' logged in successfully.")
-        return jsonify({"message": "Login successful", "access_token": token}), 200
-
-    except Exception as e:
-        logging.exception(f"Unexpected error during login: {e}")
-        return jsonify({"error": "Internal Server Error"}), 500
-
-
-# 🔐 Example Protected Route
-@auth_bp.route('/protected', methods=['GET'])
-@jwt_required()
-def protected():
-    """
-    Protected route accessible with valid JWT token.
-    """
-    try:
-        user_identity = get_jwt_identity()
-        user = User.query.get(user_identity.get('id'))
+        # Generate JWT token with claims
+        token_claims = {"id": user.id, "role": user.role}
+        token = create_access_token(identity=token_claims)
+        
+        logger.info(f"User '{username}' logged in successfully")
         return jsonify({
-            "message": "Access granted to protected route.",
+            "message": "Login successful",
+            "access_token": token,
             "user": {
                 "id": user.id,
                 "username": user.username,
-                "email": user.email,
                 "role": user.role
             }
         }), 200
 
     except Exception as e:
-        logging.exception(f"Error in protected route: {e}")
-        return jsonify({"error": "Internal Server Error"}), 500
+        logger.exception(f"Unexpected error during login: {str(e)}")
+        return jsonify({"error": "Internal server error"}), 500
+
+
+@auth_bp.route('/profile', methods=['GET'])
+@jwt_required()
+def get_user_profile():
+    """
+    Get the profile of the authenticated user.
+    
+    Requires:
+        - Valid JWT token in Authorization header
+        
+    Returns:
+        200: User profile data
+        401: Unauthorized
+        404: User not found
+        500: Server error
+    """
+    try:
+        # Get user identity from JWT token
+        user_identity = get_jwt_identity()
+        user_id = user_identity.get('id')
+        
+        # Fetch user from database
+        user = User.query.get(user_id)
+        
+        if not user:
+            logger.warning(f"User profile not found for ID: {user_id}")
+            return jsonify({"error": "User not found"}), 404
+
+        # Return user profile data
+        return jsonify({
+            "user": {
+                "id": user.id,
+                "username": user.username,
+                "email": user.email,
+                "role": user.role,
+                "created_at": user.created_at.isoformat() if hasattr(user, 'created_at') else None
+            }
+        }), 200
+
+    except Exception as e:
+        logger.exception(f"Error fetching user profile: {str(e)}")
+        return jsonify({"error": "Internal server error"}), 500
+
+
+@auth_bp.route('/change-password', methods=['POST'])
+@jwt_required()
+def change_password():
+    """
+    Change the password for the authenticated user.
+    
+    Requires:
+        - Valid JWT token in Authorization header
+        - current_password: String
+        - new_password: String
+        
+    Returns:
+        200: Password changed successfully
+        400: Validation error
+        401: Current password is incorrect
+        500: Server error
+    """
+    try:
+        data = request.get_json()
+        
+        # Validate request data
+        is_valid, error_message = validate_request_data(data, ['current_password', 'new_password'])
+        if not is_valid:
+            return jsonify({"error": error_message}), 400
+
+        current_password = data.get('current_password', '').strip()
+        new_password = data.get('new_password', '').strip()
+        
+        # Get user from JWT token
+        user_identity = get_jwt_identity()
+        user = User.query.get(user_identity.get('id'))
+        
+        # Verify current password
+        if not user or not user.check_password(current_password):
+            logger.warning(f"Password change failed: Invalid current password for user ID {user.id}")
+            return jsonify({"error": "Current password is incorrect"}), 401
+            
+        # Update password
+        user.set_password(new_password)
+        db.session.commit()
+        
+        logger.info(f"Password changed successfully for user ID {user.id}")
+        return jsonify({"message": "Password changed successfully"}), 200
+        
+    except Exception as e:
+        logger.exception(f"Error changing password: {str(e)}")
+        db.session.rollback()
+        return jsonify({"error": "Internal server error"}), 500
