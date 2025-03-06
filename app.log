@@ -1476,3 +1476,78 @@ sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed
 2025-02-27 21:18:59,297 - INFO - 127.0.0.1 - - [27/Feb/2025 21:18:59] "[31m[1mGET /payroll/?start_date=2025-02-26&end_date=2025-03-01 HTTP/1.1[0m" 403 -
 2025-02-27 21:19:04,107 - INFO - 127.0.0.1 - - [27/Feb/2025 21:19:04] "GET /locations/ HTTP/1.1" 200 -
 2025-02-27 21:19:04,111 - INFO - 127.0.0.1 - - [27/Feb/2025 21:19:04] "GET /locations/ HTTP/1.1" 200 -
+2025-02-27 23:08:06,670 - INFO - 127.0.0.1 - - [27/Feb/2025 23:08:06] "OPTIONS /auth/login HTTP/1.1" 200 -
+2025-02-27 23:08:06,968 - INFO - User 'jake' logged in successfully.
+2025-02-27 23:08:06,970 - INFO - 127.0.0.1 - - [27/Feb/2025 23:08:06] "POST /auth/login HTTP/1.1" 200 -
+2025-02-27 23:08:09,012 - INFO - 127.0.0.1 - - [27/Feb/2025 23:08:09] "OPTIONS /locations/ HTTP/1.1" 200 -
+2025-02-27 23:08:09,013 - INFO - 127.0.0.1 - - [27/Feb/2025 23:08:09] "OPTIONS /locations/ HTTP/1.1" 200 -
+2025-02-27 23:08:09,027 - INFO - 127.0.0.1 - - [27/Feb/2025 23:08:09] "GET /locations/ HTTP/1.1" 200 -
+2025-02-27 23:08:09,035 - INFO - 127.0.0.1 - - [27/Feb/2025 23:08:09] "GET /locations/ HTTP/1.1" 200 -
+2025-02-27 23:08:27,896 - INFO - 127.0.0.1 - - [27/Feb/2025 23:08:27] "GET /locations/ HTTP/1.1" 200 -
+2025-02-27 23:08:27,900 - INFO - 127.0.0.1 - - [27/Feb/2025 23:08:27] "GET /locations/ HTTP/1.1" 200 -
+2025-02-27 23:08:32,290 - INFO - 127.0.0.1 - - [27/Feb/2025 23:08:32] "OPTIONS /checkins/ HTTP/1.1" 200 -
+2025-02-27 23:08:32,305 - INFO - Check-in failed for user jake: Distance 8423.33 km exceeds radius 1.00 km
+2025-02-27 23:08:32,306 - INFO - 127.0.0.1 - - [27/Feb/2025 23:08:32] "[31m[1mPOST /checkins/ HTTP/1.1[0m" 400 -
+2025-02-27 23:09:20,666 - INFO - Check-in failed for user jake: Distance 5434.98 km exceeds radius 0.30 km
+2025-02-27 23:09:20,666 - INFO - 127.0.0.1 - - [27/Feb/2025 23:09:20] "[31m[1mPOST /checkins/ HTTP/1.1[0m" 400 -
+2025-02-27 23:09:24,278 - INFO - Check-in failed for user jake: Distance 8568.85 km exceeds radius 0.50 km
+2025-02-27 23:09:24,279 - INFO - 127.0.0.1 - - [27/Feb/2025 23:09:24] "[31m[1mPOST /checkins/ HTTP/1.1[0m" 400 -
+2025-02-27 23:09:28,815 - INFO - Check-in failed for user jake: Distance 8423.33 km exceeds radius 1.00 km
+2025-02-27 23:09:28,816 - INFO - 127.0.0.1 - - [27/Feb/2025 23:09:28] "[31m[1mPOST /checkins/ HTTP/1.1[0m" 400 -
+2025-02-27 23:14:57,824 - INFO - 127.0.0.1 - - [27/Feb/2025 23:14:57] "OPTIONS /auth/register HTTP/1.1" 200 -
+2025-02-27 23:14:58,141 - INFO - User 'sheffield' registered successfully.
+2025-02-27 23:14:58,141 - INFO - 127.0.0.1 - - [27/Feb/2025 23:14:58] "[35m[1mPOST /auth/register HTTP/1.1[0m" 201 -
+2025-02-27 23:15:04,545 - INFO - 127.0.0.1 - - [27/Feb/2025 23:15:04] "OPTIONS /auth/login HTTP/1.1" 200 -
+2025-02-27 23:15:04,775 - INFO - User 'sheffield' logged in successfully.
+2025-02-27 23:15:04,776 - INFO - 127.0.0.1 - - [27/Feb/2025 23:15:04] "POST /auth/login HTTP/1.1" 200 -
+2025-02-27 23:15:22,458 - INFO - 127.0.0.1 - - [27/Feb/2025 23:15:22] "OPTIONS /locations/ HTTP/1.1" 200 -
+2025-02-27 23:15:22,459 - INFO - 127.0.0.1 - - [27/Feb/2025 23:15:22] "OPTIONS /locations/ HTTP/1.1" 200 -
+2025-02-27 23:15:22,468 - INFO - 127.0.0.1 - - [27/Feb/2025 23:15:22] "GET /locations/ HTTP/1.1" 200 -
+2025-02-27 23:15:22,479 - INFO - 127.0.0.1 - - [27/Feb/2025 23:15:22] "GET /locations/ HTTP/1.1" 200 -
+2025-02-27 23:15:24,664 - INFO - 127.0.0.1 - - [27/Feb/2025 23:15:24] "OPTIONS /payroll/?start_date=2025-02-01&end_date=2025-02-27 HTTP/1.1" 200 -
+2025-02-27 23:15:24,670 - INFO - 127.0.0.1 - - [27/Feb/2025 23:15:24] "[31m[1mGET /payroll/?start_date=2025-02-01&end_date=2025-02-27 HTTP/1.1[0m" 403 -
+2025-02-27 23:15:25,139 - INFO - 127.0.0.1 - - [27/Feb/2025 23:15:25] "GET /locations/ HTTP/1.1" 200 -
+2025-02-27 23:15:25,146 - INFO - 127.0.0.1 - - [27/Feb/2025 23:15:25] "GET /locations/ HTTP/1.1" 200 -
+2025-02-27 23:15:49,569 - INFO - 127.0.0.1 - - [27/Feb/2025 23:15:49] "OPTIONS /checkins/ HTTP/1.1" 200 -
+2025-02-27 23:15:49,575 - INFO - Check-in failed for user sheffield: Distance 8423.33 km exceeds radius 1.00 km
+2025-02-27 23:15:49,576 - INFO - 127.0.0.1 - - [27/Feb/2025 23:15:49] "[31m[1mPOST /checkins/ HTTP/1.1[0m" 400 -
+2025-02-27 23:15:55,668 - INFO - Check-in failed for user sheffield: Distance 8568.85 km exceeds radius 0.50 km
+2025-02-27 23:15:55,669 - INFO - 127.0.0.1 - - [27/Feb/2025 23:15:55] "[31m[1mPOST /checkins/ HTTP/1.1[0m" 400 -
+2025-02-27 23:15:57,836 - INFO - Check-in failed for user sheffield: Distance 5434.98 km exceeds radius 0.30 km
+2025-02-27 23:15:57,836 - INFO - 127.0.0.1 - - [27/Feb/2025 23:15:57] "[31m[1mPOST /checkins/ HTTP/1.1[0m" 400 -
+2025-02-27 23:16:09,943 - INFO - 127.0.0.1 - - [27/Feb/2025 23:16:09] "[31m[1mGET /payroll/?start_date=2025-02-01&end_date=2025-02-27 HTTP/1.1[0m" 403 -
+2025-02-27 23:16:18,339 - INFO - 127.0.0.1 - - [27/Feb/2025 23:16:18] "GET /locations/ HTTP/1.1" 200 -
+2025-02-27 23:16:18,343 - INFO - 127.0.0.1 - - [27/Feb/2025 23:16:18] "GET /locations/ HTTP/1.1" 200 -
+2025-03-03 18:14:36,516 - INFO - Application initialized successfully.
+2025-03-03 18:14:36,557 - INFO - Database tables created or already exist.
+2025-03-03 18:14:36,586 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-03 18:14:36,586 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-03 18:14:42,187 - INFO - 127.0.0.1 - - [03/Mar/2025 18:14:42] "OPTIONS /auth/register HTTP/1.1" 200 -
+2025-03-03 18:14:42,434 - INFO - User 'tom' registered successfully.
+2025-03-03 18:14:42,435 - INFO - 127.0.0.1 - - [03/Mar/2025 18:14:42] "[35m[1mPOST /auth/register HTTP/1.1[0m" 201 -
+2025-03-03 18:18:15,565 - INFO - 127.0.0.1 - - [03/Mar/2025 18:18:15] "OPTIONS /auth/register HTTP/1.1" 200 -
+2025-03-03 18:18:15,795 - INFO - User 'sheffield1' registered successfully.
+2025-03-03 18:18:15,795 - INFO - 127.0.0.1 - - [03/Mar/2025 18:18:15] "[35m[1mPOST /auth/register HTTP/1.1[0m" 201 -
+2025-03-03 18:18:23,209 - INFO - 127.0.0.1 - - [03/Mar/2025 18:18:23] "OPTIONS /auth/login HTTP/1.1" 200 -
+2025-03-03 18:18:23,438 - INFO - User 'sheffield1' logged in successfully.
+2025-03-03 18:18:23,439 - INFO - 127.0.0.1 - - [03/Mar/2025 18:18:23] "POST /auth/login HTTP/1.1" 200 -
+2025-03-03 18:18:52,776 - INFO - 127.0.0.1 - - [03/Mar/2025 18:18:52] "OPTIONS /locations/ HTTP/1.1" 200 -
+2025-03-03 18:18:52,777 - INFO - 127.0.0.1 - - [03/Mar/2025 18:18:52] "OPTIONS /locations/ HTTP/1.1" 200 -
+2025-03-03 18:18:52,784 - INFO - 127.0.0.1 - - [03/Mar/2025 18:18:52] "GET /locations/ HTTP/1.1" 200 -
+2025-03-03 18:18:52,789 - INFO - 127.0.0.1 - - [03/Mar/2025 18:18:52] "GET /locations/ HTTP/1.1" 200 -
+2025-03-03 18:18:53,420 - INFO - 127.0.0.1 - - [03/Mar/2025 18:18:53] "OPTIONS /payroll/?start_date=2025-03-01&end_date=2025-03-03 HTTP/1.1" 200 -
+2025-03-03 18:18:53,423 - INFO - 127.0.0.1 - - [03/Mar/2025 18:18:53] "[31m[1mGET /payroll/?start_date=2025-03-01&end_date=2025-03-03 HTTP/1.1[0m" 403 -
+2025-03-03 18:19:05,013 - INFO - 127.0.0.1 - - [03/Mar/2025 18:19:05] "GET /locations/ HTTP/1.1" 200 -
+2025-03-03 18:19:05,017 - INFO - 127.0.0.1 - - [03/Mar/2025 18:19:05] "GET /locations/ HTTP/1.1" 200 -
+2025-03-03 18:19:24,390 - INFO - 127.0.0.1 - - [03/Mar/2025 18:19:24] "GET /locations/ HTTP/1.1" 200 -
+2025-03-03 18:19:24,395 - INFO - 127.0.0.1 - - [03/Mar/2025 18:19:24] "GET /locations/ HTTP/1.1" 200 -
+2025-03-03 18:19:40,228 - INFO - 127.0.0.1 - - [03/Mar/2025 18:19:40] "OPTIONS /checkins/ HTTP/1.1" 200 -
+2025-03-03 18:19:40,236 - INFO - Check-in failed for user sheffield1: Distance 8423.33 km exceeds radius 1.00 km
+2025-03-03 18:19:40,237 - INFO - 127.0.0.1 - - [03/Mar/2025 18:19:40] "[31m[1mPOST /checkins/ HTTP/1.1[0m" 400 -
+2025-03-03 18:19:55,380 - INFO - 127.0.0.1 - - [03/Mar/2025 18:19:55] "[31m[1mGET /payroll/?start_date=2025-03-01&end_date=2025-03-03 HTTP/1.1[0m" 403 -
+2025-03-03 18:20:13,844 - INFO - User 'sheffield1' logged in successfully.
+2025-03-03 18:20:13,845 - INFO - 127.0.0.1 - - [03/Mar/2025 18:20:13] "POST /auth/login HTTP/1.1" 200 -
+2025-03-03 18:20:39,013 - INFO - 127.0.0.1 - - [03/Mar/2025 18:20:39] "GET /locations/ HTTP/1.1" 200 -
+2025-03-03 18:20:39,018 - INFO - 127.0.0.1 - - [03/Mar/2025 18:20:39] "GET /locations/ HTTP/1.1" 200 -
+2025-03-03 18:20:40,799 - INFO - 127.0.0.1 - - [03/Mar/2025 18:20:40] "[31m[1mGET /payroll/?start_date=2025-03-01&end_date=2025-03-03 HTTP/1.1[0m" 403 -
