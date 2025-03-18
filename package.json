@@ -2,6 +2,7 @@
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "axios": "^1.7.9",
+    "react-router-dom": "^7.3.0",
     "recharts": "^2.15.1"
   },
   "devDependencies": {

@@ -1,7 +1,8 @@
 from flask_bcrypt import Bcrypt
 from backend.app.extensions import db
 from datetime import datetime
-
+import uuid
+from datetime import datetime, timedelta
 # Initialize Flask-Bcrypt for password hashing
 bcrypt = Bcrypt()
 
@@ -175,3 +176,37 @@ class Invoice(db.Model):
             "created_on": self.created_on.isoformat() if self.created_on else None
         }
 
+
+class PasswordResetToken(db.Model):
+    """Model for storing password reset tokens."""
+    __tablename__ = 'password_reset_tokens'
+
+    id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    token = db.Column(db.String(100), unique=True, nullable=False, index=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    expires_at = db.Column(db.DateTime, default=lambda: datetime.utcnow() + timedelta(hours=24))
+    is_used = db.Column(db.Boolean, default=False)
+    
+    # Relationship
+    user = db.relationship('User', backref=db.backref('reset_tokens', lazy='dynamic'))
+    
+    @property
+    def is_expired(self):
+        """Check if the token has expired."""
+        return datetime.utcnow() > self.expires_at
+
+    @classmethod
+    def generate_token(cls, user_id):
+        """Generate a secure reset token."""
+        import secrets
+        # Generate a secure token
+        token_value = secrets.token_urlsafe(32)
+        
+        # Create token record
+        token = cls(
+            user_id=user_id,
+            token=token_value
+        )
+        
+        return token, token_value

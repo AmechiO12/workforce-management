@@ -1,10 +1,13 @@
+// src/components/LoginForm.jsx - update this file
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 const LoginForm = ({ onLogin, onSwitchToRegister }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,7 +30,13 @@ const LoginForm = ({ onLogin, onSwitchToRegister }) => {
         if (data.error) {
           setError(data.error);
         } else {
-          onLogin(data.access_token, data.role);
+          // If onLogin prop exists, use it, otherwise handle locally
+          if (onLogin) {
+            onLogin(data.access_token, data.role);
+          } else {
+            localStorage.setItem('token', data.access_token);
+            navigate('/dashboard');
+          }
         }
       } catch (err) {
         setError('Server error. Please try again later.');
@@ -81,9 +90,9 @@ const LoginForm = ({ onLogin, onSwitchToRegister }) => {
                   <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
                     Password
                   </label>
-                  <a href="#" className="text-sm text-blue-600 hover:text-blue-700">
+                  <Link to="/forgot-password" className="text-sm text-blue-600 hover:text-blue-700">
                     Forgot password?
-                  </a>
+                  </Link>
                 </div>
                 <input
                   id="password"
@@ -114,17 +123,21 @@ const LoginForm = ({ onLogin, onSwitchToRegister }) => {
               </div>
             </form>
             
-            <div className="mt-4 text-center">
-              <p className="text-sm text-gray-600">
-                Don't have an account?{' '}
-                <button 
-                  onClick={onSwitchToRegister}
-                  className="font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150"
-                >
-                  Register now
-                </button>
-              </p>
-            </div>
+            {/* Removed duplicate forgot password link */}
+            
+            {onSwitchToRegister && (
+              <div className="mt-4 text-center">
+                <p className="text-sm text-gray-600">
+                  Don't have an account?{' '}
+                  <button 
+                    onClick={onSwitchToRegister}
+                    className="font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150"
+                  >
+                    Register now
+                  </button>
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>

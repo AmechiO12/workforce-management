@@ -20,6 +20,9 @@ class Config:
     MAIL_PASSWORD = os.getenv('MAIL_PASSWORD', None)
     MAIL_DEFAULT_SENDER = os.getenv('MAIL_DEFAULT_SENDER', 'noreply@example.com')
 
+    # Frontend URL configuration
+    FRONTEND_URL = os.getenv('FRONTEND_URL', 'http://localhost:3000')
+
 
 class DevelopmentConfig(Config):
     """Development configuration."""

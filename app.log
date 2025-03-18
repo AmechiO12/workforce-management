@@ -1551,3 +1551,152 @@ sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed
 2025-03-03 18:20:39,013 - INFO - 127.0.0.1 - - [03/Mar/2025 18:20:39] "GET /locations/ HTTP/1.1" 200 -
 2025-03-03 18:20:39,018 - INFO - 127.0.0.1 - - [03/Mar/2025 18:20:39] "GET /locations/ HTTP/1.1" 200 -
 2025-03-03 18:20:40,799 - INFO - 127.0.0.1 - - [03/Mar/2025 18:20:40] "[31m[1mGET /payroll/?start_date=2025-03-01&end_date=2025-03-03 HTTP/1.1[0m" 403 -
+2025-03-06 16:19:06,645 - INFO - Application initialized successfully.
+2025-03-06 16:19:06,715 - INFO - Database tables created or already exist.
+2025-03-06 16:19:23,423 - INFO - Application initialized successfully.
+2025-03-06 16:19:23,475 - INFO - Database tables created or already exist.
+2025-03-06 16:50:12,325 - INFO - Application initialized successfully.
+2025-03-06 16:50:16,532 - WARNING - Redis connection failed, using in-memory rate limiting: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-03-06 16:54:23,666 - INFO - Application initialized successfully.
+2025-03-06 16:54:27,820 - WARNING - Redis connection failed, using in-memory rate limiting: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-03-06 16:59:28,236 - INFO - Application initialized successfully.
+2025-03-06 16:59:32,372 - WARNING - Redis connection failed, using in-memory rate limiting: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-03-06 16:59:32,401 - INFO - Database tables created or already exist.
+2025-03-06 16:59:34,429 - INFO - Application initialized successfully.
+2025-03-06 16:59:38,558 - WARNING - Redis connection failed, using in-memory rate limiting: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-03-06 16:59:38,571 - INFO - Database tables created or already exist.
+2025-03-06 17:00:52,368 - INFO - Application initialized successfully.
+2025-03-06 17:00:56,510 - WARNING - Redis connection failed, using in-memory rate limiting: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-03-06 17:00:56,522 - INFO - Database tables created or already exist.
+2025-03-06 17:00:56,524 - ERROR - Error: Directory migrations already exists and is not empty
+2025-03-06 17:12:24,408 - INFO - Application initialized successfully.
+2025-03-06 17:12:28,528 - WARNING - Redis connection failed, using in-memory rate limiting: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-03-06 17:12:28,553 - INFO - Database tables created or already exist.
+2025-03-06 17:15:10,867 - INFO - Application initialized successfully.
+2025-03-06 17:15:14,987 - WARNING - Redis connection failed, using in-memory rate limiting: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-03-06 17:15:15,004 - INFO - Database tables created or already exist.
+2025-03-06 17:15:32,202 - INFO - Application initialized successfully.
+2025-03-06 17:15:36,358 - WARNING - Redis connection failed, using in-memory rate limiting: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-03-06 17:15:36,370 - INFO - Database tables created or already exist.
+2025-03-06 17:17:03,908 - INFO - Application initialized successfully.
+2025-03-06 17:17:08,049 - WARNING - Redis connection failed, using in-memory rate limiting: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-03-06 17:17:08,077 - INFO - Database tables created or already exist.
+2025-03-06 17:19:21,321 - INFO - Application initialized successfully.
+2025-03-06 17:19:25,438 - WARNING - Redis connection failed, using in-memory rate limiting: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-03-06 17:19:25,455 - INFO - Database tables created or already exist.
+2025-03-06 17:24:43,234 - INFO - Application initialized successfully.
+2025-03-06 17:24:47,340 - WARNING - Redis connection failed, using in-memory rate limiting: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-03-06 17:24:47,352 - INFO - Database tables created or already exist.
+2025-03-06 17:24:47,408 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-06 17:24:47,408 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-06 17:39:11,458 - INFO - 127.0.0.1 - - [06/Mar/2025 17:39:11] "OPTIONS /auth/login HTTP/1.1" 200 -
+2025-03-06 17:39:11,483 - INFO - 127.0.0.1 - - [06/Mar/2025 17:39:11] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2025-03-06 17:49:25,198 - INFO - 127.0.0.1 - - [06/Mar/2025 17:49:25] "OPTIONS /auth/login HTTP/1.1" 200 -
+2025-03-06 17:49:25,204 - INFO - 127.0.0.1 - - [06/Mar/2025 17:49:25] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2025-03-06 19:58:34,480 - INFO - 127.0.0.1 - - [06/Mar/2025 19:58:34] "OPTIONS /auth/login HTTP/1.1" 200 -
+2025-03-06 19:58:34,757 - INFO - User 'admin' logged in successfully.
+2025-03-06 19:58:34,761 - INFO - 127.0.0.1 - - [06/Mar/2025 19:58:34] "POST /auth/login HTTP/1.1" 200 -
+2025-03-06 19:59:04,756 - INFO - User 'admin' logged in successfully.
+2025-03-06 19:59:04,757 - INFO - 127.0.0.1 - - [06/Mar/2025 19:59:04] "POST /auth/login HTTP/1.1" 200 -
+2025-03-06 20:00:50,930 - INFO - 127.0.0.1 - - [06/Mar/2025 20:00:50] "OPTIONS /locations/ HTTP/1.1" 200 -
+2025-03-06 20:00:50,931 - INFO - 127.0.0.1 - - [06/Mar/2025 20:00:50] "OPTIONS /locations/ HTTP/1.1" 200 -
+2025-03-06 20:00:50,966 - INFO - 127.0.0.1 - - [06/Mar/2025 20:00:50] "GET /locations/ HTTP/1.1" 200 -
+2025-03-06 20:00:50,972 - INFO - 127.0.0.1 - - [06/Mar/2025 20:00:50] "GET /locations/ HTTP/1.1" 200 -
+2025-03-06 20:00:52,545 - INFO - 127.0.0.1 - - [06/Mar/2025 20:00:52] "OPTIONS /payroll/?start_date=2025-03-01&end_date=2025-03-06 HTTP/1.1" 200 -
+2025-03-06 20:00:52,589 - INFO - 127.0.0.1 - - [06/Mar/2025 20:00:52] "GET /payroll/?start_date=2025-03-01&end_date=2025-03-06 HTTP/1.1" 200 -
+2025-03-06 20:00:53,722 - INFO - 127.0.0.1 - - [06/Mar/2025 20:00:53] "OPTIONS /payroll/export?start_date=2025-03-01&end_date=2025-03-06 HTTP/1.1" 200 -
+2025-03-06 20:00:54,053 - INFO - 127.0.0.1 - - [06/Mar/2025 20:00:54] "GET /payroll/export?start_date=2025-03-01&end_date=2025-03-06 HTTP/1.1" 200 -
+2025-03-06 20:03:18,453 - INFO - 127.0.0.1 - - [06/Mar/2025 20:03:18] "OPTIONS /locations/ HTTP/1.1" 200 -
+2025-03-06 20:03:18,454 - INFO - 127.0.0.1 - - [06/Mar/2025 20:03:18] "OPTIONS /locations/ HTTP/1.1" 200 -
+2025-03-06 20:03:18,462 - INFO - 127.0.0.1 - - [06/Mar/2025 20:03:18] "GET /locations/ HTTP/1.1" 200 -
+2025-03-06 20:03:18,472 - INFO - 127.0.0.1 - - [06/Mar/2025 20:03:18] "GET /locations/ HTTP/1.1" 200 -
+2025-03-06 20:03:18,990 - INFO - 127.0.0.1 - - [06/Mar/2025 20:03:18] "OPTIONS /payroll/?start_date=2025-03-01&end_date=2025-03-06 HTTP/1.1" 200 -
+2025-03-06 20:03:18,997 - INFO - 127.0.0.1 - - [06/Mar/2025 20:03:18] "GET /payroll/?start_date=2025-03-01&end_date=2025-03-06 HTTP/1.1" 200 -
+2025-03-06 20:04:52,835 - INFO - 127.0.0.1 - - [06/Mar/2025 20:04:52] "OPTIONS /payroll/export?start_date=2025-03-01&end_date=2025-03-06 HTTP/1.1" 200 -
+2025-03-06 20:04:52,869 - INFO - 127.0.0.1 - - [06/Mar/2025 20:04:52] "GET /payroll/export?start_date=2025-03-01&end_date=2025-03-06 HTTP/1.1" 200 -
+2025-03-06 20:08:18,030 - INFO - 127.0.0.1 - - [06/Mar/2025 20:08:18] "OPTIONS /locations/ HTTP/1.1" 200 -
+2025-03-06 20:08:18,032 - INFO - 127.0.0.1 - - [06/Mar/2025 20:08:18] "OPTIONS /locations/ HTTP/1.1" 200 -
+2025-03-06 20:08:18,041 - INFO - 127.0.0.1 - - [06/Mar/2025 20:08:18] "GET /locations/ HTTP/1.1" 200 -
+2025-03-06 20:08:18,051 - INFO - 127.0.0.1 - - [06/Mar/2025 20:08:18] "GET /locations/ HTTP/1.1" 200 -
+2025-03-06 20:08:55,887 - INFO - 127.0.0.1 - - [06/Mar/2025 20:08:55] "GET /locations/ HTTP/1.1" 200 -
+2025-03-06 20:08:55,891 - INFO - 127.0.0.1 - - [06/Mar/2025 20:08:55] "GET /locations/ HTTP/1.1" 200 -
+2025-03-06 20:08:56,657 - INFO - 127.0.0.1 - - [06/Mar/2025 20:08:56] "OPTIONS /payroll/?start_date=2025-03-01&end_date=2025-03-06 HTTP/1.1" 200 -
+2025-03-06 20:08:56,669 - INFO - 127.0.0.1 - - [06/Mar/2025 20:08:56] "GET /payroll/?start_date=2025-03-01&end_date=2025-03-06 HTTP/1.1" 200 -
+2025-03-06 20:08:59,561 - INFO - 127.0.0.1 - - [06/Mar/2025 20:08:59] "GET /locations/ HTTP/1.1" 200 -
+2025-03-06 20:08:59,564 - INFO - 127.0.0.1 - - [06/Mar/2025 20:08:59] "GET /locations/ HTTP/1.1" 200 -
+2025-03-06 20:09:02,172 - INFO - 127.0.0.1 - - [06/Mar/2025 20:09:02] "GET /locations/ HTTP/1.1" 200 -
+2025-03-06 20:09:02,178 - INFO - 127.0.0.1 - - [06/Mar/2025 20:09:02] "GET /locations/ HTTP/1.1" 200 -
+2025-03-06 20:10:44,139 - INFO - 127.0.0.1 - - [06/Mar/2025 20:10:44] "OPTIONS /checkins/ HTTP/1.1" 200 -
+2025-03-06 20:10:44,183 - INFO - Check-in failed for user admin: Distance 8423.33 km exceeds radius 1.00 km
+2025-03-06 20:10:44,184 - INFO - 127.0.0.1 - - [06/Mar/2025 20:10:44] "[31m[1mPOST /checkins/ HTTP/1.1[0m" 400 -
+2025-03-12 14:54:26,677 - INFO - Application initialized successfully.
+2025-03-12 14:54:30,876 - WARNING - Redis connection failed, using in-memory rate limiting: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-03-12 14:54:30,909 - INFO - Database tables created or already exist.
+2025-03-12 14:54:30,957 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-12 14:54:30,965 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-12 14:57:36,832 - INFO - 127.0.0.1 - - [12/Mar/2025 14:57:36] "OPTIONS /auth/register HTTP/1.1" 200 -
+2025-03-12 14:57:37,117 - INFO - User 'Amechi1' registered successfully.
+2025-03-12 14:57:37,120 - INFO - 127.0.0.1 - - [12/Mar/2025 14:57:37] "[35m[1mPOST /auth/register HTTP/1.1[0m" 201 -
+2025-03-12 15:04:53,930 - INFO - 127.0.0.1 - - [12/Mar/2025 15:04:53] "OPTIONS /auth/forgot-password HTTP/1.1" 200 -
+2025-03-12 15:04:54,046 - ERROR - Failed to send reset email: [Errno 11001] getaddrinfo failed
+2025-03-12 15:04:54,047 - INFO - Password reset email sent to olaoluo976@gmail.com
+2025-03-12 15:04:54,047 - INFO - 127.0.0.1 - - [12/Mar/2025 15:04:54] "POST /auth/forgot-password HTTP/1.1" 200 -
+2025-03-12 15:05:55,105 - ERROR - Failed to send reset email: [Errno 11001] getaddrinfo failed
+2025-03-12 15:05:55,106 - INFO - Password reset email sent to olaoluo976@gmail.com
+2025-03-12 15:05:55,107 - INFO - 127.0.0.1 - - [12/Mar/2025 15:05:55] "POST /auth/forgot-password HTTP/1.1" 200 -
+2025-03-12 15:16:01,996 - INFO - Application initialized successfully.
+2025-03-12 15:16:06,167 - WARNING - Redis connection failed, using in-memory rate limiting: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-03-12 15:16:06,187 - INFO - Database tables created or already exist.
+2025-03-12 15:16:06,196 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-12 15:16:06,197 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-12 15:16:17,708 - INFO - 127.0.0.1 - - [12/Mar/2025 15:16:17] "OPTIONS /auth/forgot-password HTTP/1.1" 200 -
+2025-03-12 15:16:18,899 - ERROR - Failed to send reset email: Connection unexpectedly closed
+2025-03-12 15:16:18,900 - INFO - Password reset email sent to olaoluo976@gmail.com
+2025-03-12 15:16:18,901 - INFO - 127.0.0.1 - - [12/Mar/2025 15:16:18] "POST /auth/forgot-password HTTP/1.1" 200 -
+2025-03-12 15:16:37,467 - ERROR - Failed to send reset email: Connection unexpectedly closed
+2025-03-12 15:16:37,467 - INFO - Password reset email sent to olaoluo976@gmail.com
+2025-03-12 15:16:37,468 - INFO - 127.0.0.1 - - [12/Mar/2025 15:16:37] "POST /auth/forgot-password HTTP/1.1" 200 -
+2025-03-12 15:29:58,494 - INFO - 127.0.0.1 - - [12/Mar/2025 15:29:58] "OPTIONS /auth/forgot-password HTTP/1.1" 200 -
+2025-03-12 15:29:59,621 - ERROR - Failed to send reset email: Connection unexpectedly closed
+2025-03-12 15:29:59,621 - INFO - Password reset email sent to olaoluo976@gmail.com
+2025-03-12 15:29:59,622 - INFO - 127.0.0.1 - - [12/Mar/2025 15:29:59] "POST /auth/forgot-password HTTP/1.1" 200 -
+2025-03-12 15:34:49,559 - INFO - Application initialized successfully.
+2025-03-12 15:34:53,744 - WARNING - Redis connection failed, using in-memory rate limiting: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-03-12 15:34:53,764 - INFO - Database tables created or already exist.
+2025-03-12 15:34:53,774 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-12 15:34:53,775 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-12 15:35:10,097 - INFO - 127.0.0.1 - - [12/Mar/2025 15:35:10] "OPTIONS /auth/forgot-password HTTP/1.1" 200 -
+2025-03-12 15:35:11,412 - ERROR - Failed to send reset email: (535, b'5.7.8 It looks like you copied the obfuscated token (with ****). Please use the actual token instead.')
+2025-03-12 15:35:11,412 - INFO - Password reset email sent to olaoluo976@gmail.com
+2025-03-12 15:35:11,413 - INFO - 127.0.0.1 - - [12/Mar/2025 15:35:11] "POST /auth/forgot-password HTTP/1.1" 200 -
+2025-03-12 15:37:25,615 - INFO - 127.0.0.1 - - [12/Mar/2025 15:37:25] "OPTIONS /auth/forgot-password HTTP/1.1" 200 -
+2025-03-12 15:37:26,564 - ERROR - Failed to send reset email: (535, b'5.7.8 It looks like you copied the obfuscated token (with ****). Please use the actual token instead.')
+2025-03-12 15:37:26,569 - INFO - Password reset email sent to olaoluo976@gmail.com
+2025-03-12 15:37:26,569 - INFO - 127.0.0.1 - - [12/Mar/2025 15:37:26] "POST /auth/forgot-password HTTP/1.1" 200 -
+2025-03-12 15:37:41,452 - INFO - Application initialized successfully.
+2025-03-12 15:37:45,646 - WARNING - Redis connection failed, using in-memory rate limiting: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-03-12 15:37:45,669 - INFO - Database tables created or already exist.
+2025-03-12 15:37:45,676 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-12 15:37:45,677 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-12 15:37:50,452 - ERROR - Failed to send reset email: (550, b'5.7.1 Sending from domain yourapp.com is not allowed', 'noreply@yourapp.com')
+2025-03-12 15:37:50,453 - INFO - Password reset email sent to olaoluo976@gmail.com
+2025-03-12 15:37:50,454 - INFO - 127.0.0.1 - - [12/Mar/2025 15:37:50] "POST /auth/forgot-password HTTP/1.1" 200 -
+2025-03-12 15:41:15,014 - INFO - Application initialized successfully.
+2025-03-12 15:41:19,330 - WARNING - Redis connection failed, using in-memory rate limiting: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-03-12 15:41:19,353 - INFO - Database tables created or already exist.
+2025-03-12 15:41:19,365 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-12 15:41:19,366 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-12 15:41:39,764 - INFO - 127.0.0.1 - - [12/Mar/2025 15:41:39] "OPTIONS /auth/forgot-password HTTP/1.1" 200 -
+2025-03-12 15:41:40,868 - ERROR - Failed to send reset email: (550, b'5.7.1 Sending from domain mailtrap.io is not allowed', 'smtp@mailtrap.io')
+2025-03-12 15:41:40,869 - WARNING - Failed to send email to olaoluo976@gmail.com, but token was created
+2025-03-12 15:41:40,871 - INFO - 127.0.0.1 - - [12/Mar/2025 15:41:40] "POST /auth/forgot-password HTTP/1.1" 200 -
+2025-03-18 01:10:04,797 - INFO - 127.0.0.1 - - [18/Mar/2025 01:10:04] "OPTIONS /auth/forgot-password HTTP/1.1" 200 -
+2025-03-18 01:10:06,211 - ERROR - Failed to send reset email: (550, b'5.7.1 Sending from domain mailtrap.io is not allowed', 'smtp@mailtrap.io')
+2025-03-18 01:10:06,212 - WARNING - Failed to send email to olaoluo976@gmail.com, but token was created
+2025-03-18 01:10:06,231 - INFO - 127.0.0.1 - - [18/Mar/2025 01:10:06] "POST /auth/forgot-password HTTP/1.1" 200 -
