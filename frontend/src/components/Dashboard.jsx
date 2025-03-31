@@ -27,30 +27,54 @@ const Dashboard = () => {
 
   // Simulate data loading
   useEffect(() => {
-    // In a real app, this would be an API call
-    setTimeout(() => {
-      setStats({
-        totalEmployees: 24,
-        todayCheckins: 18,
-        monthlyPayroll: 32450
-      });
-      setActivities([
-        { id: 1, text: "John Smith checked in at Headquarters at 8:30 AM", time: "1 hour ago" },
-        { id: 2, text: "Sarah Johnson checked in at Remote Office at 8:45 AM", time: "45 minutes ago" },
-        { id: 3, text: "New employee James Wilson was added by Admin", time: "2 hours ago" },
-        { id: 4, text: "Payroll for February was processed", time: "1 day ago" }
-      ]);
-      setIsLoading(false);
-    }, 1000);
-  }, []);
-
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-      </div>
-    );
-  }
+    const fetchDashboardData = async () => {
+      setIsLoading(true);
+      
+      try {
+        // Make real API calls
+        const userDataResponse = await api.dashboard.getEmployeeData();
+        const earningsResponse = await api.dashboard.getEarningsData();
+        const activityResponse = await api.dashboard.getRecentActivity();
+        
+        const yearMonth = `${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, '0')}`;
+        const scheduleResponse = await api.dashboard.getScheduleData(
+          currentMonth.getFullYear(), 
+          currentMonth.getMonth() + 1
+        );
+        
+        if (userDataResponse.error) {
+          console.error("Error fetching user data:", userDataResponse.error);
+        } else {
+          setUserData(userDataResponse);
+        }
+        
+        if (earningsResponse.error) {
+          console.error("Error fetching earnings data:", earningsResponse.error);
+        } else {
+          setEarningsData(earningsResponse);
+        }
+        
+        if (activityResponse.error) {
+          console.error("Error fetching activity data:", activityResponse.error);
+        } else {
+          setActivityData(activityResponse);
+        }
+        
+        if (scheduleResponse.error) {
+          console.error("Error fetching schedule data:", scheduleResponse.error);
+        } else {
+          setScheduleData(scheduleResponse);
+        }
+        
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching dashboard data:", error);
+        setIsLoading(false);
+      }
+    };
+    
+    fetchDashboardData();
+  }, [currentMonth]);
 
   return (
     <div className="space-y-8">

@@ -172,10 +172,37 @@ export const payrollAPI = {
   }
 };
 
+
+
+// Add these to your existing API object
+// In your src/utils/api.js, add the dashboard API functions
+
+export const dashboardAPI = {
+  getEmployeeData: async () => {
+    return fetchWithAuth('/dashboard/employee');
+  },
+  
+  getEarningsData: async () => {
+    return fetchWithAuth('/dashboard/earnings');
+  },
+  
+  getScheduleData: async (year, month) => {
+    return fetchWithAuth(`/dashboard/schedule/${year}/${month}`);
+  },
+  
+  getRecentActivity: async (limit = 10) => {
+    return fetchWithAuth(`/dashboard/activity/recent?limit=${limit}`);
+  }
+};
+
+// Add this to your default export
 export default {
+  // existing exports
   auth: authAPI,
   users: usersAPI,
   locations: locationsAPI,
   checkins: checkinsAPI,
-  payroll: payrollAPI
+  payroll: payrollAPI,
+  dashboard: dashboardAPI  // Add this line
 };
+

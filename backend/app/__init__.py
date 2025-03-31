@@ -10,7 +10,7 @@ from flask_mail import Mail
 from dotenv import load_dotenv
 from backend.app.extensions import db  # Ensure this is properly defined.
 from .utils import validate_fields, calculate_distance, success_response, error_response, export_to_excel
-
+from backend.app.routes import dashboard
 
 # Initialize Flask extensions
 migrate = Migrate()
@@ -73,13 +73,15 @@ def create_app(test_config=None):
     from backend.app.routes.locations import bp as locations_bp
     from backend.app.routes.users import bp as users_bp
     from backend.app.routes.payroll import bp as payroll_bp
+    from backend.app.routes.dashboard import bp as dashboard_bp
+    
 
     app.register_blueprint(auth_bp, url_prefix='/auth')
     app.register_blueprint(checkins_bp, url_prefix='/checkins')
     app.register_blueprint(locations_bp, url_prefix='/locations')
     app.register_blueprint(users_bp, url_prefix='/users')
     app.register_blueprint(payroll_bp, url_prefix='/payroll')
-
+    app.register_blueprint(dashboard_bp)
 
 
     # Default home route

@@ -16,6 +16,8 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False, index=True)
     password = db.Column(db.String(128), nullable=False)
     role = db.Column(db.String(50), nullable=False, default='Employee')
+    manager_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    department = db.Column(db.String(100), default='General')
 
     # Relationships
     checkins = db.relationship('CheckIn', back_populates='user', cascade='all, delete-orphan', lazy='dynamic')
@@ -83,7 +85,8 @@ class CheckIn(db.Model):
     longitude = db.Column(db.Float, nullable=False)
     timestamp = db.Column(db.DateTime, server_default=db.func.now(), nullable=False)
     is_verified = db.Column(db.Boolean, default=False)
-
+    check_type = db.Column(db.String(10), default='in')  # 'in' or 'out'
+    
     # Relationships
     user = db.relationship('User', back_populates='checkins')
     location = db.relationship('Location', back_populates='checkins')

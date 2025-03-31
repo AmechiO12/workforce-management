@@ -27,6 +27,22 @@ def generate_token(identity, expires_delta=timedelta(hours=1)):
     """Generate a JWT token with the given identity and expiration."""
     return create_access_token(identity=identity, expires_delta=expires_delta)
 
+def role_required(role):
+    """
+    Decorator to check if user has required role.
+    """
+    def decorator(fn):
+        @wraps(fn)
+        def wrapper(*args, **kwargs):
+            # Get the user's role from JWT identity
+            user_identity = get_jwt_identity()
+            user_role = user_identity.get('role')
+            
+            if user_role != role:
+                return jsonify({"error": "Access denied"}), 403
+            return fn(*args, **kwargs)
+        return wrapper
+    return decorator
 
 # 📧 Helper function: Send email for password reset
 def send_reset_email(email, reset_url):
