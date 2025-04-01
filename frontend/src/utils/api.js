@@ -262,23 +262,25 @@ const payrollAPI = {
 };
 
 // Dashboard API
-const dashboardAPI = {
+// Add these to your existing API object
+export const dashboardAPI = {
   getEmployeeData: async () => {
     return fetchWithAuth('/dashboard/employee');
   },
   
   getEarningsData: async () => {
-    return fetchWithAuth('/dashboard/earnings');
+    return fetchWithAuth('/payroll/current');
+  },
+  
+  getScheduleData: async (year, month) => {
+    return fetchWithAuth(`/schedule/${year}/${month}`);
   },
   
   getRecentActivity: async (limit = 10) => {
-    return fetchWithAuth(`/dashboard/activity?limit=${limit}`);
-  },
-  
-  getStatistics: async () => {
-    return fetchWithAuth('/dashboard/statistics');
+    return fetchWithAuth(`/activity/recent?limit=${limit}`);
   }
 };
+
 
 // Export a unified API object
 const api = {

@@ -239,3 +239,48 @@ def change_password():
         logger.exception(f"Error changing password: {str(e)}")
         db.session.rollback()
         return jsonify({"error": "Internal server error"}), 500
+    
+    # Employee dashboard routes
+
+@auth_bp.route('/dashboard/employee', methods=['GET'])
+@jwt_required()
+def get_employee_data():
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+    
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+    
+    # Get the employee's manager if applicable
+    manager = User.query.filter_by(id=user.manager_id).first() if user.manager_id else None
+    
+    return jsonify({
+        "name": f"{user.first_name} {user.last_name}",
+        "role": user.job_title,
+        "employeeId": user.employee_id,
+        "department": user.department,
+        "joinDate": user.hire_date.isoformat(),
+        "manager": f"{manager.first_name} {manager.last_name}" if manager else "None"
+    })
+
+@auth_bp.route('/payroll/current', methods=['GET'])
+@jwt_required()
+def get_current_payroll():
+    current_user_id = get_jwt_identity()
+    # Implement logic to get current pay period data
+    # ...
+
+@auth_bp.route('/schedule/<int:year>/<int:month>', methods=['GET'])
+@jwt_required()
+def get_schedule(year, month):
+    current_user_id = get_jwt_identity()
+    # Implement logic to get schedule for specified month
+    # ...
+
+@auth_bp.route('/activity/recent', methods=['GET'])
+@jwt_required()
+def get_recent_activity():
+    current_user_id = get_jwt_identity()
+    limit = request.args.get('limit', 10, type=int)
+    # Implement logic to get recent activity
+    # ...

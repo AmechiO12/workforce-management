@@ -7,6 +7,7 @@ import LocationsManagement from './LocationsManagement';
 import UserManagement from './UserManagement';
 import PayrollManagement from './PayrollManagement';
 import api from '../utils/api';
+import EmployeeDashboard from './EmployeeDashboard';
 
 const WorkforceManagementApp = () => {
   const navigate = useNavigate();
@@ -52,19 +53,27 @@ const WorkforceManagementApp = () => {
 
   // Main content based on current page
   const renderContent = () => {
+    if (!isAuthenticated) {
+      if (currentPage === 'register') {
+        return <RegisterForm onSwitchToLogin={handleSwitchToLogin} />;
+      }
+      return <LoginForm onLogin={handleLogin} onSwitchToRegister={handleSwitchToRegister} />;
+    }
+  
     switch (currentPage) {
       case 'dashboard':
-        return <Dashboard />;
+        // Use the employee dashboard for regular employees and the admin dashboard for admins
+        return userRole === 'Admin' ? <Dashboard /> : <EmployeeDashboard />;
       case 'checkin':
         return <CheckInForm />;
       case 'locations':
-        return userRole === 'Admin' ? <LocationsManagement /> : <Dashboard />;
+        return userRole === 'Admin' ? <LocationsManagement /> : <EmployeeDashboard />;
       case 'users':
-        return userRole === 'Admin' ? <UserManagement /> : <Dashboard />;
+        return userRole === 'Admin' ? <UserManagement /> : <EmployeeDashboard />;
       case 'payroll':
         return <PayrollManagement />;
       default:
-        return <Dashboard />;
+        return userRole === 'Admin' ? <Dashboard /> : <EmployeeDashboard />;
     }
   };
 
