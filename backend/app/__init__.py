@@ -1,6 +1,5 @@
-# backend/app/__init__.py
-from flask import Blueprint, Flask, jsonify
 import os
+from flask import Blueprint, Flask, jsonify
 import logging
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
@@ -9,9 +8,8 @@ from flask_migrate import Migrate
 from flask_mail import Mail
 from flask_cors import CORS
 from dotenv import load_dotenv
-from backend.app.extensions import db  # Ensure this is properly defined.
+from backend.app.extensions import db
 from .utils import validate_fields, calculate_distance, success_response, error_response, export_to_excel
-
 
 # Initialize Flask extensions
 migrate = Migrate()
@@ -49,7 +47,7 @@ def create_app(test_config=None):
     if test_config:
         app.config.update(test_config)
 
-    # Configure CORS for all routes
+    # Configure CORS - Updated to handle all routes properly
     CORS(app, resources={r"/*": {
         "origins": ["http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:3000"],
         "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
@@ -58,6 +56,12 @@ def create_app(test_config=None):
         "supports_credentials": True,
         "max_age": 120  # Cache preflight response for 2 minutes
     }})
+
+    # Special handling for OPTIONS requests
+    @app.route('/', defaults={'path': ''}, methods=['OPTIONS'])
+    @app.route('/<path:path>', methods=['OPTIONS'])
+    def handle_options(path):
+        return '', 200
 
     # Initialize extensions
     db.init_app(app)
@@ -77,7 +81,6 @@ def create_app(test_config=None):
     )
     logging.info("Application initialized successfully.")
 
-
     # Register Namespaces (Swagger integration)
     from backend.app.auth import auth_bp
     from backend.app.routes.checkins import bp as checkins_bp
@@ -93,7 +96,6 @@ def create_app(test_config=None):
     app.register_blueprint(users_bp, url_prefix='/users')
     app.register_blueprint(payroll_bp, url_prefix='/payroll')
     app.register_blueprint(dashboard_bp)
-
 
     # Default home route
     @app.route('/')

@@ -62,8 +62,8 @@ const WorkforceManagementApp = () => {
   
     switch (currentPage) {
       case 'dashboard':
-        // Use the employee dashboard for regular employees and the admin dashboard for admins
-        return userRole === 'Admin' ? <Dashboard /> : <EmployeeDashboard />;
+       // Use the employee dashboard for regular employees and the admin dashboard for admins
+       return userRole === 'Admin' ? <Dashboard /> : <EmployeeDashboard onPageChange={handlePageChange} />;
       case 'checkin':
         return <CheckInForm />;
       case 'locations':

@@ -2698,3 +2698,103 @@ Traceback (most recent call last):
     ^^^^^^^^^^^^^^^^^^
 AttributeError: type object 'CheckIn' has no attribute 'created_at'
 2025-04-01 17:53:51,790 - INFO - 127.0.0.1 - - [01/Apr/2025 17:53:51] "[35m[1mGET /dashboard/earnings HTTP/1.1[0m" 500 -
+2025-04-01 18:26:35,383 - INFO - Application initialized successfully.
+2025-04-01 18:26:39,588 - WARNING - Redis connection failed, using in-memory rate limiting: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-04-01 18:26:39,617 - INFO - Database tables created or already exist.
+2025-04-01 18:26:39,668 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-01 18:26:39,670 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-01 18:27:07,714 - INFO - 127.0.0.1 - - [01/Apr/2025 18:27:07] "OPTIONS /auth/login HTTP/1.1" 200 -
+2025-04-01 18:27:07,994 - INFO - User 'Amechi1' logged in successfully.
+2025-04-01 18:27:07,998 - INFO - 127.0.0.1 - - [01/Apr/2025 18:27:07] "POST /auth/login HTTP/1.1" 200 -
+2025-04-01 18:27:24,517 - INFO - 127.0.0.1 - - [01/Apr/2025 18:27:24] "OPTIONS /locations/ HTTP/1.1" 200 -
+2025-04-01 18:27:24,520 - INFO - 127.0.0.1 - - [01/Apr/2025 18:27:24] "OPTIONS /locations/ HTTP/1.1" 200 -
+2025-04-01 18:27:24,533 - INFO - 127.0.0.1 - - [01/Apr/2025 18:27:24] "GET /locations/ HTTP/1.1" 200 -
+2025-04-01 18:27:24,544 - INFO - 127.0.0.1 - - [01/Apr/2025 18:27:24] "GET /locations/ HTTP/1.1" 200 -
+2025-04-01 18:27:25,792 - INFO - 127.0.0.1 - - [01/Apr/2025 18:27:25] "OPTIONS /payroll/?start_date=2025-03-31&end_date=2025-04-01 HTTP/1.1" 200 -
+2025-04-01 18:27:25,797 - INFO - 127.0.0.1 - - [01/Apr/2025 18:27:25] "[31m[1mGET /payroll/?start_date=2025-03-31&end_date=2025-04-01 HTTP/1.1[0m" 403 -
+2025-04-01 18:27:29,362 - INFO - 127.0.0.1 - - [01/Apr/2025 18:27:29] "[31m[1mGET /payroll/?start_date=2025-03-31&end_date=2025-04-01 HTTP/1.1[0m" 403 -
+2025-04-01 18:27:30,060 - INFO - 127.0.0.1 - - [01/Apr/2025 18:27:30] "GET /locations/ HTTP/1.1" 200 -
+2025-04-01 18:27:30,065 - INFO - 127.0.0.1 - - [01/Apr/2025 18:27:30] "GET /locations/ HTTP/1.1" 200 -
+2025-04-01 18:28:21,075 - INFO - 127.0.0.1 - - [01/Apr/2025 18:28:21] "GET /locations/ HTTP/1.1" 200 -
+2025-04-01 18:28:21,079 - INFO - 127.0.0.1 - - [01/Apr/2025 18:28:21] "GET /locations/ HTTP/1.1" 200 -
+2025-04-01 18:28:26,626 - INFO - 127.0.0.1 - - [01/Apr/2025 18:28:26] "OPTIONS /checkins/ HTTP/1.1" 200 -
+2025-04-01 18:28:26,637 - INFO - Check-in failed for user Amechi1: Distance 5434.84 km exceeds radius 0.10 km
+2025-04-01 18:28:26,639 - INFO - 127.0.0.1 - - [01/Apr/2025 18:28:26] "[31m[1mPOST /checkins/ HTTP/1.1[0m" 400 -
+2025-04-01 21:41:11,850 - INFO - 127.0.0.1 - - [01/Apr/2025 21:41:11] "OPTIONS /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 21:41:11,851 - INFO - 127.0.0.1 - - [01/Apr/2025 21:41:11] "OPTIONS /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 21:41:11,860 - INFO - 127.0.0.1 - - [01/Apr/2025 21:41:11] "[31m[1mGET /dashboard/employee HTTP/1.1[0m" 401 -
+2025-04-01 21:41:11,866 - INFO - 127.0.0.1 - - [01/Apr/2025 21:41:11] "[31m[1mGET /dashboard/employee HTTP/1.1[0m" 401 -
+2025-04-01 21:41:11,877 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 21:41:11,879 - INFO - 127.0.0.1 - - [01/Apr/2025 21:41:11] "[33mOPTIONS /payroll/current HTTP/1.1[0m" 404 -
+2025-04-01 21:41:11,897 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 21:41:11,902 - INFO - 127.0.0.1 - - [01/Apr/2025 21:41:11] "[33mOPTIONS /payroll/current HTTP/1.1[0m" 404 -
+2025-04-01 21:41:11,903 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 21:41:11,905 - INFO - 127.0.0.1 - - [01/Apr/2025 21:41:11] "[33mOPTIONS /activity/recent?limit=10 HTTP/1.1[0m" 404 -
+2025-04-01 21:41:11,934 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 21:41:11,935 - INFO - 127.0.0.1 - - [01/Apr/2025 21:41:11] "[33mOPTIONS /activity/recent?limit=10 HTTP/1.1[0m" 404 -
+2025-04-01 21:41:11,943 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 21:41:11,945 - INFO - 127.0.0.1 - - [01/Apr/2025 21:41:11] "[33mOPTIONS /schedule/2025/4 HTTP/1.1[0m" 404 -
+2025-04-01 21:41:13,995 - INFO - 127.0.0.1 - - [01/Apr/2025 21:41:13] "OPTIONS /auth/login HTTP/1.1" 200 -
+2025-04-01 21:41:14,223 - INFO - User 'Amechi1' logged in successfully.
+2025-04-01 21:41:14,224 - INFO - 127.0.0.1 - - [01/Apr/2025 21:41:14] "POST /auth/login HTTP/1.1" 200 -
+2025-04-01 21:41:14,243 - INFO - 127.0.0.1 - - [01/Apr/2025 21:41:14] "GET /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 21:41:14,254 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 21:41:14,256 - INFO - 127.0.0.1 - - [01/Apr/2025 21:41:14] "GET /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 21:41:14,256 - INFO - 127.0.0.1 - - [01/Apr/2025 21:41:14] "[33mOPTIONS /payroll/current HTTP/1.1[0m" 404 -
+2025-04-01 21:41:14,268 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 21:41:14,269 - INFO - 127.0.0.1 - - [01/Apr/2025 21:41:14] "[33mOPTIONS /payroll/current HTTP/1.1[0m" 404 -
+2025-04-01 21:41:14,270 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 21:41:14,273 - INFO - 127.0.0.1 - - [01/Apr/2025 21:41:14] "[33mOPTIONS /activity/recent?limit=10 HTTP/1.1[0m" 404 -
+2025-04-01 21:41:14,282 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 21:41:14,285 - INFO - 127.0.0.1 - - [01/Apr/2025 21:41:14] "[33mOPTIONS /activity/recent?limit=10 HTTP/1.1[0m" 404 -
+2025-04-01 21:41:14,286 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 21:41:14,286 - INFO - 127.0.0.1 - - [01/Apr/2025 21:41:14] "[33mOPTIONS /schedule/2025/4 HTTP/1.1[0m" 404 -
+2025-04-01 21:41:14,295 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 21:41:14,324 - INFO - 127.0.0.1 - - [01/Apr/2025 21:41:14] "[33mOPTIONS /schedule/2025/4 HTTP/1.1[0m" 404 -
+2025-04-01 21:41:33,794 - INFO - 127.0.0.1 - - [01/Apr/2025 21:41:33] "OPTIONS /locations/ HTTP/1.1" 200 -
+2025-04-01 21:41:33,796 - INFO - 127.0.0.1 - - [01/Apr/2025 21:41:33] "OPTIONS /locations/ HTTP/1.1" 200 -
+2025-04-01 21:41:33,802 - INFO - 127.0.0.1 - - [01/Apr/2025 21:41:33] "GET /locations/ HTTP/1.1" 200 -
+2025-04-01 21:41:33,807 - INFO - 127.0.0.1 - - [01/Apr/2025 21:41:33] "GET /locations/ HTTP/1.1" 200 -
+2025-04-01 21:41:35,511 - INFO - 127.0.0.1 - - [01/Apr/2025 21:41:35] "GET /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 21:41:35,517 - INFO - 127.0.0.1 - - [01/Apr/2025 21:41:35] "GET /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 21:41:35,518 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 21:41:35,519 - INFO - 127.0.0.1 - - [01/Apr/2025 21:41:35] "[33mOPTIONS /payroll/current HTTP/1.1[0m" 404 -
+2025-04-01 21:41:35,522 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 21:41:35,524 - INFO - 127.0.0.1 - - [01/Apr/2025 21:41:35] "[33mOPTIONS /payroll/current HTTP/1.1[0m" 404 -
+2025-04-01 21:41:35,524 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 21:41:35,525 - INFO - 127.0.0.1 - - [01/Apr/2025 21:41:35] "[33mOPTIONS /activity/recent?limit=10 HTTP/1.1[0m" 404 -
+2025-04-01 21:41:35,527 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 21:41:35,529 - INFO - 127.0.0.1 - - [01/Apr/2025 21:41:35] "[33mOPTIONS /activity/recent?limit=10 HTTP/1.1[0m" 404 -
+2025-04-01 21:41:35,530 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 21:41:35,532 - INFO - 127.0.0.1 - - [01/Apr/2025 21:41:35] "[33mOPTIONS /schedule/2025/4 HTTP/1.1[0m" 404 -
+2025-04-01 21:41:35,534 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 21:41:35,535 - INFO - 127.0.0.1 - - [01/Apr/2025 21:41:35] "[33mOPTIONS /schedule/2025/4 HTTP/1.1[0m" 404 -
+2025-04-01 21:42:54,054 - INFO - 127.0.0.1 - - [01/Apr/2025 21:42:54] "GET /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 21:42:54,059 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 21:42:54,060 - INFO - 127.0.0.1 - - [01/Apr/2025 21:42:54] "[33mOPTIONS /payroll/current HTTP/1.1[0m" 404 -
+2025-04-01 21:42:54,064 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 21:42:54,065 - INFO - 127.0.0.1 - - [01/Apr/2025 21:42:54] "[33mOPTIONS /activity/recent?limit=10 HTTP/1.1[0m" 404 -
+2025-04-01 21:42:54,070 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 21:42:54,071 - INFO - 127.0.0.1 - - [01/Apr/2025 21:42:54] "[33mOPTIONS /schedule/2025/5 HTTP/1.1[0m" 404 -
+2025-04-01 21:42:54,900 - INFO - 127.0.0.1 - - [01/Apr/2025 21:42:54] "GET /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 21:42:54,905 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 21:42:54,906 - INFO - 127.0.0.1 - - [01/Apr/2025 21:42:54] "[33mOPTIONS /payroll/current HTTP/1.1[0m" 404 -
+2025-04-01 21:42:54,910 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 21:42:54,911 - INFO - 127.0.0.1 - - [01/Apr/2025 21:42:54] "[33mOPTIONS /activity/recent?limit=10 HTTP/1.1[0m" 404 -
+2025-04-01 21:42:54,914 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 21:42:54,915 - INFO - 127.0.0.1 - - [01/Apr/2025 21:42:54] "[33mOPTIONS /schedule/2025/6 HTTP/1.1[0m" 404 -
+2025-04-01 21:42:58,053 - INFO - 127.0.0.1 - - [01/Apr/2025 21:42:58] "GET /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 21:42:58,057 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 21:42:58,058 - INFO - 127.0.0.1 - - [01/Apr/2025 21:42:58] "[33mOPTIONS /payroll/current HTTP/1.1[0m" 404 -
+2025-04-01 21:42:58,061 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 21:42:58,062 - INFO - 127.0.0.1 - - [01/Apr/2025 21:42:58] "[33mOPTIONS /activity/recent?limit=10 HTTP/1.1[0m" 404 -
+2025-04-01 21:42:58,065 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 21:42:58,066 - INFO - 127.0.0.1 - - [01/Apr/2025 21:42:58] "[33mOPTIONS /schedule/2025/5 HTTP/1.1[0m" 404 -
+2025-04-01 21:42:58,420 - INFO - 127.0.0.1 - - [01/Apr/2025 21:42:58] "GET /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 21:42:58,427 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 21:42:58,428 - INFO - 127.0.0.1 - - [01/Apr/2025 21:42:58] "[33mOPTIONS /payroll/current HTTP/1.1[0m" 404 -
+2025-04-01 21:42:58,431 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 21:42:58,433 - INFO - 127.0.0.1 - - [01/Apr/2025 21:42:58] "[33mOPTIONS /activity/recent?limit=10 HTTP/1.1[0m" 404 -
+2025-04-01 21:42:58,438 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 21:42:58,439 - INFO - 127.0.0.1 - - [01/Apr/2025 21:42:58] "[33mOPTIONS /schedule/2025/4 HTTP/1.1[0m" 404 -

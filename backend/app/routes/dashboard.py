@@ -6,7 +6,7 @@ from backend.app.models import User, CheckIn, Location
 from backend.app.extensions import db
 import logging
 
-# Initialize Blueprint
+# Initialize Blueprint - modified to handle different route patterns
 bp = Blueprint('dashboard_bp', __name__, url_prefix='/dashboard')
 
 # Configure logging
@@ -50,6 +50,7 @@ def get_employee_data():
         return jsonify({"error": "Internal server error"}), 500
 
 
+# Add this route to handle /payroll/current
 @bp.route('/earnings', methods=['GET'])
 @jwt_required()
 def get_earnings_data():
@@ -68,7 +69,7 @@ def get_earnings_data():
         # Query check-ins for this pay period (assuming current month)
         checkins = CheckIn.query.filter(
             CheckIn.user_id == user_id,
-            CheckIn.created_at >= first_day_of_month,
+            CheckIn.timestamp >= first_day_of_month,
             CheckIn.is_verified == True
         ).all()
         
@@ -89,7 +90,7 @@ def get_earnings_data():
         start_of_year = datetime(today.year, 1, 1)
         ytd_checkins = CheckIn.query.filter(
             CheckIn.user_id == user_id,
-            CheckIn.created_at >= start_of_year,
+            CheckIn.timestamp >= start_of_year,
             CheckIn.is_verified == True
         ).count()
         ytd_earnings = ytd_checkins * 8 * hourly_rate  # Simple calculation
@@ -135,7 +136,7 @@ def get_recent_activity():
         
         # Get recent check-ins
         checkins = CheckIn.query.filter_by(user_id=user_id).order_by(
-            CheckIn.created_at.desc()
+            CheckIn.timestamp.desc()
         ).limit(limit).all()
         
         activity_data = []
@@ -148,7 +149,7 @@ def get_recent_activity():
             activity_data.append({
                 "id": checkin.id,
                 "type": "check-in" if getattr(checkin, 'check_type', 'in') == 'in' else "check-out",
-                "time": checkin.created_at.isoformat(),
+                "time": checkin.timestamp.isoformat(),
                 "location": location_name
             })
             
@@ -189,7 +190,7 @@ def get_schedule(year, month):
         
         # Find the primary location for this employee
         user_checkins = CheckIn.query.filter_by(user_id=user_id).order_by(
-            CheckIn.created_at.desc()
+            CheckIn.timestamp.desc()
         ).first()
         
         location_name = "Main Office"

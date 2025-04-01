@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, CheckCircle, Clock, DollarSign, TrendingUp, User } from 'lucide-react';
+import api from '../utils/api';
 
 // Enhanced Dashboard component for employees
-const EmployeeDashboard = () => {
+const EmployeeDashboard = ({ onPageChange }) => {
   // State hooks for different data points
   const [isLoading, setIsLoading] = useState(true);
   const [userData, setUserData] = useState(null);
@@ -154,18 +155,12 @@ const EmployeeDashboard = () => {
     return cells;
   };
   
-// In EmployeeDashboard.jsx
-const handleCheckIn = () => {
-    setCurrentPage('checkin'); // This will need to be passed as a prop from WorkforceManagementApp
+  // Handle check-in button click
+  const handleCheckIn = () => {
+    if (onPageChange) {
+      onPageChange('checkin');
+    }
   };
-  
-  // Then update the button
-  <button 
-    onClick={handleCheckIn}
-    className="px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-  >
-    Check In
-  </button>
 
   // Previous month handler
   const handlePrevMonth = () => {
@@ -198,7 +193,10 @@ const handleCheckIn = () => {
             <h2 className="text-2xl font-bold text-gray-800">Welcome, {userData?.name}!</h2>
             <p className="text-gray-600">{userData?.role} - {userData?.department}</p>
           </div>
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          <button 
+            onClick={handleCheckIn}
+            className="px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          >
             Check In
           </button>
         </div>
