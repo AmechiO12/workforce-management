@@ -2798,3 +2798,22 @@ AttributeError: type object 'CheckIn' has no attribute 'created_at'
 2025-04-01 21:42:58,433 - INFO - 127.0.0.1 - - [01/Apr/2025 21:42:58] "[33mOPTIONS /activity/recent?limit=10 HTTP/1.1[0m" 404 -
 2025-04-01 21:42:58,438 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
 2025-04-01 21:42:58,439 - INFO - 127.0.0.1 - - [01/Apr/2025 21:42:58] "[33mOPTIONS /schedule/2025/4 HTTP/1.1[0m" 404 -
+2025-04-01 21:49:26,352 - INFO - Application initialized successfully.
+2025-04-01 21:49:30,547 - WARNING - Redis connection failed, using in-memory rate limiting: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-04-01 21:49:30,582 - INFO - Database tables created or already exist.
+2025-04-01 21:49:30,602 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-01 21:49:30,602 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-01 21:49:48,549 - INFO - 127.0.0.1 - - [01/Apr/2025 21:49:48] "OPTIONS /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 21:49:48,551 - INFO - 127.0.0.1 - - [01/Apr/2025 21:49:48] "OPTIONS /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 21:49:48,588 - INFO - 127.0.0.1 - - [01/Apr/2025 21:49:48] "GET /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 21:49:48,598 - INFO - 127.0.0.1 - - [01/Apr/2025 21:49:48] "GET /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 21:49:48,598 - INFO - 127.0.0.1 - - [01/Apr/2025 21:49:48] "OPTIONS /dashboard/earnings HTTP/1.1" 200 -
+2025-04-01 21:49:48,616 - INFO - 127.0.0.1 - - [01/Apr/2025 21:49:48] "GET /dashboard/earnings HTTP/1.1" 200 -
+2025-04-01 21:49:48,627 - INFO - 127.0.0.1 - - [01/Apr/2025 21:49:48] "OPTIONS /dashboard/activity/recent?limit=10 HTTP/1.1" 200 -
+2025-04-01 21:49:48,628 - INFO - 127.0.0.1 - - [01/Apr/2025 21:49:48] "GET /dashboard/earnings HTTP/1.1" 200 -
+2025-04-01 21:49:48,639 - INFO - 127.0.0.1 - - [01/Apr/2025 21:49:48] "GET /dashboard/activity/recent?limit=10 HTTP/1.1" 200 -
+2025-04-01 21:49:48,648 - INFO - 127.0.0.1 - - [01/Apr/2025 21:49:48] "GET /dashboard/activity/recent?limit=10 HTTP/1.1" 200 -
+2025-04-01 21:49:48,649 - INFO - 127.0.0.1 - - [01/Apr/2025 21:49:48] "OPTIONS /dashboard/schedule/2025/4 HTTP/1.1" 200 -
+2025-04-01 21:49:48,658 - INFO - 127.0.0.1 - - [01/Apr/2025 21:49:48] "GET /dashboard/schedule/2025/4 HTTP/1.1" 200 -
+2025-04-01 21:49:48,666 - INFO - 127.0.0.1 - - [01/Apr/2025 21:49:48] "GET /dashboard/schedule/2025/4 HTTP/1.1" 200 -
