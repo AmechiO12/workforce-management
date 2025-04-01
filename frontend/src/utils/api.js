@@ -29,20 +29,33 @@ const fetchWithAuth = async (endpoint, options = {}) => {
       return { error: 'Session expired. Please log in again.' };
     }
     
-    if (response.status === 204) { // No content
+    // Check if response is JSON
+    const contentType = response.headers.get('content-type');
+    if (contentType && contentType.includes('application/json')) {
+      const data = await response.json();
+      
+      if (!response.ok) {
+        return {
+          error: data.error || data.message || 'Something went wrong',
+          status: response.status
+        };
+      }
+      
+      return data;
+    } else if (response.status === 204) {
+      // No content response
       return { success: true };
+    } else {
+      // Handle non-JSON responses
+      const text = await response.text();
+      if (!response.ok) {
+        return {
+          error: text || 'Something went wrong',
+          status: response.status
+        };
+      }
+      return { data: text, success: true };
     }
-    
-    const data = await response.json();
-    
-    if (!response.ok) {
-      return {
-        error: data.error || data.message || 'Something went wrong',
-        status: response.status
-      };
-    }
-    
-    return data;
   } catch (error) {
     console.error('API request failed:', error);
     return { error: 'Network error. Please check your connection.' };
@@ -59,7 +72,11 @@ const authAPI = {
         body: JSON.stringify({ username, password })
       });
       
+      // For debugging
+      console.log('Login response status:', response.status);
+      
       const data = await response.json();
+      console.log('Login response data:', data);
       
       if (!response.ok) {
         return { error: data.error || data.message || 'Login failed' };

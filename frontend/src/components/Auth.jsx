@@ -1,4 +1,5 @@
-// src/components/Auth.jsx
+// src/components/Auth.jsx - Improved error handling and debugging
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoginForm from './LoginForm';
@@ -37,18 +38,29 @@ const Auth = () => {
     setError('');
     
     try {
+      console.log('Attempting login with:', { username });
+      
       const response = await api.auth.login(username, password);
+      
+      console.log('Login response:', response);
       
       if (response.error) {
         setError(response.error);
         return;
       }
       
+      // Verify token was received and stored
+      const token = localStorage.getItem('access_token');
+      if (!token) {
+        setError('Authentication failed: No token received');
+        return;
+      }
+      
       // Navigate to dashboard on successful login
       navigate('/dashboard');
     } catch (err) {
+      console.error('Login error details:', err);
       setError('An unexpected error occurred. Please try again.');
-      console.error('Login error:', err);
     } finally {
       setLoading(false);
     }
