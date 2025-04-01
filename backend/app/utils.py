@@ -1,5 +1,6 @@
 from geopy.distance import distance as geopy_distance
 import pandas as pd
+from flask import jsonify
 
 def validate_fields(data, required_fields, defaults=None):
     defaults = defaults or {}
@@ -69,3 +70,13 @@ def export_to_excel(data, filename=None):
         return filename
     except Exception as e:
         raise IOError(f"Error exporting data to Excel: {str(e)}")
+
+def api_response(data=None, message="Success", status_code=200):
+    """Create standardized API response"""
+    response = {
+        "success": status_code < 400,
+        "message": message
+    }
+    if data is not None:
+        response["data"] = data
+    return jsonify(response), status_code

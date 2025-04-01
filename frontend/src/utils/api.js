@@ -25,8 +25,12 @@ const fetchWithAuth = async (endpoint, options = {}) => {
     if (response.status === 401) {
       localStorage.removeItem('access_token');
       localStorage.removeItem('user_role');
-      window.location.href = '/'; // Redirect to login
+      window.location.href = '/login'; // Redirect to login
       return { error: 'Session expired. Please log in again.' };
+    }
+    
+    if (response.status === 204) { // No content
+      return { success: true };
     }
     
     const data = await response.json();
@@ -46,12 +50,36 @@ const fetchWithAuth = async (endpoint, options = {}) => {
 };
 
 // Auth API
-export const authAPI = {
+const authAPI = {
   login: async (username, password) => {
-    return fetchWithAuth('/auth/login', {
-      method: 'POST',
-      body: JSON.stringify({ username, password })
-    });
+    try {
+      const response = await fetch(`${API_URL}/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        return { error: data.error || data.message || 'Login failed' };
+      }
+      
+      // Store token and user role in localStorage
+      if (data.access_token) {
+        localStorage.setItem('access_token', data.access_token);
+        
+        // Extract role from user object
+        if (data.user && data.user.role) {
+          localStorage.setItem('user_role', data.user.role);
+        }
+      }
+      
+      return data;
+    } catch (error) {
+      console.error('Login error:', error);
+      return { error: 'Network error. Please check your connection.' };
+    }
   },
   
   register: async (userData) => {
@@ -59,13 +87,37 @@ export const authAPI = {
       method: 'POST',
       body: JSON.stringify(userData)
     });
+  },
+  
+  forgotPassword: async (email) => {
+    return fetchWithAuth('/auth/forgot-password', {
+      method: 'POST',
+      body: JSON.stringify({ email })
+    });
+  },
+  
+  resetPassword: async (token, password) => {
+    return fetchWithAuth('/auth/reset-password', {
+      method: 'POST',
+      body: JSON.stringify({ token, password })
+    });
+  },
+  
+  logout: () => {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('user_role');
+    window.location.href = '/login';
   }
 };
 
 // Users API
-export const usersAPI = {
+const usersAPI = {
   getAll: async () => {
     return fetchWithAuth('/users/');
+  },
+  
+  getById: async (userId) => {
+    return fetchWithAuth(`/users/${userId}`);
   },
   
   create: async (userData) => {
@@ -90,9 +142,13 @@ export const usersAPI = {
 };
 
 // Locations API
-export const locationsAPI = {
+const locationsAPI = {
   getAll: async () => {
     return fetchWithAuth('/locations/');
+  },
+  
+  getById: async (locationId) => {
+    return fetchWithAuth(`/locations/${locationId}`);
   },
   
   create: async (locationData) => {
@@ -117,7 +173,7 @@ export const locationsAPI = {
 };
 
 // Check-ins API
-export const checkinsAPI = {
+const checkinsAPI = {
   create: async (checkinData) => {
     return fetchWithAuth('/checkins/', {
       method: 'POST',
@@ -125,33 +181,33 @@ export const checkinsAPI = {
     });
   },
   
-  getRecent: async () => {
-    return fetchWithAuth('/checkins/recent');
+  getAll: async () => {
+    return fetchWithAuth('/checkins/');
   }
 };
 
 // Payroll API
-export const payrollAPI = {
+const payrollAPI = {
   getData: async (startDate, endDate) => {
-    const queryParams = new URLSearchParams({
-      start_date: startDate,
-      end_date: endDate
-    }).toString();
+    const queryParams = new URLSearchParams();
+    if (startDate) queryParams.append('start_date', startDate);
+    if (endDate) queryParams.append('end_date', endDate);
     
-    return fetchWithAuth(`/payroll/?${queryParams}`);
+    const queryString = queryParams.toString();
+    return fetchWithAuth(`/payroll/${queryString ? '?' + queryString : ''}`);
   },
   
   exportToExcel: async (startDate, endDate) => {
-    const queryParams = new URLSearchParams({
-      start_date: startDate,
-      end_date: endDate
-    }).toString();
+    const queryParams = new URLSearchParams();
+    if (startDate) queryParams.append('start_date', startDate);
+    if (endDate) queryParams.append('end_date', endDate);
     
-    // For file downloads, we need to handle the response differently
-    const token = localStorage.getItem('access_token');
+    const queryString = queryParams.toString();
     
     try {
-      const response = await fetch(`${API_URL}/payroll/export?${queryParams}`, {
+      const token = localStorage.getItem('access_token');
+      
+      const response = await fetch(`${API_URL}/payroll/export${queryString ? '?' + queryString : ''}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -164,7 +220,23 @@ export const payrollAPI = {
       
       // Return the blob for downloading
       const blob = await response.blob();
-      return { blob };
+      
+      // Create a link element, set the download attribute and click it
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      a.download = `payroll_report_${startDate || 'all'}_to_${endDate || 'present'}.xlsx`;
+      
+      // Append to the document and trigger the download
+      document.body.appendChild(a);
+      a.click();
+      
+      // Clean up
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+      
+      return { success: true };
     } catch (error) {
       console.error('Export failed:', error);
       return { error: 'Network error. Please check your connection.' };
@@ -172,12 +244,8 @@ export const payrollAPI = {
   }
 };
 
-
-
-// Add these to your existing API object
-// In your src/utils/api.js, add the dashboard API functions
-
-export const dashboardAPI = {
+// Dashboard API
+const dashboardAPI = {
   getEmployeeData: async () => {
     return fetchWithAuth('/dashboard/employee');
   },
@@ -186,23 +254,23 @@ export const dashboardAPI = {
     return fetchWithAuth('/dashboard/earnings');
   },
   
-  getScheduleData: async (year, month) => {
-    return fetchWithAuth(`/dashboard/schedule/${year}/${month}`);
+  getRecentActivity: async (limit = 10) => {
+    return fetchWithAuth(`/dashboard/activity?limit=${limit}`);
   },
   
-  getRecentActivity: async (limit = 10) => {
-    return fetchWithAuth(`/dashboard/activity/recent?limit=${limit}`);
+  getStatistics: async () => {
+    return fetchWithAuth('/dashboard/statistics');
   }
 };
 
-// Add this to your default export
-export default {
-  // existing exports
+// Export a unified API object
+const api = {
   auth: authAPI,
   users: usersAPI,
   locations: locationsAPI,
   checkins: checkinsAPI,
   payroll: payrollAPI,
-  dashboard: dashboardAPI  // Add this line
+  dashboard: dashboardAPI
 };
 
+export default api;

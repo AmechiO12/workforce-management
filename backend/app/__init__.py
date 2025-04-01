@@ -7,10 +7,11 @@ from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
 from flask_mail import Mail
+from flask_cors import CORS
 from dotenv import load_dotenv
 from backend.app.extensions import db  # Ensure this is properly defined.
 from .utils import validate_fields, calculate_distance, success_response, error_response, export_to_excel
-from backend.app.routes import dashboard
+
 
 # Initialize Flask extensions
 migrate = Migrate()
@@ -47,6 +48,16 @@ def create_app(test_config=None):
     # Apply test configuration if provided
     if test_config:
         app.config.update(test_config)
+
+    # Configure CORS for all routes
+    CORS(app, resources={r"/*": {
+        "origins": ["http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:3000"],
+        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        "allow_headers": ["Content-Type", "Authorization", "X-Requested-With"],
+        "expose_headers": ["Content-Type", "Authorization"],
+        "supports_credentials": True,
+        "max_age": 120  # Cache preflight response for 2 minutes
+    }})
 
     # Initialize extensions
     db.init_app(app)

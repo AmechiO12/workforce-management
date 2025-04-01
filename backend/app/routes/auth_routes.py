@@ -3,23 +3,12 @@ from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, create_access_token, get_jwt_identity
 from backend.app.models import User
 from backend.app.extensions import db
-from flask_cors import CORS
 
 # Initialize Blueprint for authentication routes
 auth_bp = Blueprint('auth_bp', __name__, url_prefix='/auth')
-CORS(auth_bp, resources={r"/*": {"origins": "*"}})
-
 
 # Configure logging
 logger = logging.getLogger(__name__)
-
-# CORS configuration
-CORS_HEADERS = {
-    'Access-Control-Allow-Origin': 'http://localhost:5173',
-    'Access-Control-Allow-Headers': 'Content-Type,Authorization',
-    'Access-Control-Allow-Methods': 'GET,POST,PUT,DELETE,OPTIONS',
-    'Access-Control-Allow-Credentials': 'true'
-}
 
 def validate_request_data(data, required_fields):
     """
@@ -41,21 +30,11 @@ def validate_request_data(data, required_fields):
     
     return True, None
 
-
-@auth_bp.after_request
-def add_cors_headers(response):
-    """Add CORS headers to all responses"""
-    for header, value in CORS_HEADERS.items():
-        response.headers.add(header, value)
-    return response
-
-
 # Handle OPTIONS requests for CORS preflight
 @auth_bp.route('/<path:path>', methods=['OPTIONS'])
 def handle_options(path):
     """Handle OPTIONS requests for CORS preflight"""
     return jsonify({}), 200
-
 
 @auth_bp.route('/register', methods=['POST'])
 def register():
@@ -117,7 +96,6 @@ def register():
         db.session.rollback()
         return jsonify({"error": "Internal server error"}), 500
 
-
 @auth_bp.route('/login', methods=['POST'])
 def login():
     """
@@ -171,7 +149,6 @@ def login():
         logger.exception(f"Unexpected error during login: {str(e)}")
         return jsonify({"error": "Internal server error"}), 500
 
-
 @auth_bp.route('/profile', methods=['GET'])
 @jwt_required()
 def get_user_profile():
@@ -213,7 +190,6 @@ def get_user_profile():
     except Exception as e:
         logger.exception(f"Error fetching user profile: {str(e)}")
         return jsonify({"error": "Internal server error"}), 500
-
 
 @auth_bp.route('/change-password', methods=['POST'])
 @jwt_required()

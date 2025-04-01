@@ -1,265 +1,202 @@
+// src/components/RegisterForm.jsx
 import React, { useState } from 'react';
 
-const RegisterForm = ({ onSwitchToLogin }) => {
+const RegisterForm = ({ onRegister, onSwitchToLogin, isLoading }) => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: '',
     confirmPassword: ''
   });
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
+  const [formErrors, setFormErrors] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value
+    }));
+    
+    // Clear error when user types
+    if (formErrors[name]) {
+      setFormErrors(prevErrors => ({
+        ...prevErrors,
+        [name]: ''
+      }));
+    }
   };
 
   const validateForm = () => {
-    if (!formData.username || !formData.email || !formData.password || !formData.confirmPassword) {
-      setError('All fields are required');
-      return false;
+    const errors = {};
+    
+    // Username validation
+    if (!formData.username.trim()) {
+      errors.username = 'Username is required';
     }
     
-    if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
-      return false;
-    }
-    
-    // Match backend password validation requirements
-    if (formData.password.length < 8) {
-      setError('Password must be at least 8 characters long');
-      return false;
-    }
-    
-    if (!/[A-Z]/.test(formData.password)) {
-      setError('Password must include at least one uppercase letter');
-      return false;
-    }
-    
-    if (!/[a-z]/.test(formData.password)) {
-      setError('Password must include at least one lowercase letter');
-      return false;
-    }
-    
-    if (!/[0-9]/.test(formData.password)) {
-      setError('Password must include at least one number');
-      return false;
-    }
-    
-    if (!/[!@#$%^&*(),.?":{}|<>]/.test(formData.password)) {
-      setError('Password must include at least one special character');
-      return false;
-    }
-
     // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      setError('Please enter a valid email address');
-      return false;
+    if (!formData.email.trim()) {
+      errors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = 'Email is invalid';
     }
     
-    return true;
+    // Password validation
+    if (!formData.password) {
+      errors.password = 'Password is required';
+    } else if (formData.password.length < 8) {
+      errors.password = 'Password must be at least 8 characters';
+    } else if (!/[A-Z]/.test(formData.password)) {
+      errors.password = 'Password must include at least one uppercase letter';
+    } else if (!/[a-z]/.test(formData.password)) {
+      errors.password = 'Password must include at least one lowercase letter';
+    } else if (!/[0-9]/.test(formData.password)) {
+      errors.password = 'Password must include at least one number';
+    } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(formData.password)) {
+      errors.password = 'Password must include at least one special character';
+    }
+    
+    // Confirm password validation
+    if (formData.password !== formData.confirmPassword) {
+      errors.confirmPassword = 'Passwords do not match';
+    }
+    
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     
-    if (!validateForm()) {
-      return;
-    }
-    
-    setIsLoading(true);
-    setError('');
-    setSuccessMessage('');
-    
-    try {
-      console.log('Sending registration data:', {
-        username: formData.username,
-        email: formData.email,
-        password: formData.password
-      });
-      
-      const response = await fetch('http://127.0.0.1:5000/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          username: formData.username,
-          email: formData.email,
-          password: formData.password
-        }),
-        credentials: 'include' // For cookies if needed
-      });
-      
-      const data = await response.json();
-      console.log('Response:', data);
-      
-      if (response.ok) {
-        setSuccessMessage('Registration successful! You can now log in.');
-        setFormData({
-          username: '',
-          email: '',
-          password: '',
-          confirmPassword: ''
-        });
-        // Auto-redirect to login after 2 seconds
-        setTimeout(() => {
-          onSwitchToLogin();
-        }, 2000);
-      } else {
-        setError(data.error || 'Registration failed. Please try again.');
-      }
-    } catch (err) {
-      console.error('Registration error:', err);
-      setError('Server error. Please try again later.');
-    } finally {
-      setIsLoading(false);
+    if (validateForm()) {
+      const { confirmPassword, ...userData } = formData;
+      onRegister(userData);
     }
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
-      <div className="w-full max-w-md m-auto">
-        <div className="bg-white rounded-lg shadow-md overflow-hidden">
-          {/* Header Section */}
-          <div className="bg-blue-600 px-6 py-8 text-center">
-            <h2 className="text-2xl font-bold text-white mb-2">Create an Account</h2>
-            <p className="text-blue-100">Join the Workforce Management System</p>
-          </div>
-          
-          <div className="p-8">
-            {error && (
-              <div className="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 mb-6" role="alert">
-                <div className="flex">
-                  <div className="flex-shrink-0">
-                    <svg className="h-5 w-5 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                  <div className="ml-3">
-                    <p className="text-sm">{error}</p>
-                  </div>
-                </div>
-              </div>
-            )}
-            
-            {successMessage && (
-              <div className="bg-green-50 border-l-4 border-green-500 text-green-700 p-4 mb-6" role="alert">
-                <div className="flex">
-                  <div className="flex-shrink-0">
-                    <svg className="h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                  <div className="ml-3">
-                    <p className="text-sm">{successMessage}</p>
-                  </div>
-                </div>
-              </div>
-            )}
-            
-            <form onSubmit={handleSubmit}>
-              <div className="mb-6">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
-                  Username
-                </label>
-                <input
-                  id="username"
-                  type="text"
-                  name="username"
-                  value={formData.username}
-                  onChange={handleChange}
-                  className="shadow-sm appearance-none border border-gray-300 rounded-md w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Choose a username"
-                />
-              </div>
-              
-              <div className="mb-6">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
-                  Email
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="shadow-sm appearance-none border border-gray-300 rounded-md w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Enter your email address"
-                />
-              </div>
-              
-              <div className="mb-6">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-                  Password
-                </label>
-                <input
-                  id="password"
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  className="shadow-sm appearance-none border border-gray-300 rounded-md w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Create a password"
-                />
-                <p className="mt-1 text-xs text-gray-500">
-                  Password must contain at least 8 characters, including uppercase, lowercase, 
-                  numbers, and special characters.
-                </p>
-              </div>
-              
-              <div className="mb-6">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="confirmPassword">
-                  Confirm Password
-                </label>
-                <input
-                  id="confirmPassword"
-                  type="password"
-                  name="confirmPassword"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  className="shadow-sm appearance-none border border-gray-300 rounded-md w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Confirm your password"
-                />
-              </div>
-              
-              <div className="mb-6">
-                <button
-                  type="submit"
-                  disabled={isLoading}
-                  className={`w-full py-3 px-4 border border-transparent rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${
-                    isLoading ? 'opacity-70 cursor-not-allowed' : ''
-                  }`}
-                >
-                  {isLoading ? (
-                    <span className="flex items-center justify-center">
-                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                      </svg>
-                      Registering...
-                    </span>
-                  ) : 'Register'}
-                </button>
-              </div>
-            </form>
-            
-            <div className="mt-4 text-center">
-              <p className="text-sm text-gray-600">
-                Already have an account?{' '}
-                <button 
-                  onClick={onSwitchToLogin}
-                  className="font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150"
-                >
-                  Sign in
-                </button>
-              </p>
-            </div>
-          </div>
-        </div>
+    <form onSubmit={handleSubmit}>
+      <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
+          Username
+        </label>
+        <input
+          id="username"
+          name="username"
+          type="text"
+          className={`shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+            formErrors.username ? 'border-red-500' : 'border-gray-300'
+          }`}
+          placeholder="Choose a username"
+          value={formData.username}
+          onChange={handleChange}
+          disabled={isLoading}
+        />
+        {formErrors.username && (
+          <p className="text-red-500 text-xs mt-1">{formErrors.username}</p>
+        )}
       </div>
-    </div>
+      
+      <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+          Email
+        </label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          className={`shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+            formErrors.email ? 'border-red-500' : 'border-gray-300'
+          }`}
+          placeholder="Enter your email address"
+          value={formData.email}
+          onChange={handleChange}
+          disabled={isLoading}
+        />
+        {formErrors.email && (
+          <p className="text-red-500 text-xs mt-1">{formErrors.email}</p>
+        )}
+      </div>
+      
+      <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+          Password
+        </label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          className={`shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+            formErrors.password ? 'border-red-500' : 'border-gray-300'
+          }`}
+          placeholder="Create a password"
+          value={formData.password}
+          onChange={handleChange}
+          disabled={isLoading}
+        />
+        {formErrors.password ? (
+          <p className="text-red-500 text-xs mt-1">{formErrors.password}</p>
+        ) : (
+          <p className="text-gray-500 text-xs mt-1">
+            Password must be at least 8 characters with uppercase, lowercase, number, and special character.
+          </p>
+        )}
+      </div>
+      
+      <div className="mb-6">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="confirmPassword">
+          Confirm Password
+        </label>
+        <input
+          id="confirmPassword"
+          name="confirmPassword"
+          type="password"
+          className={`shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+            formErrors.confirmPassword ? 'border-red-500' : 'border-gray-300'
+          }`}
+          placeholder="Confirm your password"
+          value={formData.confirmPassword}
+          onChange={handleChange}
+          disabled={isLoading}
+        />
+        {formErrors.confirmPassword && (
+          <p className="text-red-500 text-xs mt-1">{formErrors.confirmPassword}</p>
+        )}
+      </div>
+      
+      <div className="flex items-center justify-between mb-4">
+        <button
+          type="submit"
+          className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full ${
+            isLoading ? 'opacity-50 cursor-not-allowed' : ''
+          }`}
+          disabled={isLoading}
+        >
+          {isLoading ? (
+            <div className="flex items-center justify-center">
+              <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Registering...
+            </div>
+          ) : 'Register'}
+        </button>
+      </div>
+      
+      <div className="text-center mt-4">
+        <p className="text-sm text-gray-600">
+          Already have an account?{' '}
+          <button
+            type="button"
+            onClick={onSwitchToLogin}
+            className="text-blue-500 hover:text-blue-700 font-medium"
+          >
+            Sign in
+          </button>
+        </p>
+      </div>
+    </form>
   );
 };
 

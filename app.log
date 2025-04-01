@@ -1700,3 +1700,175 @@ sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed
 2025-03-18 01:10:06,211 - ERROR - Failed to send reset email: (550, b'5.7.1 Sending from domain mailtrap.io is not allowed', 'smtp@mailtrap.io')
 2025-03-18 01:10:06,212 - WARNING - Failed to send email to olaoluo976@gmail.com, but token was created
 2025-03-18 01:10:06,231 - INFO - 127.0.0.1 - - [18/Mar/2025 01:10:06] "POST /auth/forgot-password HTTP/1.1" 200 -
+2025-03-31 14:45:39,514 - INFO - Application initialized successfully.
+2025-03-31 14:45:43,695 - WARNING - Redis connection failed, using in-memory rate limiting: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-03-31 14:45:43,727 - INFO - Database tables created or already exist.
+2025-03-31 14:45:43,750 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-31 14:45:43,751 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-31 14:45:46,043 - INFO - 127.0.0.1 - - [31/Mar/2025 14:45:46] "OPTIONS /auth/login HTTP/1.1" 200 -
+2025-03-31 14:45:46,288 - INFO - User 'Amechi1' logged in successfully.
+2025-03-31 14:45:46,289 - INFO - 127.0.0.1 - - [31/Mar/2025 14:45:46] "POST /auth/login HTTP/1.1" 200 -
+2025-03-31 14:45:59,966 - INFO - 127.0.0.1 - - [31/Mar/2025 14:45:59] "OPTIONS /locations/ HTTP/1.1" 200 -
+2025-03-31 14:45:59,966 - INFO - 127.0.0.1 - - [31/Mar/2025 14:45:59] "OPTIONS /locations/ HTTP/1.1" 200 -
+2025-03-31 14:45:59,974 - INFO - 127.0.0.1 - - [31/Mar/2025 14:45:59] "GET /locations/ HTTP/1.1" 200 -
+2025-03-31 14:45:59,982 - INFO - 127.0.0.1 - - [31/Mar/2025 14:45:59] "GET /locations/ HTTP/1.1" 200 -
+2025-03-31 14:46:06,969 - INFO - 127.0.0.1 - - [31/Mar/2025 14:46:06] "OPTIONS /payroll/?start_date=2025-03-01&end_date=2025-03-31 HTTP/1.1" 200 -
+2025-03-31 14:46:06,972 - INFO - 127.0.0.1 - - [31/Mar/2025 14:46:06] "[31m[1mGET /payroll/?start_date=2025-03-01&end_date=2025-03-31 HTTP/1.1[0m" 403 -
+2025-03-31 14:46:13,621 - INFO - 127.0.0.1 - - [31/Mar/2025 14:46:13] "GET /locations/ HTTP/1.1" 200 -
+2025-03-31 14:46:13,626 - INFO - 127.0.0.1 - - [31/Mar/2025 14:46:13] "GET /locations/ HTTP/1.1" 200 -
+2025-03-31 14:46:19,063 - INFO - 127.0.0.1 - - [31/Mar/2025 14:46:19] "OPTIONS /checkins/ HTTP/1.1" 200 -
+2025-03-31 14:46:19,071 - INFO - Check-in failed for user Amechi1: Distance 8423.23 km exceeds radius 1.00 km
+2025-03-31 14:46:19,072 - INFO - 127.0.0.1 - - [31/Mar/2025 14:46:19] "[31m[1mPOST /checkins/ HTTP/1.1[0m" 400 -
+2025-03-31 14:46:48,558 - INFO - 127.0.0.1 - - [31/Mar/2025 14:46:48] "OPTIONS /auth/forgot-password HTTP/1.1" 200 -
+2025-03-31 14:46:48,562 - INFO - Password reset requested for non-existent email: amechiobisesan@gmail.com
+2025-03-31 14:46:48,563 - INFO - 127.0.0.1 - - [31/Mar/2025 14:46:48] "POST /auth/forgot-password HTTP/1.1" 200 -
+2025-03-31 14:47:08,037 - INFO - Password reset requested for non-existent email: amechiobisesan@gmail.com
+2025-03-31 14:47:08,038 - INFO - 127.0.0.1 - - [31/Mar/2025 14:47:08] "POST /auth/forgot-password HTTP/1.1" 200 -
+2025-03-31 14:47:11,015 - ERROR - Failed to send reset email: (550, b'5.7.1 Sending from domain mailtrap.io is not allowed', 'smtp@mailtrap.io')
+2025-03-31 14:47:11,015 - WARNING - Failed to send email to bencongid05@gmail.com, but token was created
+2025-03-31 14:47:11,016 - INFO - 127.0.0.1 - - [31/Mar/2025 14:47:11] "POST /auth/forgot-password HTTP/1.1" 200 -
+2025-03-31 14:47:20,225 - INFO - User 'Amechi1' logged in successfully.
+2025-03-31 14:47:20,225 - INFO - 127.0.0.1 - - [31/Mar/2025 14:47:20] "POST /auth/login HTTP/1.1" 200 -
+2025-03-31 14:56:42,438 - INFO - 127.0.0.1 - - [31/Mar/2025 14:56:42] "OPTIONS /auth/login HTTP/1.1" 200 -
+2025-03-31 14:56:42,662 - INFO - User 'Amechi1' logged in successfully.
+2025-03-31 14:56:42,663 - INFO - 127.0.0.1 - - [31/Mar/2025 14:56:42] "POST /auth/login HTTP/1.1" 200 -
+2025-03-31 14:56:45,877 - INFO - User 'Amechi1' logged in successfully.
+2025-03-31 14:56:45,878 - INFO - 127.0.0.1 - - [31/Mar/2025 14:56:45] "POST /auth/login HTTP/1.1" 200 -
+2025-03-31 15:00:35,294 - INFO - 127.0.0.1 - - [31/Mar/2025 15:00:35] "OPTIONS /locations/ HTTP/1.1" 200 -
+2025-03-31 15:00:35,295 - INFO - 127.0.0.1 - - [31/Mar/2025 15:00:35] "OPTIONS /locations/ HTTP/1.1" 200 -
+2025-03-31 15:00:35,299 - INFO - 127.0.0.1 - - [31/Mar/2025 15:00:35] "GET /locations/ HTTP/1.1" 200 -
+2025-03-31 15:00:35,304 - INFO - 127.0.0.1 - - [31/Mar/2025 15:00:35] "GET /locations/ HTTP/1.1" 200 -
+2025-03-31 15:00:35,936 - INFO - 127.0.0.1 - - [31/Mar/2025 15:00:35] "OPTIONS /payroll/?start_date=2025-03-01&end_date=2025-03-31 HTTP/1.1" 200 -
+2025-03-31 15:00:35,939 - INFO - 127.0.0.1 - - [31/Mar/2025 15:00:35] "[31m[1mGET /payroll/?start_date=2025-03-01&end_date=2025-03-31 HTTP/1.1[0m" 403 -
+2025-03-31 15:47:14,154 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 15:47:14,159 - INFO - 127.0.0.1 - - [31/Mar/2025 15:47:14] "[33mOPTIONS /dashboard/employee HTTP/1.1[0m" 404 -
+2025-03-31 15:47:14,160 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 15:47:14,161 - INFO - 127.0.0.1 - - [31/Mar/2025 15:47:14] "[33mOPTIONS /dashboard/employee HTTP/1.1[0m" 404 -
+2025-03-31 15:47:14,171 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 15:47:14,172 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 15:47:14,173 - INFO - 127.0.0.1 - - [31/Mar/2025 15:47:14] "[33mOPTIONS /dashboard/activity/recent?limit=10 HTTP/1.1[0m" 404 -
+2025-03-31 15:47:14,174 - INFO - 127.0.0.1 - - [31/Mar/2025 15:47:14] "[33mOPTIONS /dashboard/activity/recent?limit=10 HTTP/1.1[0m" 404 -
+2025-03-31 15:47:14,180 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 15:47:14,184 - INFO - 127.0.0.1 - - [31/Mar/2025 15:47:14] "[33mOPTIONS /dashboard/earnings HTTP/1.1[0m" 404 -
+2025-03-31 15:47:14,186 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 15:47:14,190 - INFO - 127.0.0.1 - - [31/Mar/2025 15:47:14] "[33mOPTIONS /dashboard/earnings HTTP/1.1[0m" 404 -
+2025-03-31 15:47:22,098 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 15:47:22,098 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 15:47:22,099 - INFO - 127.0.0.1 - - [31/Mar/2025 15:47:22] "[33mOPTIONS /dashboard/employee HTTP/1.1[0m" 404 -
+2025-03-31 15:47:22,101 - INFO - 127.0.0.1 - - [31/Mar/2025 15:47:22] "[33mOPTIONS /dashboard/employee HTTP/1.1[0m" 404 -
+2025-03-31 15:47:22,106 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 15:47:22,107 - INFO - 127.0.0.1 - - [31/Mar/2025 15:47:22] "[33mOPTIONS /dashboard/activity/recent?limit=10 HTTP/1.1[0m" 404 -
+2025-03-31 15:47:22,108 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 15:47:22,109 - INFO - 127.0.0.1 - - [31/Mar/2025 15:47:22] "[33mOPTIONS /dashboard/activity/recent?limit=10 HTTP/1.1[0m" 404 -
+2025-03-31 15:47:22,113 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 15:47:22,116 - INFO - 127.0.0.1 - - [31/Mar/2025 15:47:22] "[33mOPTIONS /dashboard/earnings HTTP/1.1[0m" 404 -
+2025-03-31 15:47:22,117 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 15:47:22,118 - INFO - 127.0.0.1 - - [31/Mar/2025 15:47:22] "[33mOPTIONS /dashboard/earnings HTTP/1.1[0m" 404 -
+2025-03-31 15:47:22,948 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 15:47:22,949 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 15:47:22,950 - INFO - 127.0.0.1 - - [31/Mar/2025 15:47:22] "[33mOPTIONS /dashboard/employee HTTP/1.1[0m" 404 -
+2025-03-31 15:47:22,952 - INFO - 127.0.0.1 - - [31/Mar/2025 15:47:22] "[33mOPTIONS /dashboard/employee HTTP/1.1[0m" 404 -
+2025-03-31 15:47:22,960 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 15:47:22,962 - INFO - 127.0.0.1 - - [31/Mar/2025 15:47:22] "[33mOPTIONS /dashboard/activity/recent?limit=10 HTTP/1.1[0m" 404 -
+2025-03-31 15:47:22,963 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 15:47:22,964 - INFO - 127.0.0.1 - - [31/Mar/2025 15:47:22] "[33mOPTIONS /dashboard/activity/recent?limit=10 HTTP/1.1[0m" 404 -
+2025-03-31 15:47:22,966 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 15:47:22,969 - INFO - 127.0.0.1 - - [31/Mar/2025 15:47:22] "[33mOPTIONS /dashboard/earnings HTTP/1.1[0m" 404 -
+2025-03-31 15:47:22,970 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 15:47:22,972 - INFO - 127.0.0.1 - - [31/Mar/2025 15:47:22] "[33mOPTIONS /dashboard/earnings HTTP/1.1[0m" 404 -
+2025-03-31 15:47:25,240 - INFO - 127.0.0.1 - - [31/Mar/2025 15:47:25] "OPTIONS /auth/login HTTP/1.1" 200 -
+2025-03-31 15:47:25,462 - INFO - User 'Amechi1' logged in successfully.
+2025-03-31 15:47:25,462 - INFO - 127.0.0.1 - - [31/Mar/2025 15:47:25] "POST /auth/login HTTP/1.1" 200 -
+2025-03-31 15:47:25,472 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 15:47:25,474 - INFO - 127.0.0.1 - - [31/Mar/2025 15:47:25] "[33mOPTIONS /dashboard/employee HTTP/1.1[0m" 404 -
+2025-03-31 15:47:25,474 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 15:47:25,476 - INFO - 127.0.0.1 - - [31/Mar/2025 15:47:25] "[33mOPTIONS /dashboard/employee HTTP/1.1[0m" 404 -
+2025-03-31 15:47:25,482 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 15:47:25,485 - INFO - 127.0.0.1 - - [31/Mar/2025 15:47:25] "[33mOPTIONS /dashboard/activity/recent?limit=10 HTTP/1.1[0m" 404 -
+2025-03-31 15:47:25,486 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 15:47:25,487 - INFO - 127.0.0.1 - - [31/Mar/2025 15:47:25] "[33mOPTIONS /dashboard/activity/recent?limit=10 HTTP/1.1[0m" 404 -
+2025-03-31 15:47:25,489 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 15:47:25,492 - INFO - 127.0.0.1 - - [31/Mar/2025 15:47:25] "[33mOPTIONS /dashboard/earnings HTTP/1.1[0m" 404 -
+2025-03-31 15:47:25,493 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 15:47:25,495 - INFO - 127.0.0.1 - - [31/Mar/2025 15:47:25] "[33mOPTIONS /dashboard/earnings HTTP/1.1[0m" 404 -
+2025-03-31 15:47:48,777 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 15:47:48,777 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 15:47:48,778 - INFO - 127.0.0.1 - - [31/Mar/2025 15:47:48] "[33mOPTIONS /dashboard/employee HTTP/1.1[0m" 404 -
+2025-03-31 15:47:48,778 - INFO - 127.0.0.1 - - [31/Mar/2025 15:47:48] "[33mOPTIONS /dashboard/employee HTTP/1.1[0m" 404 -
+2025-03-31 15:47:48,784 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 15:47:48,785 - INFO - 127.0.0.1 - - [31/Mar/2025 15:47:48] "[33mOPTIONS /dashboard/activity/recent?limit=10 HTTP/1.1[0m" 404 -
+2025-03-31 15:47:48,786 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 15:47:48,787 - INFO - 127.0.0.1 - - [31/Mar/2025 15:47:48] "[33mOPTIONS /dashboard/activity/recent?limit=10 HTTP/1.1[0m" 404 -
+2025-03-31 15:47:48,790 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 15:47:48,791 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 15:47:48,792 - INFO - 127.0.0.1 - - [31/Mar/2025 15:47:48] "[33mOPTIONS /dashboard/earnings HTTP/1.1[0m" 404 -
+2025-03-31 15:47:48,793 - INFO - 127.0.0.1 - - [31/Mar/2025 15:47:48] "[33mOPTIONS /dashboard/earnings HTTP/1.1[0m" 404 -
+2025-03-31 20:43:26,307 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 20:43:26,308 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 20:43:26,308 - INFO - 127.0.0.1 - - [31/Mar/2025 20:43:26] "[33mOPTIONS /dashboard/employee HTTP/1.1[0m" 404 -
+2025-03-31 20:43:26,309 - INFO - 127.0.0.1 - - [31/Mar/2025 20:43:26] "[33mOPTIONS /dashboard/employee HTTP/1.1[0m" 404 -
+2025-03-31 20:43:26,316 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 20:43:26,318 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 20:43:26,319 - INFO - 127.0.0.1 - - [31/Mar/2025 20:43:26] "[33mOPTIONS /dashboard/activity/recent?limit=10 HTTP/1.1[0m" 404 -
+2025-03-31 20:43:26,320 - INFO - 127.0.0.1 - - [31/Mar/2025 20:43:26] "[33mOPTIONS /dashboard/activity/recent?limit=10 HTTP/1.1[0m" 404 -
+2025-03-31 20:43:26,329 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 20:43:26,331 - INFO - 127.0.0.1 - - [31/Mar/2025 20:43:26] "[33mOPTIONS /dashboard/earnings HTTP/1.1[0m" 404 -
+2025-03-31 20:43:26,331 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 20:43:26,332 - INFO - 127.0.0.1 - - [31/Mar/2025 20:43:26] "[33mOPTIONS /dashboard/earnings HTTP/1.1[0m" 404 -
+2025-03-31 20:43:28,697 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 20:43:28,698 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 20:43:28,699 - INFO - 127.0.0.1 - - [31/Mar/2025 20:43:28] "[33mOPTIONS /dashboard/employee HTTP/1.1[0m" 404 -
+2025-03-31 20:43:28,700 - INFO - 127.0.0.1 - - [31/Mar/2025 20:43:28] "[33mOPTIONS /dashboard/employee HTTP/1.1[0m" 404 -
+2025-03-31 20:43:28,709 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 20:43:28,709 - INFO - 127.0.0.1 - - [31/Mar/2025 20:43:28] "[33mOPTIONS /dashboard/activity/recent?limit=10 HTTP/1.1[0m" 404 -
+2025-03-31 20:43:28,710 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 20:43:28,711 - INFO - 127.0.0.1 - - [31/Mar/2025 20:43:28] "[33mOPTIONS /dashboard/activity/recent?limit=10 HTTP/1.1[0m" 404 -
+2025-03-31 20:43:28,714 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 20:43:28,715 - INFO - 127.0.0.1 - - [31/Mar/2025 20:43:28] "[33mOPTIONS /dashboard/earnings HTTP/1.1[0m" 404 -
+2025-03-31 20:43:28,716 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-03-31 20:43:28,720 - INFO - 127.0.0.1 - - [31/Mar/2025 20:43:28] "[33mOPTIONS /dashboard/earnings HTTP/1.1[0m" 404 -
+2025-04-01 15:56:57,055 - INFO - 127.0.0.1 - - [01/Apr/2025 15:56:57] "OPTIONS /auth/login HTTP/1.1" 200 -
+2025-04-01 15:56:57,409 - INFO - User 'Amechi1' logged in successfully.
+2025-04-01 15:56:57,414 - INFO - 127.0.0.1 - - [01/Apr/2025 15:56:57] "POST /auth/login HTTP/1.1" 200 -
+2025-04-01 15:56:57,433 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 15:56:57,434 - INFO - 127.0.0.1 - - [01/Apr/2025 15:56:57] "[33mOPTIONS /dashboard/employee HTTP/1.1[0m" 404 -
+2025-04-01 15:56:57,435 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 15:56:57,438 - INFO - 127.0.0.1 - - [01/Apr/2025 15:56:57] "[33mOPTIONS /dashboard/employee HTTP/1.1[0m" 404 -
+2025-04-01 15:56:57,446 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 15:56:57,451 - INFO - 127.0.0.1 - - [01/Apr/2025 15:56:57] "[33mOPTIONS /dashboard/activity/recent?limit=10 HTTP/1.1[0m" 404 -
+2025-04-01 15:56:57,451 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 15:56:57,453 - INFO - 127.0.0.1 - - [01/Apr/2025 15:56:57] "[33mOPTIONS /dashboard/activity/recent?limit=10 HTTP/1.1[0m" 404 -
+2025-04-01 15:56:57,462 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 15:56:57,464 - INFO - 127.0.0.1 - - [01/Apr/2025 15:56:57] "[33mOPTIONS /dashboard/earnings HTTP/1.1[0m" 404 -
+2025-04-01 15:56:57,466 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 15:56:57,468 - INFO - 127.0.0.1 - - [01/Apr/2025 15:56:57] "[33mOPTIONS /dashboard/earnings HTTP/1.1[0m" 404 -
+2025-04-01 16:23:21,827 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 16:23:21,830 - INFO - 127.0.0.1 - - [01/Apr/2025 16:23:21] "[33mOPTIONS /dashboard/employee HTTP/1.1[0m" 404 -
+2025-04-01 16:23:21,834 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 16:23:21,836 - INFO - 127.0.0.1 - - [01/Apr/2025 16:23:21] "[33mOPTIONS /dashboard/employee HTTP/1.1[0m" 404 -
+2025-04-01 16:23:21,841 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 16:23:21,843 - INFO - 127.0.0.1 - - [01/Apr/2025 16:23:21] "[33mOPTIONS /dashboard/activity/recent?limit=10 HTTP/1.1[0m" 404 -
+2025-04-01 16:23:21,850 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 16:23:21,851 - INFO - 127.0.0.1 - - [01/Apr/2025 16:23:21] "[33mOPTIONS /dashboard/activity/recent?limit=10 HTTP/1.1[0m" 404 -
+2025-04-01 16:23:21,855 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 16:23:21,857 - INFO - 127.0.0.1 - - [01/Apr/2025 16:23:21] "[33mOPTIONS /dashboard/earnings HTTP/1.1[0m" 404 -
+2025-04-01 16:23:21,861 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 16:23:21,863 - INFO - 127.0.0.1 - - [01/Apr/2025 16:23:21] "[33mOPTIONS /dashboard/earnings HTTP/1.1[0m" 404 -
+2025-04-01 16:23:24,655 - INFO - 127.0.0.1 - - [01/Apr/2025 16:23:24] "OPTIONS /auth/login HTTP/1.1" 200 -
+2025-04-01 16:23:24,886 - INFO - User 'Amechi1' logged in successfully.
+2025-04-01 16:23:24,886 - INFO - 127.0.0.1 - - [01/Apr/2025 16:23:24] "POST /auth/login HTTP/1.1" 200 -
+2025-04-01 16:23:24,898 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 16:23:24,900 - INFO - 127.0.0.1 - - [01/Apr/2025 16:23:24] "[33mOPTIONS /dashboard/employee HTTP/1.1[0m" 404 -
+2025-04-01 16:23:24,901 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 16:23:24,902 - INFO - 127.0.0.1 - - [01/Apr/2025 16:23:24] "[33mOPTIONS /dashboard/employee HTTP/1.1[0m" 404 -
+2025-04-01 16:23:24,913 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 16:23:24,915 - INFO - 127.0.0.1 - - [01/Apr/2025 16:23:24] "[33mOPTIONS /dashboard/activity/recent?limit=10 HTTP/1.1[0m" 404 -
+2025-04-01 16:23:24,916 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 16:23:24,917 - INFO - 127.0.0.1 - - [01/Apr/2025 16:23:24] "[33mOPTIONS /dashboard/activity/recent?limit=10 HTTP/1.1[0m" 404 -
+2025-04-01 16:23:24,925 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 16:23:24,928 - INFO - 127.0.0.1 - - [01/Apr/2025 16:23:24] "[33mOPTIONS /dashboard/earnings HTTP/1.1[0m" 404 -
+2025-04-01 16:23:24,929 - WARNING - 404 Not Found: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-01 16:23:24,930 - INFO - 127.0.0.1 - - [01/Apr/2025 16:23:24] "[33mOPTIONS /dashboard/earnings HTTP/1.1[0m" 404 -
+2025-04-01 16:32:16,751 - INFO - Application initialized successfully.
+2025-04-01 16:32:21,025 - WARNING - Redis connection failed, using in-memory rate limiting: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.

@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from backend.app import db
+from backend.app.extensions import db
 from backend.app.models import Location
 import logging
 
@@ -9,7 +9,6 @@ bp = Blueprint('locations_bp', __name__, url_prefix='/locations')
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
-
 
 @bp.route('/', methods=['GET'])
 @jwt_required()
@@ -30,7 +29,6 @@ def get_locations():
     except Exception as e:
         logging.exception(f"Error fetching locations: {e}")
         return jsonify({"error": "Internal Server Error"}), 500
-
 
 @bp.route('/', methods=['POST'])
 @jwt_required()
@@ -66,7 +64,6 @@ def add_location():
         logging.exception(f"Error adding location: {e}")
         return jsonify({"error": "Internal Server Error"}), 500
 
-
 @bp.route('/<int:location_id>', methods=['GET'])
 @jwt_required()
 def get_location(location_id):
@@ -89,7 +86,6 @@ def get_location(location_id):
     except Exception as e:
         logging.exception(f"Error fetching location {location_id}: {e}")
         return jsonify({"error": "Internal Server Error"}), 500
-
 
 @bp.route('/<int:location_id>', methods=['PUT'])
 @jwt_required()
@@ -122,7 +118,6 @@ def update_location(location_id):
     except Exception as e:
         logging.exception(f"Error updating location {location_id}: {e}")
         return jsonify({"error": "Internal Server Error"}), 500
-
 
 @bp.route('/<int:location_id>', methods=['DELETE'])
 @jwt_required()
