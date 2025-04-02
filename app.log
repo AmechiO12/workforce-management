@@ -2817,3 +2817,731 @@ AttributeError: type object 'CheckIn' has no attribute 'created_at'
 2025-04-01 21:49:48,649 - INFO - 127.0.0.1 - - [01/Apr/2025 21:49:48] "OPTIONS /dashboard/schedule/2025/4 HTTP/1.1" 200 -
 2025-04-01 21:49:48,658 - INFO - 127.0.0.1 - - [01/Apr/2025 21:49:48] "GET /dashboard/schedule/2025/4 HTTP/1.1" 200 -
 2025-04-01 21:49:48,666 - INFO - 127.0.0.1 - - [01/Apr/2025 21:49:48] "GET /dashboard/schedule/2025/4 HTTP/1.1" 200 -
+2025-04-01 21:59:16,009 - INFO - 127.0.0.1 - - [01/Apr/2025 21:59:16] "OPTIONS /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 21:59:16,014 - INFO - 127.0.0.1 - - [01/Apr/2025 21:59:16] "GET /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 21:59:16,020 - INFO - 127.0.0.1 - - [01/Apr/2025 21:59:16] "OPTIONS /dashboard/earnings HTTP/1.1" 200 -
+2025-04-01 21:59:16,025 - INFO - 127.0.0.1 - - [01/Apr/2025 21:59:16] "GET /dashboard/earnings HTTP/1.1" 200 -
+2025-04-01 21:59:16,029 - INFO - 127.0.0.1 - - [01/Apr/2025 21:59:16] "OPTIONS /dashboard/activity/recent?limit=5 HTTP/1.1" 200 -
+2025-04-01 21:59:16,036 - INFO - 127.0.0.1 - - [01/Apr/2025 21:59:16] "GET /dashboard/activity/recent?limit=5 HTTP/1.1" 200 -
+2025-04-01 21:59:16,041 - INFO - 127.0.0.1 - - [01/Apr/2025 21:59:16] "OPTIONS /dashboard/schedule/2025/4 HTTP/1.1" 200 -
+2025-04-01 21:59:16,046 - INFO - 127.0.0.1 - - [01/Apr/2025 21:59:16] "GET /dashboard/schedule/2025/4 HTTP/1.1" 200 -
+2025-04-01 21:59:16,051 - INFO - 127.0.0.1 - - [01/Apr/2025 21:59:16] "OPTIONS /dashboard/activity/recent?limit=20 HTTP/1.1" 200 -
+2025-04-01 21:59:16,056 - INFO - 127.0.0.1 - - [01/Apr/2025 21:59:16] "GET /dashboard/activity/recent?limit=20 HTTP/1.1" 200 -
+2025-04-01 22:00:16,921 - INFO - 127.0.0.1 - - [01/Apr/2025 22:00:16] "OPTIONS /locations/ HTTP/1.1" 200 -
+2025-04-01 22:00:16,922 - INFO - 127.0.0.1 - - [01/Apr/2025 22:00:16] "OPTIONS /locations/ HTTP/1.1" 200 -
+2025-04-01 22:00:16,931 - INFO - 127.0.0.1 - - [01/Apr/2025 22:00:16] "GET /locations/ HTTP/1.1" 200 -
+2025-04-01 22:00:16,938 - INFO - 127.0.0.1 - - [01/Apr/2025 22:00:16] "GET /locations/ HTTP/1.1" 200 -
+2025-04-01 22:00:20,703 - INFO - 127.0.0.1 - - [01/Apr/2025 22:00:20] "GET /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 22:00:20,707 - INFO - 127.0.0.1 - - [01/Apr/2025 22:00:20] "GET /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 22:00:20,710 - INFO - 127.0.0.1 - - [01/Apr/2025 22:00:20] "GET /dashboard/earnings HTTP/1.1" 200 -
+2025-04-01 22:00:20,716 - INFO - 127.0.0.1 - - [01/Apr/2025 22:00:20] "GET /dashboard/earnings HTTP/1.1" 200 -
+2025-04-01 22:00:20,720 - INFO - 127.0.0.1 - - [01/Apr/2025 22:00:20] "GET /dashboard/activity/recent?limit=5 HTTP/1.1" 200 -
+2025-04-01 22:00:20,728 - INFO - 127.0.0.1 - - [01/Apr/2025 22:00:20] "GET /dashboard/activity/recent?limit=5 HTTP/1.1" 200 -
+2025-04-01 22:00:20,730 - INFO - 127.0.0.1 - - [01/Apr/2025 22:00:20] "GET /dashboard/schedule/2025/4 HTTP/1.1" 200 -
+2025-04-01 22:00:20,736 - INFO - 127.0.0.1 - - [01/Apr/2025 22:00:20] "GET /dashboard/schedule/2025/4 HTTP/1.1" 200 -
+2025-04-01 22:00:20,739 - INFO - 127.0.0.1 - - [01/Apr/2025 22:00:20] "GET /dashboard/activity/recent?limit=20 HTTP/1.1" 200 -
+2025-04-01 22:00:20,745 - INFO - 127.0.0.1 - - [01/Apr/2025 22:00:20] "GET /dashboard/activity/recent?limit=20 HTTP/1.1" 200 -
+2025-04-01 22:00:25,804 - INFO - 127.0.0.1 - - [01/Apr/2025 22:00:25] "OPTIONS /payroll/?start_date=2025-03-31&end_date=2025-04-01 HTTP/1.1" 200 -
+2025-04-01 22:00:25,811 - INFO - 127.0.0.1 - - [01/Apr/2025 22:00:25] "[31m[1mGET /payroll/?start_date=2025-03-31&end_date=2025-04-01 HTTP/1.1[0m" 403 -
+2025-04-01 22:00:29,372 - INFO - 127.0.0.1 - - [01/Apr/2025 22:00:29] "GET /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 22:00:29,376 - INFO - 127.0.0.1 - - [01/Apr/2025 22:00:29] "GET /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 22:00:29,378 - INFO - 127.0.0.1 - - [01/Apr/2025 22:00:29] "GET /dashboard/earnings HTTP/1.1" 200 -
+2025-04-01 22:00:29,384 - INFO - 127.0.0.1 - - [01/Apr/2025 22:00:29] "GET /dashboard/earnings HTTP/1.1" 200 -
+2025-04-01 22:00:29,390 - INFO - 127.0.0.1 - - [01/Apr/2025 22:00:29] "GET /dashboard/activity/recent?limit=5 HTTP/1.1" 200 -
+2025-04-01 22:00:29,396 - INFO - 127.0.0.1 - - [01/Apr/2025 22:00:29] "GET /dashboard/activity/recent?limit=5 HTTP/1.1" 200 -
+2025-04-01 22:00:29,397 - INFO - 127.0.0.1 - - [01/Apr/2025 22:00:29] "GET /dashboard/schedule/2025/4 HTTP/1.1" 200 -
+2025-04-01 22:00:29,404 - INFO - 127.0.0.1 - - [01/Apr/2025 22:00:29] "GET /dashboard/schedule/2025/4 HTTP/1.1" 200 -
+2025-04-01 22:00:29,407 - INFO - 127.0.0.1 - - [01/Apr/2025 22:00:29] "GET /dashboard/activity/recent?limit=20 HTTP/1.1" 200 -
+2025-04-01 22:00:29,411 - INFO - 127.0.0.1 - - [01/Apr/2025 22:00:29] "GET /dashboard/activity/recent?limit=20 HTTP/1.1" 200 -
+2025-04-01 22:01:01,640 - INFO - 127.0.0.1 - - [01/Apr/2025 22:01:01] "GET /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 22:01:01,647 - INFO - 127.0.0.1 - - [01/Apr/2025 22:01:01] "GET /dashboard/earnings HTTP/1.1" 200 -
+2025-04-01 22:01:01,658 - INFO - 127.0.0.1 - - [01/Apr/2025 22:01:01] "GET /dashboard/activity/recent?limit=5 HTTP/1.1" 200 -
+2025-04-01 22:01:01,662 - INFO - 127.0.0.1 - - [01/Apr/2025 22:01:01] "OPTIONS /dashboard/schedule/2025/5 HTTP/1.1" 200 -
+2025-04-01 22:01:01,666 - INFO - 127.0.0.1 - - [01/Apr/2025 22:01:01] "GET /dashboard/schedule/2025/5 HTTP/1.1" 200 -
+2025-04-01 22:01:01,673 - INFO - 127.0.0.1 - - [01/Apr/2025 22:01:01] "GET /dashboard/activity/recent?limit=20 HTTP/1.1" 200 -
+2025-04-01 22:01:03,669 - INFO - 127.0.0.1 - - [01/Apr/2025 22:01:03] "GET /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 22:01:03,676 - INFO - 127.0.0.1 - - [01/Apr/2025 22:01:03] "GET /dashboard/earnings HTTP/1.1" 200 -
+2025-04-01 22:01:03,682 - INFO - 127.0.0.1 - - [01/Apr/2025 22:01:03] "GET /dashboard/activity/recent?limit=5 HTTP/1.1" 200 -
+2025-04-01 22:01:03,694 - INFO - 127.0.0.1 - - [01/Apr/2025 22:01:03] "GET /dashboard/schedule/2025/4 HTTP/1.1" 200 -
+2025-04-01 22:01:03,700 - INFO - 127.0.0.1 - - [01/Apr/2025 22:01:03] "GET /dashboard/activity/recent?limit=20 HTTP/1.1" 200 -
+2025-04-01 22:16:24,436 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:24] "OPTIONS /payroll/?start_date=2025-03-31&end_date=2025-04-01 HTTP/1.1" 200 -
+2025-04-01 22:16:24,440 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:24] "[31m[1mGET /payroll/?start_date=2025-03-31&end_date=2025-04-01 HTTP/1.1[0m" 403 -
+2025-04-01 22:16:25,488 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:25] "OPTIONS /locations/ HTTP/1.1" 200 -
+2025-04-01 22:16:25,490 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:25] "OPTIONS /locations/ HTTP/1.1" 200 -
+2025-04-01 22:16:25,494 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:25] "GET /locations/ HTTP/1.1" 200 -
+2025-04-01 22:16:25,499 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:25] "GET /locations/ HTTP/1.1" 200 -
+2025-04-01 22:16:27,139 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:27] "OPTIONS /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 22:16:27,140 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:27] "OPTIONS /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 22:16:27,145 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:27] "GET /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 22:16:27,151 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:27] "OPTIONS /dashboard/earnings HTTP/1.1" 200 -
+2025-04-01 22:16:27,152 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:27] "GET /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 22:16:27,157 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:27] "GET /dashboard/earnings HTTP/1.1" 200 -
+2025-04-01 22:16:27,161 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:27] "GET /dashboard/earnings HTTP/1.1" 200 -
+2025-04-01 22:16:27,162 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:27] "OPTIONS /dashboard/activity/recent?limit=5 HTTP/1.1" 200 -
+2025-04-01 22:16:27,169 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:27] "GET /dashboard/activity/recent?limit=5 HTTP/1.1" 200 -
+2025-04-01 22:16:27,173 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:27] "GET /dashboard/activity/recent?limit=5 HTTP/1.1" 200 -
+2025-04-01 22:16:27,174 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:27] "OPTIONS /dashboard/schedule/2025/4 HTTP/1.1" 200 -
+2025-04-01 22:16:27,178 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:27] "GET /dashboard/schedule/2025/4 HTTP/1.1" 200 -
+2025-04-01 22:16:27,185 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:27] "GET /dashboard/schedule/2025/4 HTTP/1.1" 200 -
+2025-04-01 22:16:27,186 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:27] "OPTIONS /dashboard/activity/recent?limit=20 HTTP/1.1" 200 -
+2025-04-01 22:16:27,191 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:27] "GET /dashboard/activity/recent?limit=20 HTTP/1.1" 200 -
+2025-04-01 22:16:27,195 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:27] "GET /dashboard/activity/recent?limit=20 HTTP/1.1" 200 -
+2025-04-01 22:16:28,618 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:28] "GET /locations/ HTTP/1.1" 200 -
+2025-04-01 22:16:28,622 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:28] "GET /locations/ HTTP/1.1" 200 -
+2025-04-01 22:16:31,499 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:31] "GET /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 22:16:31,504 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:31] "GET /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 22:16:31,506 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:31] "GET /dashboard/earnings HTTP/1.1" 200 -
+2025-04-01 22:16:31,512 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:31] "GET /dashboard/earnings HTTP/1.1" 200 -
+2025-04-01 22:16:31,513 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:31] "GET /dashboard/activity/recent?limit=5 HTTP/1.1" 200 -
+2025-04-01 22:16:31,520 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:31] "GET /dashboard/activity/recent?limit=5 HTTP/1.1" 200 -
+2025-04-01 22:16:31,522 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:31] "GET /dashboard/schedule/2025/4 HTTP/1.1" 200 -
+2025-04-01 22:16:31,527 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:31] "GET /dashboard/schedule/2025/4 HTTP/1.1" 200 -
+2025-04-01 22:16:31,528 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:31] "GET /dashboard/activity/recent?limit=20 HTTP/1.1" 200 -
+2025-04-01 22:16:31,535 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:31] "GET /dashboard/activity/recent?limit=20 HTTP/1.1" 200 -
+2025-04-01 22:16:56,839 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:56] "GET /locations/ HTTP/1.1" 200 -
+2025-04-01 22:16:56,844 - INFO - 127.0.0.1 - - [01/Apr/2025 22:16:56] "GET /locations/ HTTP/1.1" 200 -
+2025-04-01 22:17:10,184 - INFO - 127.0.0.1 - - [01/Apr/2025 22:17:10] "OPTIONS /checkins/ HTTP/1.1" 200 -
+2025-04-01 22:17:10,195 - INFO - Check-in failed for user Amechi1: Distance 5430.96 km exceeds radius 0.15 km
+2025-04-01 22:17:10,196 - INFO - 127.0.0.1 - - [01/Apr/2025 22:17:10] "[31m[1mPOST /checkins/ HTTP/1.1[0m" 400 -
+2025-04-01 22:19:19,501 - INFO - 127.0.0.1 - - [01/Apr/2025 22:19:19] "OPTIONS /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 22:19:19,503 - INFO - 127.0.0.1 - - [01/Apr/2025 22:19:19] "OPTIONS /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 22:19:19,508 - INFO - 127.0.0.1 - - [01/Apr/2025 22:19:19] "GET /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 22:19:19,512 - INFO - 127.0.0.1 - - [01/Apr/2025 22:19:19] "GET /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 22:19:19,513 - INFO - 127.0.0.1 - - [01/Apr/2025 22:19:19] "OPTIONS /dashboard/earnings HTTP/1.1" 200 -
+2025-04-01 22:19:19,518 - INFO - 127.0.0.1 - - [01/Apr/2025 22:19:19] "GET /dashboard/earnings HTTP/1.1" 200 -
+2025-04-01 22:19:19,525 - INFO - 127.0.0.1 - - [01/Apr/2025 22:19:19] "OPTIONS /dashboard/activity/recent?limit=5 HTTP/1.1" 200 -
+2025-04-01 22:19:19,525 - INFO - 127.0.0.1 - - [01/Apr/2025 22:19:19] "GET /dashboard/earnings HTTP/1.1" 200 -
+2025-04-01 22:19:19,530 - INFO - 127.0.0.1 - - [01/Apr/2025 22:19:19] "GET /dashboard/activity/recent?limit=5 HTTP/1.1" 200 -
+2025-04-01 22:19:19,534 - INFO - 127.0.0.1 - - [01/Apr/2025 22:19:19] "GET /dashboard/activity/recent?limit=5 HTTP/1.1" 200 -
+2025-04-01 22:19:19,535 - INFO - 127.0.0.1 - - [01/Apr/2025 22:19:19] "OPTIONS /dashboard/schedule/2025/4 HTTP/1.1" 200 -
+2025-04-01 22:19:19,541 - INFO - 127.0.0.1 - - [01/Apr/2025 22:19:19] "GET /dashboard/schedule/2025/4 HTTP/1.1" 200 -
+2025-04-01 22:19:19,545 - INFO - 127.0.0.1 - - [01/Apr/2025 22:19:19] "GET /dashboard/schedule/2025/4 HTTP/1.1" 200 -
+2025-04-01 22:19:19,546 - INFO - 127.0.0.1 - - [01/Apr/2025 22:19:19] "OPTIONS /dashboard/activity/recent?limit=20 HTTP/1.1" 200 -
+2025-04-01 22:19:19,551 - INFO - 127.0.0.1 - - [01/Apr/2025 22:19:19] "GET /dashboard/activity/recent?limit=20 HTTP/1.1" 200 -
+2025-04-01 22:19:19,554 - INFO - 127.0.0.1 - - [01/Apr/2025 22:19:19] "GET /dashboard/activity/recent?limit=20 HTTP/1.1" 200 -
+2025-04-01 22:22:11,126 - INFO - 127.0.0.1 - - [01/Apr/2025 22:22:11] "OPTIONS /locations/ HTTP/1.1" 200 -
+2025-04-01 22:22:11,127 - INFO - 127.0.0.1 - - [01/Apr/2025 22:22:11] "OPTIONS /locations/ HTTP/1.1" 200 -
+2025-04-01 22:22:11,134 - INFO - 127.0.0.1 - - [01/Apr/2025 22:22:11] "GET /locations/ HTTP/1.1" 200 -
+2025-04-01 22:22:11,140 - INFO - 127.0.0.1 - - [01/Apr/2025 22:22:11] "GET /locations/ HTTP/1.1" 200 -
+2025-04-01 22:22:19,514 - INFO - 127.0.0.1 - - [01/Apr/2025 22:22:19] "OPTIONS /payroll/?start_date=2025-03-31&end_date=2025-04-01 HTTP/1.1" 200 -
+2025-04-01 22:22:19,521 - INFO - 127.0.0.1 - - [01/Apr/2025 22:22:19] "[31m[1mGET /payroll/?start_date=2025-03-31&end_date=2025-04-01 HTTP/1.1[0m" 403 -
+2025-04-01 22:24:22,774 - INFO - 127.0.0.1 - - [01/Apr/2025 22:24:22] "OPTIONS /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 22:24:22,776 - INFO - 127.0.0.1 - - [01/Apr/2025 22:24:22] "OPTIONS /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 22:24:22,783 - INFO - 127.0.0.1 - - [01/Apr/2025 22:24:22] "GET /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 22:24:22,790 - INFO - 127.0.0.1 - - [01/Apr/2025 22:24:22] "GET /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 22:24:22,791 - INFO - 127.0.0.1 - - [01/Apr/2025 22:24:22] "OPTIONS /dashboard/earnings HTTP/1.1" 200 -
+2025-04-01 22:24:22,798 - INFO - 127.0.0.1 - - [01/Apr/2025 22:24:22] "GET /dashboard/earnings HTTP/1.1" 200 -
+2025-04-01 22:24:22,807 - INFO - 127.0.0.1 - - [01/Apr/2025 22:24:22] "OPTIONS /dashboard/activity/recent?limit=5 HTTP/1.1" 200 -
+2025-04-01 22:24:22,808 - INFO - 127.0.0.1 - - [01/Apr/2025 22:24:22] "GET /dashboard/earnings HTTP/1.1" 200 -
+2025-04-01 22:24:22,815 - INFO - 127.0.0.1 - - [01/Apr/2025 22:24:22] "GET /dashboard/activity/recent?limit=5 HTTP/1.1" 200 -
+2025-04-01 22:24:22,822 - INFO - 127.0.0.1 - - [01/Apr/2025 22:24:22] "GET /dashboard/activity/recent?limit=5 HTTP/1.1" 200 -
+2025-04-01 22:24:22,824 - INFO - 127.0.0.1 - - [01/Apr/2025 22:24:22] "OPTIONS /dashboard/schedule/2025/4 HTTP/1.1" 200 -
+2025-04-01 22:24:22,828 - INFO - 127.0.0.1 - - [01/Apr/2025 22:24:22] "OPTIONS /dashboard/schedule/2025/4 HTTP/1.1" 200 -
+2025-04-01 22:24:22,832 - INFO - 127.0.0.1 - - [01/Apr/2025 22:24:22] "GET /dashboard/schedule/2025/4 HTTP/1.1" 200 -
+2025-04-01 22:24:22,838 - INFO - 127.0.0.1 - - [01/Apr/2025 22:24:22] "GET /dashboard/schedule/2025/4 HTTP/1.1" 200 -
+2025-04-01 22:24:22,839 - INFO - 127.0.0.1 - - [01/Apr/2025 22:24:22] "OPTIONS /dashboard/activity/recent?limit=20 HTTP/1.1" 200 -
+2025-04-01 22:24:22,844 - INFO - 127.0.0.1 - - [01/Apr/2025 22:24:22] "GET /dashboard/activity/recent?limit=20 HTTP/1.1" 200 -
+2025-04-01 22:24:22,849 - INFO - 127.0.0.1 - - [01/Apr/2025 22:24:22] "GET /dashboard/activity/recent?limit=20 HTTP/1.1" 200 -
+2025-04-01 22:47:51,765 - INFO - 127.0.0.1 - - [01/Apr/2025 22:47:51] "OPTIONS /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 22:47:51,769 - INFO - 127.0.0.1 - - [01/Apr/2025 22:47:51] "OPTIONS /dashboard/employee HTTP/1.1" 200 -
+2025-04-01 22:47:51,774 - INFO - 127.0.0.1 - - [01/Apr/2025 22:47:51] "[31m[1mGET /dashboard/employee HTTP/1.1[0m" 401 -
+2025-04-01 22:47:51,779 - INFO - 127.0.0.1 - - [01/Apr/2025 22:47:51] "[31m[1mGET /dashboard/employee HTTP/1.1[0m" 401 -
+2025-04-01 22:47:51,807 - INFO - 127.0.0.1 - - [01/Apr/2025 22:47:51] "[31m[1mGET /dashboard/earnings HTTP/1.1[0m" 401 -
+2025-04-01 22:47:51,825 - INFO - 127.0.0.1 - - [01/Apr/2025 22:47:51] "[31m[1mGET /dashboard/earnings HTTP/1.1[0m" 401 -
+2025-04-01 22:47:51,839 - INFO - 127.0.0.1 - - [01/Apr/2025 22:47:51] "[31m[1mGET /dashboard/activity/recent?limit=5 HTTP/1.1[0m" 401 -
+2025-04-01 22:47:51,851 - INFO - 127.0.0.1 - - [01/Apr/2025 22:47:51] "[31m[1mGET /dashboard/activity/recent?limit=5 HTTP/1.1[0m" 401 -
+2025-04-01 22:47:51,894 - INFO - 127.0.0.1 - - [01/Apr/2025 22:47:51] "[31m[1mGET /dashboard/schedule/2025/4 HTTP/1.1[0m" 401 -
+2025-04-01 22:47:51,905 - INFO - 127.0.0.1 - - [01/Apr/2025 22:47:51] "[31m[1mGET /dashboard/schedule/2025/4 HTTP/1.1[0m" 401 -
+2025-04-01 22:47:51,913 - INFO - 127.0.0.1 - - [01/Apr/2025 22:47:51] "[31m[1mGET /dashboard/activity/recent?limit=20 HTTP/1.1[0m" 401 -
+2025-04-01 23:01:03,720 - INFO - Application initialized successfully.
+2025-04-02 08:47:49,956 - INFO - Application initialized successfully.
+2025-04-02 08:48:10,591 - INFO - Application initialized successfully.
+2025-04-02 08:52:37,688 - INFO - Application initialized successfully.
+2025-04-02 08:52:41,908 - WARNING - Redis connection failed, using in-memory rate limiting: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-04-02 08:52:41,970 - INFO - Database tables created or already exist.
+2025-04-02 08:52:41,979 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-02 08:52:41,980 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-02 08:53:43,597 - INFO - 127.0.0.1 - - [02/Apr/2025 08:53:43] "OPTIONS /auth/login HTTP/1.1" 200 -
+2025-04-02 08:53:43,605 - ERROR - Unexpected error during login: Multiple classes found for path "Shift" in the registry of this declarative base. Please use a fully module-qualified path.
+Traceback (most recent call last):
+  File "C:\Users\amech\Documents\workforce-management\backend\app\auth.py", line 230, in login
+    user = User.query.filter_by(username=username).first()
+           ^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\flask_sqlalchemy\model.py", line 22, in __get__
+    return cls.query_class(
+           ~~~~~~~~~~~~~~~^
+        cls, session=cls.__fsa__.session()  # type: ignore[arg-type]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 275, in __init__
+    self._set_entities(entities)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 288, in _set_entities
+    coercions.expect(
+    ~~~~~~~~~~~~~~~~^
+        roles.ColumnsClauseRole,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        post_inspect=True,
+        ^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\sql\coercions.py", line 388, in expect
+    insp._post_inspect
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1253, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+                                           ~~~~~~~~~^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2722, in _post_inspect
+    self._check_configure()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2399, in _check_configure
+    _configure_registries({self.registry}, cascade=True)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 4215, in _configure_registries
+    _do_configure_registries(registries, cascade)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 4256, in _do_configure_registries
+    mapper._post_configure_properties()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2416, in _post_configure_properties
+    prop.init()
+    ~~~~~~~~~^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\interfaces.py", line 589, in init
+    self.do_init()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\relationships.py", line 1642, in do_init
+    self._setup_entity()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\relationships.py", line 1854, in _setup_entity
+    self._clsregistry_resolve_name(argument)(),
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\clsregistry.py", line 516, in _resolve_name
+    rval = d[token]
+           ~^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\util\_collections.py", line 345, in __missing__
+    self[key] = val = self.creator(key)
+                      ~~~~~~~~~~~~^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\clsregistry.py", line 463, in _access_cls
+    return _determine_container(key, decl_class_registry[key])
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\clsregistry.py", line 409, in _determine_container
+    value = value.attempt_get([], key)
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\clsregistry.py", line 219, in attempt_get
+    raise exc.InvalidRequestError(
+    ...<4 lines>...
+    )
+sqlalchemy.exc.InvalidRequestError: Multiple classes found for path "Shift" in the registry of this declarative base. Please use a fully module-qualified path.
+2025-04-02 08:53:43,788 - INFO - 127.0.0.1 - - [02/Apr/2025 08:53:43] "[35m[1mPOST /auth/login HTTP/1.1[0m" 500 -
+2025-04-02 09:00:42,812 - INFO - 127.0.0.1 - - [02/Apr/2025 09:00:42] "OPTIONS /auth/login HTTP/1.1" 200 -
+2025-04-02 09:00:42,816 - ERROR - Unexpected error during login: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[User(users)]'. Original exception was: Multiple classes found for path "Shift" in the registry of this declarative base. Please use a fully module-qualified path.
+Traceback (most recent call last):
+  File "C:\Users\amech\Documents\workforce-management\backend\app\auth.py", line 230, in login
+    user = User.query.filter_by(username=username).first()
+           ^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\flask_sqlalchemy\model.py", line 22, in __get__
+    return cls.query_class(
+           ~~~~~~~~~~~~~~~^
+        cls, session=cls.__fsa__.session()  # type: ignore[arg-type]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 275, in __init__
+    self._set_entities(entities)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 288, in _set_entities
+    coercions.expect(
+    ~~~~~~~~~~~~~~~~^
+        roles.ColumnsClauseRole,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        post_inspect=True,
+        ^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\sql\coercions.py", line 388, in expect
+    insp._post_inspect
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1253, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+                                           ~~~~~~~~~^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2722, in _post_inspect
+    self._check_configure()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2399, in _check_configure
+    _configure_registries({self.registry}, cascade=True)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 4215, in _configure_registries
+    _do_configure_registries(registries, cascade)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 4252, in _do_configure_registries
+    raise e
+sqlalchemy.exc.InvalidRequestError: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[User(users)]'. Original exception was: Multiple classes found for path "Shift" in the registry of this declarative base. Please use a fully module-qualified path.
+2025-04-02 09:00:42,824 - INFO - 127.0.0.1 - - [02/Apr/2025 09:00:42] "[35m[1mPOST /auth/login HTTP/1.1[0m" 500 -
+2025-04-02 09:00:47,605 - ERROR - Unexpected error during login: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[User(users)]'. Original exception was: Multiple classes found for path "Shift" in the registry of this declarative base. Please use a fully module-qualified path.
+Traceback (most recent call last):
+  File "C:\Users\amech\Documents\workforce-management\backend\app\auth.py", line 230, in login
+    user = User.query.filter_by(username=username).first()
+           ^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\flask_sqlalchemy\model.py", line 22, in __get__
+    return cls.query_class(
+           ~~~~~~~~~~~~~~~^
+        cls, session=cls.__fsa__.session()  # type: ignore[arg-type]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 275, in __init__
+    self._set_entities(entities)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 288, in _set_entities
+    coercions.expect(
+    ~~~~~~~~~~~~~~~~^
+        roles.ColumnsClauseRole,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        post_inspect=True,
+        ^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\sql\coercions.py", line 388, in expect
+    insp._post_inspect
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1253, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+                                           ~~~~~~~~~^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2722, in _post_inspect
+    self._check_configure()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2399, in _check_configure
+    _configure_registries({self.registry}, cascade=True)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 4215, in _configure_registries
+    _do_configure_registries(registries, cascade)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 4252, in _do_configure_registries
+    raise e
+sqlalchemy.exc.InvalidRequestError: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[User(users)]'. Original exception was: Multiple classes found for path "Shift" in the registry of this declarative base. Please use a fully module-qualified path.
+2025-04-02 09:00:47,612 - INFO - 127.0.0.1 - - [02/Apr/2025 09:00:47] "[35m[1mPOST /auth/login HTTP/1.1[0m" 500 -
+2025-04-02 09:00:48,669 - ERROR - Unexpected error during login: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[User(users)]'. Original exception was: Multiple classes found for path "Shift" in the registry of this declarative base. Please use a fully module-qualified path.
+Traceback (most recent call last):
+  File "C:\Users\amech\Documents\workforce-management\backend\app\auth.py", line 230, in login
+    user = User.query.filter_by(username=username).first()
+           ^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\flask_sqlalchemy\model.py", line 22, in __get__
+    return cls.query_class(
+           ~~~~~~~~~~~~~~~^
+        cls, session=cls.__fsa__.session()  # type: ignore[arg-type]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 275, in __init__
+    self._set_entities(entities)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 288, in _set_entities
+    coercions.expect(
+    ~~~~~~~~~~~~~~~~^
+        roles.ColumnsClauseRole,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        post_inspect=True,
+        ^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\sql\coercions.py", line 388, in expect
+    insp._post_inspect
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1253, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+                                           ~~~~~~~~~^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2722, in _post_inspect
+    self._check_configure()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2399, in _check_configure
+    _configure_registries({self.registry}, cascade=True)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 4215, in _configure_registries
+    _do_configure_registries(registries, cascade)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 4252, in _do_configure_registries
+    raise e
+sqlalchemy.exc.InvalidRequestError: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[User(users)]'. Original exception was: Multiple classes found for path "Shift" in the registry of this declarative base. Please use a fully module-qualified path.
+2025-04-02 09:00:48,675 - INFO - 127.0.0.1 - - [02/Apr/2025 09:00:48] "[35m[1mPOST /auth/login HTTP/1.1[0m" 500 -
+2025-04-02 09:01:35,595 - ERROR - Unexpected error during login: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[User(users)]'. Original exception was: Multiple classes found for path "Shift" in the registry of this declarative base. Please use a fully module-qualified path.
+Traceback (most recent call last):
+  File "C:\Users\amech\Documents\workforce-management\backend\app\auth.py", line 230, in login
+    user = User.query.filter_by(username=username).first()
+           ^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\flask_sqlalchemy\model.py", line 22, in __get__
+    return cls.query_class(
+           ~~~~~~~~~~~~~~~^
+        cls, session=cls.__fsa__.session()  # type: ignore[arg-type]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 275, in __init__
+    self._set_entities(entities)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 288, in _set_entities
+    coercions.expect(
+    ~~~~~~~~~~~~~~~~^
+        roles.ColumnsClauseRole,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        post_inspect=True,
+        ^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\sql\coercions.py", line 388, in expect
+    insp._post_inspect
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1253, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+                                           ~~~~~~~~~^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2722, in _post_inspect
+    self._check_configure()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2399, in _check_configure
+    _configure_registries({self.registry}, cascade=True)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 4215, in _configure_registries
+    _do_configure_registries(registries, cascade)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 4252, in _do_configure_registries
+    raise e
+sqlalchemy.exc.InvalidRequestError: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[User(users)]'. Original exception was: Multiple classes found for path "Shift" in the registry of this declarative base. Please use a fully module-qualified path.
+2025-04-02 09:01:35,607 - INFO - 127.0.0.1 - - [02/Apr/2025 09:01:35] "[35m[1mPOST /auth/login HTTP/1.1[0m" 500 -
+2025-04-02 09:02:46,164 - INFO - Application initialized successfully.
+2025-04-02 09:02:50,317 - WARNING - Redis connection failed, using in-memory rate limiting: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-04-02 09:02:50,340 - INFO - Database tables created or already exist.
+2025-04-02 09:02:50,460 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-02 09:02:50,460 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-02 09:02:50,463 - INFO -  * Restarting with stat
+2025-04-02 09:02:52,049 - INFO - Application initialized successfully.
+2025-04-02 09:02:56,187 - WARNING - Redis connection failed, using in-memory rate limiting: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-04-02 09:02:56,206 - INFO - Database tables created or already exist.
+2025-04-02 09:02:56,229 - WARNING -  * Debugger is active!
+2025-04-02 09:02:56,243 - INFO -  * Debugger PIN: 533-922-284
+2025-04-02 09:04:11,027 - INFO - 127.0.0.1 - - [02/Apr/2025 09:04:11] "OPTIONS /auth/login HTTP/1.1" 200 -
+2025-04-02 09:04:11,033 - ERROR - Unexpected error during login: Could not determine join condition between parent/child tables on relationship User.shifts - there are multiple foreign key paths linking the tables.  Specify the 'foreign_keys' argument, providing a list of those columns which should be counted as containing a foreign key reference to the parent table.
+Traceback (most recent call last):
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\relationships.py", line 2423, in _determine_joins
+    self.primaryjoin = join_condition(
+                       ~~~~~~~~~~~~~~^
+        self.parent_persist_selectable,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        consider_as_foreign_keys=consider_as_foreign_keys,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\sql\util.py", line 123, in join_condition
+    return Join._join_condition(
+           ~~~~~~~~~~~~~~~~~~~~^
+        a,
+        ^^
+    ...<2 lines>...
+        consider_as_foreign_keys=consider_as_foreign_keys,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\sql\selectable.py", line 1368, in _join_condition
+    cls._joincond_trim_constraints(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        a, b, constraints, consider_as_foreign_keys
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\sql\selectable.py", line 1513, in _joincond_trim_constraints
+    raise exc.AmbiguousForeignKeysError(
+    ...<5 lines>...
+    )
+sqlalchemy.exc.AmbiguousForeignKeysError: Can't determine join between 'users' and 'shifts'; tables have more than one foreign key constraint relationship between them. Please specify the 'onclause' of this join explicitly.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\amech\Documents\workforce-management\backend\app\auth.py", line 230, in login
+    user = User.query.filter_by(username=username).first()
+           ^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\flask_sqlalchemy\model.py", line 22, in __get__
+    return cls.query_class(
+           ~~~~~~~~~~~~~~~^
+        cls, session=cls.__fsa__.session()  # type: ignore[arg-type]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 275, in __init__
+    self._set_entities(entities)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 288, in _set_entities
+    coercions.expect(
+    ~~~~~~~~~~~~~~~~^
+        roles.ColumnsClauseRole,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        post_inspect=True,
+        ^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\sql\coercions.py", line 388, in expect
+    insp._post_inspect
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1253, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+                                           ~~~~~~~~~^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2722, in _post_inspect
+    self._check_configure()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2399, in _check_configure
+    _configure_registries({self.registry}, cascade=True)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 4215, in _configure_registries
+    _do_configure_registries(registries, cascade)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 4256, in _do_configure_registries
+    mapper._post_configure_properties()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2416, in _post_configure_properties
+    prop.init()
+    ~~~~~~~~~^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\interfaces.py", line 589, in init
+    self.do_init()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\relationships.py", line 1644, in do_init
+    self._setup_join_conditions()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\relationships.py", line 1884, in _setup_join_conditions
+    self._join_condition = jc = JoinCondition(
+                                ~~~~~~~~~~~~~^
+        parent_persist_selectable=self.parent.persist_selectable,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<14 lines>...
+        can_be_synced_fn=self._columns_are_mapped,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\relationships.py", line 2310, in __init__
+    self._determine_joins()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\relationships.py", line 2467, in _determine_joins
+    raise sa_exc.AmbiguousForeignKeysError(
+    ...<7 lines>...
+    ) from afe
+sqlalchemy.exc.AmbiguousForeignKeysError: Could not determine join condition between parent/child tables on relationship User.shifts - there are multiple foreign key paths linking the tables.  Specify the 'foreign_keys' argument, providing a list of those columns which should be counted as containing a foreign key reference to the parent table.
+2025-04-02 09:04:11,095 - INFO - 127.0.0.1 - - [02/Apr/2025 09:04:11] "[35m[1mPOST /auth/login HTTP/1.1[0m" 500 -
+2025-04-02 09:25:04,992 - INFO - Application initialized successfully.
+2025-04-02 09:25:09,148 - WARNING - Redis connection failed, using in-memory rate limiting: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-04-02 09:25:09,220 - INFO - Database tables created or already exist.
+2025-04-02 09:25:09,242 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-02 09:25:09,243 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-02 09:25:09,245 - INFO -  * Restarting with stat
+2025-04-02 09:25:10,945 - INFO - Application initialized successfully.
+2025-04-02 09:25:15,132 - WARNING - Redis connection failed, using in-memory rate limiting: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-04-02 09:25:15,151 - INFO - Database tables created or already exist.
+2025-04-02 09:25:15,172 - WARNING -  * Debugger is active!
+2025-04-02 09:25:15,179 - INFO -  * Debugger PIN: 533-922-284
+2025-04-02 09:25:41,537 - INFO - 127.0.0.1 - - [02/Apr/2025 09:25:41] "OPTIONS /auth/login HTTP/1.1" 200 -
+2025-04-02 09:25:41,543 - ERROR - Unexpected error during login: Could not determine join condition between parent/child tables on relationship User.shifts - there are multiple foreign key paths linking the tables.  Specify the 'foreign_keys' argument, providing a list of those columns which should be counted as containing a foreign key reference to the parent table.
+Traceback (most recent call last):
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\relationships.py", line 2423, in _determine_joins
+    self.primaryjoin = join_condition(
+                       ~~~~~~~~~~~~~~^
+        self.parent_persist_selectable,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        consider_as_foreign_keys=consider_as_foreign_keys,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\sql\util.py", line 123, in join_condition
+    return Join._join_condition(
+           ~~~~~~~~~~~~~~~~~~~~^
+        a,
+        ^^
+    ...<2 lines>...
+        consider_as_foreign_keys=consider_as_foreign_keys,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\sql\selectable.py", line 1368, in _join_condition
+    cls._joincond_trim_constraints(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        a, b, constraints, consider_as_foreign_keys
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\sql\selectable.py", line 1513, in _joincond_trim_constraints
+    raise exc.AmbiguousForeignKeysError(
+    ...<5 lines>...
+    )
+sqlalchemy.exc.AmbiguousForeignKeysError: Can't determine join between 'users' and 'shifts'; tables have more than one foreign key constraint relationship between them. Please specify the 'onclause' of this join explicitly.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\amech\Documents\workforce-management\backend\app\auth.py", line 230, in login
+    user = User.query.filter_by(username=username).first()
+           ^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\flask_sqlalchemy\model.py", line 22, in __get__
+    return cls.query_class(
+           ~~~~~~~~~~~~~~~^
+        cls, session=cls.__fsa__.session()  # type: ignore[arg-type]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 275, in __init__
+    self._set_entities(entities)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 288, in _set_entities
+    coercions.expect(
+    ~~~~~~~~~~~~~~~~^
+        roles.ColumnsClauseRole,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        post_inspect=True,
+        ^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\sql\coercions.py", line 388, in expect
+    insp._post_inspect
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1253, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+                                           ~~~~~~~~~^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2722, in _post_inspect
+    self._check_configure()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2399, in _check_configure
+    _configure_registries({self.registry}, cascade=True)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 4215, in _configure_registries
+    _do_configure_registries(registries, cascade)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 4256, in _do_configure_registries
+    mapper._post_configure_properties()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2416, in _post_configure_properties
+    prop.init()
+    ~~~~~~~~~^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\interfaces.py", line 589, in init
+    self.do_init()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\relationships.py", line 1644, in do_init
+    self._setup_join_conditions()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\relationships.py", line 1884, in _setup_join_conditions
+    self._join_condition = jc = JoinCondition(
+                                ~~~~~~~~~~~~~^
+        parent_persist_selectable=self.parent.persist_selectable,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<14 lines>...
+        can_be_synced_fn=self._columns_are_mapped,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\relationships.py", line 2310, in __init__
+    self._determine_joins()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\amech\Documents\workforce-management\venv\Lib\site-packages\sqlalchemy\orm\relationships.py", line 2467, in _determine_joins
+    raise sa_exc.AmbiguousForeignKeysError(
+    ...<7 lines>...
+    ) from afe
+sqlalchemy.exc.AmbiguousForeignKeysError: Could not determine join condition between parent/child tables on relationship User.shifts - there are multiple foreign key paths linking the tables.  Specify the 'foreign_keys' argument, providing a list of those columns which should be counted as containing a foreign key reference to the parent table.
+2025-04-02 09:25:41,568 - INFO - 127.0.0.1 - - [02/Apr/2025 09:25:41] "[35m[1mPOST /auth/login HTTP/1.1[0m" 500 -
+2025-04-02 09:28:10,148 - INFO -  * Detected change in 'C:\\Users\\amech\\Documents\\workforce-management\\backend\\app\\models.py', reloading
+2025-04-02 09:28:10,382 - INFO -  * Restarting with stat
+2025-04-02 09:28:12,191 - INFO - Application initialized successfully.
+2025-04-02 09:28:16,351 - WARNING - Redis connection failed, using in-memory rate limiting: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-04-02 09:28:16,367 - INFO - Database tables created or already exist.
+2025-04-02 09:28:16,386 - WARNING -  * Debugger is active!
+2025-04-02 09:28:16,392 - INFO -  * Debugger PIN: 533-922-284
+2025-04-02 09:28:52,545 - INFO -  * Detected change in 'C:\\Users\\amech\\Documents\\workforce-management\\backend\\app\\models.py', reloading
+2025-04-02 09:28:52,785 - INFO -  * Restarting with stat
+2025-04-02 09:28:54,741 - INFO - Application initialized successfully.
+2025-04-02 09:28:58,901 - WARNING - Redis connection failed, using in-memory rate limiting: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-04-02 09:28:58,918 - INFO - Database tables created or already exist.
+2025-04-02 09:28:58,933 - WARNING -  * Debugger is active!
+2025-04-02 09:28:58,939 - INFO -  * Debugger PIN: 533-922-284
+2025-04-02 09:30:33,044 - INFO -  * Detected change in 'C:\\Users\\amech\\Documents\\workforce-management\\backend\\app\\models.py', reloading
+2025-04-02 09:30:33,241 - INFO -  * Restarting with stat
+2025-04-02 09:30:34,988 - INFO - Application initialized successfully.
+2025-04-02 09:30:39,120 - WARNING - Redis connection failed, using in-memory rate limiting: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-04-02 09:30:39,136 - INFO - Database tables created or already exist.
+2025-04-02 09:30:39,152 - WARNING -  * Debugger is active!
+2025-04-02 09:30:39,159 - INFO -  * Debugger PIN: 533-922-284
+2025-04-02 09:30:42,607 - INFO -  * Detected change in 'C:\\Users\\amech\\Documents\\workforce-management\\backend\\app\\models.py', reloading
+2025-04-02 09:30:42,844 - INFO -  * Restarting with stat
+2025-04-02 09:30:44,541 - INFO - Application initialized successfully.
+2025-04-02 09:30:48,685 - WARNING - Redis connection failed, using in-memory rate limiting: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-04-02 09:30:48,702 - INFO - Database tables created or already exist.
+2025-04-02 09:30:48,717 - WARNING -  * Debugger is active!
+2025-04-02 09:30:48,723 - INFO -  * Debugger PIN: 533-922-284
+2025-04-02 09:31:46,156 - INFO - Application initialized successfully.
+2025-04-02 09:31:50,298 - WARNING - Redis connection failed, using in-memory rate limiting: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-04-02 09:31:50,315 - INFO - Database tables created or already exist.
+2025-04-02 09:31:50,321 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-02 09:31:50,322 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-02 09:32:17,132 - INFO - 127.0.0.1 - - [02/Apr/2025 09:32:17] "OPTIONS /auth/login HTTP/1.1" 200 -
+2025-04-02 09:32:17,156 - INFO - 127.0.0.1 - - [02/Apr/2025 09:32:17] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2025-04-02 09:32:19,014 - INFO - 127.0.0.1 - - [02/Apr/2025 09:32:19] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2025-04-02 09:32:21,603 - INFO - 127.0.0.1 - - [02/Apr/2025 09:32:21] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2025-04-02 09:32:29,889 - INFO - 127.0.0.1 - - [02/Apr/2025 09:32:29] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2025-04-02 09:32:31,125 - INFO - 127.0.0.1 - - [02/Apr/2025 09:32:31] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2025-04-02 09:33:11,573 - INFO - 127.0.0.1 - - [02/Apr/2025 09:33:11] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2025-04-02 09:33:40,911 - INFO - 127.0.0.1 - - [02/Apr/2025 09:33:40] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2025-04-02 09:33:41,989 - INFO - 127.0.0.1 - - [02/Apr/2025 09:33:41] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2025-04-02 09:33:42,890 - INFO - 127.0.0.1 - - [02/Apr/2025 09:33:42] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2025-04-02 09:33:43,745 - INFO - 127.0.0.1 - - [02/Apr/2025 09:33:43] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2025-04-02 09:33:46,635 - INFO - 127.0.0.1 - - [02/Apr/2025 09:33:46] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2025-04-02 09:33:47,621 - INFO - 127.0.0.1 - - [02/Apr/2025 09:33:47] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2025-04-02 09:33:48,288 - INFO - 127.0.0.1 - - [02/Apr/2025 09:33:48] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2025-04-02 09:33:58,371 - INFO - 127.0.0.1 - - [02/Apr/2025 09:33:58] "OPTIONS /auth/register HTTP/1.1" 200 -
+2025-04-02 09:33:58,609 - INFO - User 'admin' registered successfully.
+2025-04-02 09:33:58,609 - INFO - 127.0.0.1 - - [02/Apr/2025 09:33:58] "[35m[1mPOST /auth/register HTTP/1.1[0m" 201 -
+2025-04-02 09:34:01,674 - INFO - User 'admin' logged in successfully.
+2025-04-02 09:34:01,675 - INFO - 127.0.0.1 - - [02/Apr/2025 09:34:01] "POST /auth/login HTTP/1.1" 200 -
+2025-04-02 09:34:01,698 - INFO - 127.0.0.1 - - [02/Apr/2025 09:34:01] "OPTIONS /dashboard/employee HTTP/1.1" 200 -
+2025-04-02 09:34:01,698 - INFO - 127.0.0.1 - - [02/Apr/2025 09:34:01] "OPTIONS /dashboard/employee HTTP/1.1" 200 -
+2025-04-02 09:34:01,708 - INFO - 127.0.0.1 - - [02/Apr/2025 09:34:01] "GET /dashboard/employee HTTP/1.1" 200 -
+2025-04-02 09:34:01,714 - INFO - 127.0.0.1 - - [02/Apr/2025 09:34:01] "OPTIONS /dashboard/earnings HTTP/1.1" 200 -
+2025-04-02 09:34:01,714 - INFO - 127.0.0.1 - - [02/Apr/2025 09:34:01] "GET /dashboard/employee HTTP/1.1" 200 -
+2025-04-02 09:34:01,727 - INFO - 127.0.0.1 - - [02/Apr/2025 09:34:01] "GET /dashboard/earnings HTTP/1.1" 200 -
+2025-04-02 09:34:01,735 - INFO - 127.0.0.1 - - [02/Apr/2025 09:34:01] "OPTIONS /dashboard/activity/recent?limit=5 HTTP/1.1" 200 -
+2025-04-02 09:34:01,735 - INFO - 127.0.0.1 - - [02/Apr/2025 09:34:01] "GET /dashboard/earnings HTTP/1.1" 200 -
+2025-04-02 09:34:01,741 - INFO - 127.0.0.1 - - [02/Apr/2025 09:34:01] "GET /dashboard/activity/recent?limit=5 HTTP/1.1" 200 -
+2025-04-02 09:34:01,746 - INFO - 127.0.0.1 - - [02/Apr/2025 09:34:01] "GET /dashboard/activity/recent?limit=5 HTTP/1.1" 200 -
+2025-04-02 09:34:01,747 - INFO - 127.0.0.1 - - [02/Apr/2025 09:34:01] "OPTIONS /dashboard/schedule/2025/4 HTTP/1.1" 200 -
+2025-04-02 09:34:01,755 - INFO - 127.0.0.1 - - [02/Apr/2025 09:34:01] "GET /dashboard/schedule/2025/4 HTTP/1.1" 200 -
+2025-04-02 09:34:01,759 - INFO - 127.0.0.1 - - [02/Apr/2025 09:34:01] "GET /dashboard/schedule/2025/4 HTTP/1.1" 200 -
+2025-04-02 09:34:01,761 - INFO - 127.0.0.1 - - [02/Apr/2025 09:34:01] "OPTIONS /dashboard/activity/recent?limit=20 HTTP/1.1" 200 -
+2025-04-02 09:34:01,768 - INFO - 127.0.0.1 - - [02/Apr/2025 09:34:01] "GET /dashboard/activity/recent?limit=20 HTTP/1.1" 200 -
+2025-04-02 09:34:01,774 - INFO - 127.0.0.1 - - [02/Apr/2025 09:34:01] "GET /dashboard/activity/recent?limit=20 HTTP/1.1" 200 -
+2025-04-02 09:34:11,109 - INFO - 127.0.0.1 - - [02/Apr/2025 09:34:11] "GET /dashboard/employee HTTP/1.1" 200 -
+2025-04-02 09:34:11,115 - INFO - 127.0.0.1 - - [02/Apr/2025 09:34:11] "GET /dashboard/employee HTTP/1.1" 200 -
+2025-04-02 09:34:11,122 - INFO - 127.0.0.1 - - [02/Apr/2025 09:34:11] "GET /dashboard/earnings HTTP/1.1" 200 -
+2025-04-02 09:34:11,130 - INFO - 127.0.0.1 - - [02/Apr/2025 09:34:11] "GET /dashboard/earnings HTTP/1.1" 200 -
+2025-04-02 09:34:11,136 - INFO - 127.0.0.1 - - [02/Apr/2025 09:34:11] "GET /dashboard/activity/recent?limit=5 HTTP/1.1" 200 -
+2025-04-02 09:34:11,145 - INFO - 127.0.0.1 - - [02/Apr/2025 09:34:11] "GET /dashboard/activity/recent?limit=5 HTTP/1.1" 200 -
+2025-04-02 09:34:11,148 - INFO - 127.0.0.1 - - [02/Apr/2025 09:34:11] "GET /dashboard/schedule/2025/4 HTTP/1.1" 200 -
+2025-04-02 09:34:11,155 - INFO - 127.0.0.1 - - [02/Apr/2025 09:34:11] "GET /dashboard/schedule/2025/4 HTTP/1.1" 200 -
+2025-04-02 09:34:11,159 - INFO - 127.0.0.1 - - [02/Apr/2025 09:34:11] "GET /dashboard/activity/recent?limit=20 HTTP/1.1" 200 -
+2025-04-02 09:34:11,164 - INFO - 127.0.0.1 - - [02/Apr/2025 09:34:11] "GET /dashboard/activity/recent?limit=20 HTTP/1.1" 200 -
+2025-04-02 09:37:23,232 - INFO - Application initialized successfully.
+2025-04-02 09:37:27,382 - WARNING - Redis connection failed, using in-memory rate limiting: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-04-02 09:37:27,398 - INFO - Database tables created or already exist.
+2025-04-02 09:38:14,118 - INFO - 127.0.0.1 - - [02/Apr/2025 09:38:14] "OPTIONS /auth/login HTTP/1.1" 200 -
+2025-04-02 09:38:14,342 - INFO - User 'admin' logged in successfully.
+2025-04-02 09:38:14,343 - INFO - 127.0.0.1 - - [02/Apr/2025 09:38:14] "POST /auth/login HTTP/1.1" 200 -
+2025-04-02 09:38:14,357 - INFO - 127.0.0.1 - - [02/Apr/2025 09:38:14] "OPTIONS /dashboard/employee HTTP/1.1" 200 -
+2025-04-02 09:38:14,363 - INFO - 127.0.0.1 - - [02/Apr/2025 09:38:14] "OPTIONS /dashboard/employee HTTP/1.1" 200 -
+2025-04-02 09:38:14,373 - INFO - 127.0.0.1 - - [02/Apr/2025 09:38:14] "GET /dashboard/employee HTTP/1.1" 200 -
+2025-04-02 09:38:14,382 - INFO - 127.0.0.1 - - [02/Apr/2025 09:38:14] "GET /dashboard/employee HTTP/1.1" 200 -
+2025-04-02 09:38:14,384 - INFO - 127.0.0.1 - - [02/Apr/2025 09:38:14] "OPTIONS /dashboard/earnings HTTP/1.1" 200 -
+2025-04-02 09:38:14,392 - INFO - 127.0.0.1 - - [02/Apr/2025 09:38:14] "GET /dashboard/earnings HTTP/1.1" 200 -
+2025-04-02 09:38:14,403 - INFO - 127.0.0.1 - - [02/Apr/2025 09:38:14] "OPTIONS /dashboard/activity/recent?limit=5 HTTP/1.1" 200 -
+2025-04-02 09:38:14,403 - INFO - 127.0.0.1 - - [02/Apr/2025 09:38:14] "GET /dashboard/earnings HTTP/1.1" 200 -
+2025-04-02 09:38:14,411 - INFO - 127.0.0.1 - - [02/Apr/2025 09:38:14] "GET /dashboard/activity/recent?limit=5 HTTP/1.1" 200 -
+2025-04-02 09:38:14,418 - INFO - 127.0.0.1 - - [02/Apr/2025 09:38:14] "GET /dashboard/activity/recent?limit=5 HTTP/1.1" 200 -
+2025-04-02 09:38:14,419 - INFO - 127.0.0.1 - - [02/Apr/2025 09:38:14] "OPTIONS /dashboard/schedule/2025/4 HTTP/1.1" 200 -
+2025-04-02 09:38:14,427 - INFO - 127.0.0.1 - - [02/Apr/2025 09:38:14] "GET /dashboard/schedule/2025/4 HTTP/1.1" 200 -
+2025-04-02 09:38:14,433 - INFO - 127.0.0.1 - - [02/Apr/2025 09:38:14] "GET /dashboard/schedule/2025/4 HTTP/1.1" 200 -
+2025-04-02 09:38:14,434 - INFO - 127.0.0.1 - - [02/Apr/2025 09:38:14] "OPTIONS /dashboard/activity/recent?limit=20 HTTP/1.1" 200 -
+2025-04-02 09:38:14,442 - INFO - 127.0.0.1 - - [02/Apr/2025 09:38:14] "GET /dashboard/activity/recent?limit=20 HTTP/1.1" 200 -
+2025-04-02 09:38:14,450 - INFO - 127.0.0.1 - - [02/Apr/2025 09:38:14] "GET /dashboard/activity/recent?limit=20 HTTP/1.1" 200 -

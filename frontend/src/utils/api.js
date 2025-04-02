@@ -1,294 +1,321 @@
-// src/utils/api.js
-const API_URL = 'http://127.0.0.1:5000';
+// frontend/src/utils/api.js
+import axios from 'axios';
 
-// Helper function to handle common fetch options
-const fetchWithAuth = async (endpoint, options = {}) => {
-  const token = localStorage.getItem('access_token');
-  
-  const defaultHeaders = {
-    'Content-Type': 'application/json',
-    ...(token ? { 'Authorization': `Bearer ${token}` } : {})
-  };
-  
-  const config = {
-    ...options,
-    headers: {
-      ...defaultHeaders,
-      ...options.headers
+// Base API URL
+const BASE_URL = 'http://127.0.0.1:5000';
+
+// Create axios instance with defaults
+const apiClient = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    'Content-Type': 'application/json'
+  }
+});
+
+// Add request interceptor to include auth token
+apiClient.interceptors.request.use(
+  config => {
+    const token = localStorage.getItem('access_token');
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
     }
-  };
-  
-  try {
-    const response = await fetch(`${API_URL}${endpoint}`, config);
-    
-    // Handle unauthorized responses (token expired)
-    if (response.status === 401) {
+    return config;
+  },
+  error => {
+    return Promise.reject(error);
+  }
+);
+
+// Add response interceptor to handle common errors
+apiClient.interceptors.response.use(
+  response => {
+    return response.data;
+  },
+  error => {
+    // Handle unauthorized errors (token expired, etc.)
+    if (error.response && error.response.status === 401) {
       localStorage.removeItem('access_token');
       localStorage.removeItem('user_role');
-      window.location.href = '/login'; // Redirect to login
-      return { error: 'Session expired. Please log in again.' };
+      window.location.href = '/login';
     }
     
-    // Check if response is JSON
-    const contentType = response.headers.get('content-type');
-    if (contentType && contentType.includes('application/json')) {
-      const data = await response.json();
-      
-      if (!response.ok) {
-        return {
-          error: data.error || data.message || 'Something went wrong',
-          status: response.status
-        };
-      }
-      
-      return data;
-    } else if (response.status === 204) {
-      // No content response
-      return { success: true };
-    } else {
-      // Handle non-JSON responses
-      const text = await response.text();
-      if (!response.ok) {
-        return {
-          error: text || 'Something went wrong',
-          status: response.status
-        };
-      }
-      return { data: text, success: true };
-    }
-  } catch (error) {
-    console.error('API request failed:', error);
-    return { error: 'Network error. Please check your connection.' };
+    // Return error message or data
+    return Promise.reject(
+      error.response ? error.response.data : { error: 'Network Error' }
+    );
   }
-};
+);
 
-// Auth API
-const authAPI = {
-  login: async (username, password) => {
-    try {
-      const response = await fetch(`${API_URL}/auth/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-      });
-      
-      // For debugging
-      console.log('Login response status:', response.status);
-      
-      const data = await response.json();
-      console.log('Login response data:', data);
-      
-      if (!response.ok) {
-        return { error: data.error || data.message || 'Login failed' };
-      }
-      
-      // Store token and user role in localStorage
-      if (data.access_token) {
-        localStorage.setItem('access_token', data.access_token);
-        
-        // Extract role from user object
-        if (data.user && data.user.role) {
-          localStorage.setItem('user_role', data.user.role);
-        }
-      }
-      
-      return data;
-    } catch (error) {
-      console.error('Login error:', error);
-      return { error: 'Network error. Please check your connection.' };
-    }
-  },
-  
-  register: async (userData) => {
-    return fetchWithAuth('/auth/register', {
-      method: 'POST',
-      body: JSON.stringify(userData)
-    });
-  },
-  
-  forgotPassword: async (email) => {
-    return fetchWithAuth('/auth/forgot-password', {
-      method: 'POST',
-      body: JSON.stringify({ email })
-    });
-  },
-  
-  resetPassword: async (token, password) => {
-    return fetchWithAuth('/auth/reset-password', {
-      method: 'POST',
-      body: JSON.stringify({ token, password })
-    });
-  },
-  
-  logout: () => {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('user_role');
-    window.location.href = '/login';
-  }
-};
-
-// Users API
-const usersAPI = {
-  getAll: async () => {
-    return fetchWithAuth('/users/');
-  },
-  
-  getById: async (userId) => {
-    return fetchWithAuth(`/users/${userId}`);
-  },
-  
-  create: async (userData) => {
-    return fetchWithAuth('/users/', {
-      method: 'POST',
-      body: JSON.stringify(userData)
-    });
-  },
-  
-  update: async (userId, userData) => {
-    return fetchWithAuth(`/users/${userId}`, {
-      method: 'PUT',
-      body: JSON.stringify(userData)
-    });
-  },
-  
-  delete: async (userId) => {
-    return fetchWithAuth(`/users/${userId}`, {
-      method: 'DELETE'
-    });
-  }
-};
-
-// Locations API
-const locationsAPI = {
-  getAll: async () => {
-    return fetchWithAuth('/locations/');
-  },
-  
-  getById: async (locationId) => {
-    return fetchWithAuth(`/locations/${locationId}`);
-  },
-  
-  create: async (locationData) => {
-    return fetchWithAuth('/locations/', {
-      method: 'POST',
-      body: JSON.stringify(locationData)
-    });
-  },
-  
-  update: async (locationId, locationData) => {
-    return fetchWithAuth(`/locations/${locationId}`, {
-      method: 'PUT',
-      body: JSON.stringify(locationData)
-    });
-  },
-  
-  delete: async (locationId) => {
-    return fetchWithAuth(`/locations/${locationId}`, {
-      method: 'DELETE'
-    });
-  }
-};
-
-// Check-ins API
-const checkinsAPI = {
-  create: async (checkinData) => {
-    return fetchWithAuth('/checkins/', {
-      method: 'POST',
-      body: JSON.stringify(checkinData)
-    });
-  },
-  
-  getAll: async () => {
-    return fetchWithAuth('/checkins/');
-  }
-};
-
-// Payroll API
-const payrollAPI = {
-  getData: async (startDate, endDate) => {
-    const queryParams = new URLSearchParams();
-    if (startDate) queryParams.append('start_date', startDate);
-    if (endDate) queryParams.append('end_date', endDate);
-    
-    const queryString = queryParams.toString();
-    return fetchWithAuth(`/payroll/${queryString ? '?' + queryString : ''}`);
-  },
-  
-  exportToExcel: async (startDate, endDate) => {
-    const queryParams = new URLSearchParams();
-    if (startDate) queryParams.append('start_date', startDate);
-    if (endDate) queryParams.append('end_date', endDate);
-    
-    const queryString = queryParams.toString();
-    
-    try {
-      const token = localStorage.getItem('access_token');
-      
-      const response = await fetch(`${API_URL}/payroll/export${queryString ? '?' + queryString : ''}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      
-      if (!response.ok) {
-        const errorData = await response.json();
-        return { error: errorData.error || 'Failed to export payroll data' };
-      }
-      
-      // Return the blob for downloading
-      const blob = await response.blob();
-      
-      // Create a link element, set the download attribute and click it
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.style.display = 'none';
-      a.href = url;
-      a.download = `payroll_report_${startDate || 'all'}_to_${endDate || 'present'}.xlsx`;
-      
-      // Append to the document and trigger the download
-      document.body.appendChild(a);
-      a.click();
-      
-      // Clean up
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
-      
-      return { success: true };
-    } catch (error) {
-      console.error('Export failed:', error);
-      return { error: 'Network error. Please check your connection.' };
-    }
-  }
-};
-
-// Dashboard API
-// Update the dashboard API section to match the backend routes
-const dashboardAPI = {
-  getEmployeeData: async () => {
-    return fetchWithAuth('/dashboard/employee');
-  },
-  
-  getEarningsData: async () => {
-    return fetchWithAuth('/dashboard/earnings');
-  },
-  
-  getScheduleData: async (year, month) => {
-    return fetchWithAuth(`/dashboard/schedule/${year}/${month}`);
-  },
-  
-  getRecentActivity: async (limit = 10) => {
-    return fetchWithAuth(`/dashboard/activity/recent?limit=${limit}`);
-  }
-};
-
-// Export a unified API object
+// API service object
 const api = {
-  auth: authAPI,
-  users: usersAPI,
-  locations: locationsAPI,
-  checkins: checkinsAPI,
-  payroll: payrollAPI,
-  dashboard: dashboardAPI
+  // Authentication
+  auth: {
+    login: async (username, password) => {
+      try {
+        const response = await apiClient.post('/auth/login', { username, password });
+        if (response.access_token) {
+          localStorage.setItem('access_token', response.access_token);
+          localStorage.setItem('user_role', response.user.role);
+        }
+        return response;
+      } catch (error) {
+        console.error('Login error:', error);
+        return error;
+      }
+    },
+    
+    register: async (userData) => {
+      try {
+        return await apiClient.post('/auth/register', userData);
+      } catch (error) {
+        console.error('Registration error:', error);
+        return error;
+      }
+    },
+    
+    forgotPassword: async (email) => {
+      try {
+        return await apiClient.post('/auth/forgot-password', { email });
+      } catch (error) {
+        console.error('Forgot password error:', error);
+        return error;
+      }
+    },
+    
+    resetPassword: async (token, password) => {
+      try {
+        return await apiClient.post('/auth/reset-password', { token, password });
+      } catch (error) {
+        console.error('Reset password error:', error);
+        return error;
+      }
+    },
+    
+    logout: () => {
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('user_role');
+      window.location.href = '/login';
+    }
+  },
+  
+  // Users
+  users: {
+    getAll: async () => {
+      try {
+        return await apiClient.get('/users/');
+      } catch (error) {
+        console.error('Error fetching users:', error);
+        return { error: error.error || 'Failed to fetch users' };
+      }
+    },
+    
+    getById: async (userId) => {
+      try {
+        return await apiClient.get(`/users/${userId}`);
+      } catch (error) {
+        console.error(`Error fetching user ${userId}:`, error);
+        return { error: error.error || 'Failed to fetch user' };
+      }
+    },
+    
+    create: async (userData) => {
+      try {
+        return await apiClient.post('/users/', userData);
+      } catch (error) {
+        console.error('Error creating user:', error);
+        return { error: error.error || 'Failed to create user' };
+      }
+    },
+    
+    update: async (userId, userData) => {
+      try {
+        return await apiClient.put(`/users/${userId}`, userData);
+      } catch (error) {
+        console.error(`Error updating user ${userId}:`, error);
+        return { error: error.error || 'Failed to update user' };
+      }
+    }
+  },
+  
+  // Locations
+  locations: {
+    getAll: async () => {
+      try {
+        return await apiClient.get('/locations/');
+      } catch (error) {
+        console.error('Error fetching locations:', error);
+        return { error: error.error || 'Failed to fetch locations' };
+      }
+    },
+    
+    getById: async (locationId) => {
+      try {
+        return await apiClient.get(`/locations/${locationId}`);
+      } catch (error) {
+        console.error(`Error fetching location ${locationId}:`, error);
+        return { error: error.error || 'Failed to fetch location' };
+      }
+    },
+    
+    create: async (locationData) => {
+      try {
+        return await apiClient.post('/locations/', locationData);
+      } catch (error) {
+        console.error('Error creating location:', error);
+        return { error: error.error || 'Failed to create location' };
+      }
+    },
+    
+    update: async (locationId, locationData) => {
+      try {
+        return await apiClient.put(`/locations/${locationId}`, locationData);
+      } catch (error) {
+        console.error(`Error updating location ${locationId}:`, error);
+        return { error: error.error || 'Failed to update location' };
+      }
+    },
+    
+    delete: async (locationId) => {
+      try {
+        return await apiClient.delete(`/locations/${locationId}`);
+      } catch (error) {
+        console.error(`Error deleting location ${locationId}:`, error);
+        return { error: error.error || 'Failed to delete location' };
+      }
+    }
+  },
+  
+  // Check-ins
+  checkins: {
+    create: async (checkInData) => {
+      try {
+        return await apiClient.post('/checkins/', checkInData);
+      } catch (error) {
+        console.error('Error creating check-in:', error);
+        return { error: error.error || 'Failed to check in' };
+      }
+    },
+    
+    getRecent: async (limit = 10) => {
+      try {
+        return await apiClient.get(`/checkins/?limit=${limit}`);
+      } catch (error) {
+        console.error('Error fetching check-ins:', error);
+        return { error: error.error || 'Failed to fetch check-ins' };
+      }
+    }
+  },
+  
+  // Shifts
+  shifts: {
+    getAll: async (params = {}) => {
+      try {
+        return await apiClient.get('/shifts/', { params });
+      } catch (error) {
+        console.error('Error fetching shifts:', error);
+        return { error: error.error || 'Failed to fetch shifts' };
+      }
+    },
+    
+    getById: async (shiftId) => {
+      try {
+        return await apiClient.get(`/shifts/${shiftId}`);
+      } catch (error) {
+        console.error(`Error fetching shift ${shiftId}:`, error);
+        return { error: error.error || 'Failed to fetch shift' };
+      }
+    },
+    
+    create: async (shiftData) => {
+      try {
+        return await apiClient.post('/shifts/', shiftData);
+      } catch (error) {
+        console.error('Error creating shift:', error);
+        return { error: error.error || 'Failed to create shift' };
+      }
+    },
+    
+    update: async (shiftId, shiftData) => {
+      try {
+        return await apiClient.put(`/shifts/${shiftId}`, shiftData);
+      } catch (error) {
+        console.error(`Error updating shift ${shiftId}:`, error);
+        return { error: error.error || 'Failed to update shift' };
+      }
+    },
+    
+    delete: async (shiftId) => {
+      try {
+        return await apiClient.delete(`/shifts/${shiftId}`);
+      } catch (error) {
+        console.error(`Error deleting shift ${shiftId}:`, error);
+        return { error: error.error || 'Failed to delete shift' };
+      }
+    }
+  },
+  
+  // Dashboard
+  dashboard: {
+    getEmployeeData: async () => {
+      try {
+        return await apiClient.get('/dashboard/employee');
+      } catch (error) {
+        console.error('Error fetching employee data:', error);
+        return { error: error.error || 'Failed to fetch employee data' };
+      }
+    },
+    
+    getEarningsData: async () => {
+      try {
+        return await apiClient.get('/dashboard/earnings');
+      } catch (error) {
+        console.error('Error fetching earnings data:', error);
+        return { error: error.error || 'Failed to fetch earnings data' };
+      }
+    },
+    
+    getRecentActivity: async (limit = 10) => {
+      try {
+        return await apiClient.get(`/dashboard/activity/recent?limit=${limit}`);
+      } catch (error) {
+        console.error('Error fetching activity data:', error);
+        return { error: error.error || 'Failed to fetch activity data' };
+      }
+    },
+    
+    getScheduleData: async (year, month) => {
+      try {
+        return await apiClient.get(`/dashboard/schedule/${year}/${month}`);
+      } catch (error) {
+        console.error('Error fetching schedule data:', error);
+        return { error: error.error || 'Failed to fetch schedule data' };
+      }
+    }
+  },
+  
+  // Payroll
+  payroll: {
+    generate: async (params = {}) => {
+      try {
+        return await apiClient.get('/payroll/', { params });
+      } catch (error) {
+        console.error('Error generating payroll:', error);
+        return { error: error.error || 'Failed to generate payroll' };
+      }
+    },
+    
+    export: async (params = {}) => {
+      try {
+        return await apiClient.get('/payroll/export', {
+          params,
+          responseType: 'blob'
+        });
+      } catch (error) {
+        console.error('Error exporting payroll:', error);
+        return { error: error.error || 'Failed to export payroll' };
+      }
+    }
+  }
 };
 
 export default api;

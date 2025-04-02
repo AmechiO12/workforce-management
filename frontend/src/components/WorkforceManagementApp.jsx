@@ -1,13 +1,15 @@
+// frontend/src/components/WorkforceManagementApp.jsx
 import React, { useState, useEffect } from 'react';
-import { useNavigate, Routes, Route } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
-import Dashboard from './Dashboard';
+import AdminDashboard from './AdminDashboard';
+import EmployeeDashboard from './EmployeeDashboard';
 import CheckInForm from './CheckInForm';
 import LocationsManagement from './LocationsManagement';
 import UserManagement from './UserManagement';
+import ShiftManagement from './ShiftManagement';
 import PayrollManagement from './PayrollManagement';
 import api from '../utils/api';
-import EmployeeDashboard from './EmployeeDashboard';
 
 const WorkforceManagementApp = () => {
   const navigate = useNavigate();
@@ -16,6 +18,7 @@ const WorkforceManagementApp = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userRole, setUserRole] = useState('');
   const [currentPage, setCurrentPage] = useState('dashboard');
+  const [isLoading, setIsLoading] = useState(true);
   
   // Check authentication on component mount
   useEffect(() => {
@@ -25,6 +28,7 @@ const WorkforceManagementApp = () => {
     if (token) {
       setIsAuthenticated(true);
       setUserRole(role || 'Employee');
+      setIsLoading(false);
     } else {
       // Redirect to login if no token found
       navigate('/login');
@@ -33,7 +37,7 @@ const WorkforceManagementApp = () => {
   
   // Handle logout
   const handleLogout = () => {
-    api.auth.logout(); // Using the API service for logout
+    api.auth.logout();
     setIsAuthenticated(false);
   };
   
@@ -43,7 +47,7 @@ const WorkforceManagementApp = () => {
   };
   
   // Render loading state while checking authentication
-  if (!isAuthenticated) {
+  if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-screen bg-gray-100">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
@@ -51,29 +55,38 @@ const WorkforceManagementApp = () => {
     );
   }
 
-  // Main content based on current page
+  // Main content based on current page and user role
   const renderContent = () => {
-    if (!isAuthenticated) {
-      if (currentPage === 'register') {
-        return <RegisterForm onSwitchToLogin={handleSwitchToLogin} />;
+    // Admin view
+    if (userRole === 'Admin') {
+      switch (currentPage) {
+        case 'dashboard':
+          return <AdminDashboard onPageChange={handlePageChange} />;
+        case 'checkin':
+          return <CheckInForm />;
+        case 'locations':
+          return <LocationsManagement />;
+        case 'users':
+          return <UserManagement />;
+        case 'shifts':
+          return <ShiftManagement />;
+        case 'payroll':
+          return <PayrollManagement />;
+        default:
+          return <AdminDashboard onPageChange={handlePageChange} />;
       }
-      return <LoginForm onLogin={handleLogin} onSwitchToRegister={handleSwitchToRegister} />;
-    }
-  
-    switch (currentPage) {
-      case 'dashboard':
-       // Use the employee dashboard for regular employees and the admin dashboard for admins
-       return userRole === 'Admin' ? <Dashboard /> : <EmployeeDashboard onPageChange={handlePageChange} />;
-      case 'checkin':
-        return <CheckInForm />;
-      case 'locations':
-        return userRole === 'Admin' ? <LocationsManagement /> : <EmployeeDashboard />;
-      case 'users':
-        return userRole === 'Admin' ? <UserManagement /> : <EmployeeDashboard />;
-      case 'payroll':
-        return <PayrollManagement />;
-      default:
-        return userRole === 'Admin' ? <Dashboard /> : <EmployeeDashboard />;
+    } 
+    // Employee view
+    else {
+      switch (currentPage) {
+        case 'dashboard':
+          return <EmployeeDashboard onPageChange={handlePageChange} />;
+        case 'checkin':
+          return <CheckInForm />;
+        // Employees can only access dashboard and check-in pages
+        default:
+          return <EmployeeDashboard onPageChange={handlePageChange} />;
+      }
     }
   };
 

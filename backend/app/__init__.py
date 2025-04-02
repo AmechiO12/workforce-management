@@ -88,7 +88,7 @@ def create_app(test_config=None):
     from backend.app.routes.users import bp as users_bp
     from backend.app.routes.payroll import bp as payroll_bp
     from backend.app.routes.dashboard import bp as dashboard_bp
-    
+    from backend.app.routes.shifts import bp as shifts_bp
 
     app.register_blueprint(auth_bp, url_prefix='/auth')
     app.register_blueprint(checkins_bp, url_prefix='/checkins')
@@ -96,6 +96,8 @@ def create_app(test_config=None):
     app.register_blueprint(users_bp, url_prefix='/users')
     app.register_blueprint(payroll_bp, url_prefix='/payroll')
     app.register_blueprint(dashboard_bp)
+    app.register_blueprint(shifts_bp, url_prefix='/shifts')
+
 
     # Default home route
     @app.route('/')

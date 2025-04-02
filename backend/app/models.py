@@ -23,6 +23,7 @@ class User(db.Model):
     checkins = db.relationship('CheckIn', back_populates='user', cascade='all, delete-orphan', lazy='dynamic')
     payrolls = db.relationship('Payroll', back_populates='user', cascade='all, delete-orphan', lazy='dynamic')
     shifts = db.relationship('Shift', back_populates='user', cascade='all, delete-orphan', lazy='dynamic')
+    shifts = db.relationship('Shift', foreign_keys='Shift.user_id', back_populates='user')
     invoices = db.relationship('Invoice', back_populates='user', cascade='all, delete-orphan', lazy='dynamic')
 
     def set_password(self, password: str):
@@ -130,32 +131,6 @@ class Payroll(db.Model):
             "generated_on": self.generated_on.isoformat() if self.generated_on else None
         }
 
-
-class Shift(db.Model):
-    """Represents scheduled shifts for users at specific locations."""
-    __tablename__ = 'shifts'
-
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    location_id = db.Column(db.Integer, db.ForeignKey('locations.id'), nullable=False)
-    start_time = db.Column(db.DateTime, nullable=False)
-    end_time = db.Column(db.DateTime, nullable=False)
-
-    # Relationships
-    user = db.relationship('User', back_populates='shifts')
-    location = db.relationship('Location', back_populates='shifts')
-
-    def serialize(self):
-        """Serialize the Shift object into a dictionary."""
-        return {
-            "id": self.id,
-            "user_id": self.user_id,
-            "location_id": self.location_id,
-            "start_time": self.start_time.isoformat() if self.start_time else None,
-            "end_time": self.end_time.isoformat() if self.end_time else None
-        }
-
-
 class Invoice(db.Model):
     """Invoice model for payroll records."""
     __tablename__ = 'invoices'
@@ -213,3 +188,40 @@ class PasswordResetToken(db.Model):
         )
         
         return token, token_value
+    
+    
+    # Add this to backend/app/models.py
+
+class Shift(db.Model):
+    """Represents scheduled shifts for users at specific locations."""
+    __tablename__ = 'shifts'
+    __table_args__ = {'extend_existing': True}  # Fix the duplicate table error
+    
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    location_id = db.Column(db.Integer, db.ForeignKey('locations.id'), nullable=False)
+    start_time = db.Column(db.DateTime, nullable=False)
+    end_time = db.Column(db.DateTime, nullable=False)
+    status = db.Column(db.String(20), default='Scheduled')  # Scheduled, Completed, Missed
+    notes = db.Column(db.Text, nullable=True)
+    created_by = db.Column(db.Integer, db.ForeignKey('users.id'))
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    # Relationships - Explicitly specify which foreign key to use for each relationship
+    user = db.relationship('User', foreign_keys=[user_id], back_populates='shifts')
+    location = db.relationship('Location', back_populates='shifts')
+    creator = db.relationship('User', foreign_keys=[created_by], backref='created_shifts')
+
+    def serialize(self):
+        """Serialize the Shift object into a dictionary."""
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "username": self.user.username if self.user else None,
+            "location_id": self.location_id,
+            "location_name": self.location.name if self.location else None,
+            "start_time": self.start_time.isoformat() if self.start_time else None,
+            "end_time": self.end_time.isoformat() if self.end_time else None,
+            "status": self.status,
+            "notes": self.notes
+        }
