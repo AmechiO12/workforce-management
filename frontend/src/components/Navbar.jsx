@@ -1,6 +1,6 @@
 // frontend/src/components/Navbar.jsx
 import React, { useState } from 'react';
-import { Calendar, Users, Map, DollarSign, Clock, LogOut, Menu, X } from 'lucide-react';
+import { Calendar, Users, Map, DollarSign, Clock, LogOut, Menu, X, TrendingUp } from 'lucide-react';
 
 const Navbar = ({ isAuthenticated, userRole, currentPage, setCurrentPage, onLogout }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -9,17 +9,17 @@ const Navbar = ({ isAuthenticated, userRole, currentPage, setCurrentPage, onLogo
   
   // Navigation items based on user role
   const navItems = userRole === 'Admin' 
-    ? [
-        { id: 'dashboard', label: 'Dashboard', icon: <Clock className="h-5 w-5" /> },
-        { id: 'shifts', label: 'Shifts', icon: <Calendar className="h-5 w-5" /> },
-        { id: 'locations', label: 'Locations', icon: <Map className="h-5 w-5" /> },
-        { id: 'users', label: 'Employees', icon: <Users className="h-5 w-5" /> },
-        { id: 'payroll', label: 'Invoices', icon: <DollarSign className="h-5 w-5" /> }
-      ]
-    : [
-        { id: 'dashboard', label: 'Dashboard', icon: <Clock className="h-5 w-5" /> },
-        { id: 'checkin', label: 'Check-in', icon: <Map className="h-5 w-5" /> }
-      ];
+  ? [
+      { id: 'dashboard', label: 'Dashboard', icon: <Clock className="h-5 w-5" /> },
+      { id: 'analytics', label: 'Analytics', icon: <TrendingUp className="h-5 w-5" /> },
+      { id: 'shifts', label: 'Shifts', icon: <Calendar className="h-5 w-5" /> },
+      { id: 'locations', label: 'Locations', icon: <Map className="h-5 w-5" /> },
+      { id: 'users', label: 'Employees', icon: <Users className="h-5 w-5" /> },
+      { id: 'payroll', label: 'Invoices', icon: <DollarSign className="h-5 w-5" /> }
+    ]
+  : [
+      { id: 'dashboard', label: 'Dashboard', icon: <Clock className="h-5 w-5" /> },
+      { id: 'checkin', label: 'Check-in', icon: <Map className="h-5 w-5" /> }    ];
   
   return (
     <nav className="bg-white shadow-md border-b border-gray-200">

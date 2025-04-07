@@ -10,6 +10,9 @@ import UserManagement from './UserManagement';
 import ShiftManagement from './ShiftManagement';
 import PayrollManagement from './PayrollManagement';
 import api from '../utils/api';
+import EnhancedShiftManagement from './EnhancedShiftManagement';
+import EnhancedEmployeeDashboard from './EnhancedEmployeeDashboard';
+import AdminAnalyticsDashboard from './AdminAnalyticsDashboard';
 
 const WorkforceManagementApp = () => {
   const navigate = useNavigate();
@@ -55,13 +58,14 @@ const WorkforceManagementApp = () => {
     );
   }
 
-  // Main content based on current page and user role
   const renderContent = () => {
     // Admin view
     if (userRole === 'Admin') {
       switch (currentPage) {
         case 'dashboard':
           return <AdminDashboard onPageChange={handlePageChange} />;
+        case 'analytics':
+          return <AdminAnalyticsDashboard />;
         case 'checkin':
           return <CheckInForm />;
         case 'locations':
@@ -69,7 +73,7 @@ const WorkforceManagementApp = () => {
         case 'users':
           return <UserManagement />;
         case 'shifts':
-          return <ShiftManagement />;
+          return <EnhancedShiftManagement />;
         case 'payroll':
           return <PayrollManagement />;
         default:
@@ -80,12 +84,11 @@ const WorkforceManagementApp = () => {
     else {
       switch (currentPage) {
         case 'dashboard':
-          return <EmployeeDashboard onPageChange={handlePageChange} />;
+          return <EnhancedEmployeeDashboard onPageChange={handlePageChange} />;
         case 'checkin':
           return <CheckInForm />;
-        // Employees can only access dashboard and check-in pages
         default:
-          return <EmployeeDashboard onPageChange={handlePageChange} />;
+          return <EnhancedEmployeeDashboard onPageChange={handlePageChange} />;
       }
     }
   };
