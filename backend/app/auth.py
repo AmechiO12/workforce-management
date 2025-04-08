@@ -231,9 +231,16 @@ def login():
         if not user or not user.check_password(password):
             return error_response("Invalid username or password", 401)
 
-        token = generate_token(identity={"id": user.id, "role": user.role})
-        logging.info(f"User '{username}' logged in successfully.")
-        return jsonify({"message": "Login successful", "access_token": token}), 200
+        token = create_access_token(identity={"id": user.id, "role": user.role})
+        return jsonify({
+            "message": "Login successful", 
+            "access_token": token,
+            "user": {
+                "id": user.id,
+                "username": user.username,
+                "role": user.role  # Add this to return the role
+            }
+        }), 200
 
     except Exception as e:
         logging.exception(f"Unexpected error during login: {e}")
