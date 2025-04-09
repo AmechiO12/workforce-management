@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import api from '../utils/api';
+import enhancedApi from '../utils/enhancedApi';
 
-const CheckInForm = () => {
+const CheckInForm = ({ onCheckInComplete }) => {
   // State management
   const [locationsList, setLocationsList] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState('');
   const [coordinates, setCoordinates] = useState(null);
   const [status, setStatus] = useState({ type: '', message: '' });
+  const [lastCheckIn, setLastCheckIn] = useState(null);
   
   // Loading states
   const [isLoading, setIsLoading] = useState({
@@ -25,7 +26,7 @@ const CheckInForm = () => {
   const fetchLocations = useCallback(async () => {
     try {
       setIsLoading(prev => ({ ...prev, locations: true }));
-      const response = await api.locations.getAll();
+      const response = await enhancedApi.locations.getAll();
       
       if (Array.isArray(response)) {
         setLocationsList(response);
@@ -47,10 +48,26 @@ const CheckInForm = () => {
     }
   }, []);
 
-  // Load locations on component mount
+  // Get most recent check-in activity
+  const fetchRecentCheckIn = useCallback(async () => {
+    try {
+      const activity = await enhancedApi.dashboard.getRecentActivity(1);
+      if (Array.isArray(activity) && activity.length > 0) {
+        const checkInActivity = activity.find(item => item.type === 'check-in');
+        if (checkInActivity) {
+          setLastCheckIn(checkInActivity);
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching recent check-in:', error);
+    }
+  }, []);
+
+  // Load locations and recent check-in on component mount
   useEffect(() => {
     fetchLocations();
-  }, [fetchLocations]);
+    fetchRecentCheckIn();
+  }, [fetchLocations, fetchRecentCheckIn]);
 
   // Get current location
   const getCurrentLocation = async () => {
@@ -102,7 +119,7 @@ const CheckInForm = () => {
     }
   };
 
-  // Handle check-in submission
+  // Handle check-in submission using enhanced API
   const handleSubmit = async (e) => {
     e.preventDefault();
     clearStatus();
@@ -122,16 +139,17 @@ const CheckInForm = () => {
 
     try {
       const checkInData = {
-        location_id: selectedLocation,
+        location_id: parseInt(selectedLocation),
         latitude: coordinates.latitude,
         longitude: coordinates.longitude
       };
       
-      const response = await api.checkins.create(checkInData);
+      // Use the enhanced API for check-in with validation
+      const response = await enhancedApi.checkins.createWithValidation(checkInData);
       
       if (response.success) {
         // Find the location name for better feedback
-        const locationName = locationsList.find(loc => loc.id === selectedLocation)?.name || 'selected location';
+        const locationName = locationsList.find(loc => loc.id === parseInt(selectedLocation))?.name || 'selected location';
         
         setStatusMessage(
           'success', 
@@ -144,6 +162,14 @@ const CheckInForm = () => {
         
         // Reset coordinates after successful check-in
         setCoordinates(null);
+        
+        // Fetch updated recent check-in
+        fetchRecentCheckIn();
+        
+        // Notify parent component of successful check-in
+        if (onCheckInComplete) {
+          onCheckInComplete();
+        }
       } else if (response.error) {
         setStatusMessage('error', response.error);
       } else {
@@ -216,6 +242,28 @@ const CheckInForm = () => {
             </div>
           )}
           
+          {/* Show last check-in */}
+          {lastCheckIn && (
+            <div className="mb-6 p-4 rounded-md bg-blue-50 border border-blue-200 text-blue-700">
+              <div className="flex">
+                <div className="flex-shrink-0">
+                  <svg className="h-5 w-5 text-blue-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" />
+                  </svg>
+                </div>
+                <div className="ml-3">
+                  <p className="text-sm font-medium">Last Check-in</p>
+                  <p className="text-sm">
+                    {lastCheckIn.location} at {new Date(lastCheckIn.time).toLocaleTimeString()}
+                  </p>
+                  <p className="text-xs text-blue-500">
+                    {new Date(lastCheckIn.time).toLocaleDateString()}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+          
           {/* Location select */}
           <div className="mb-6">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="location">
@@ -247,7 +295,7 @@ const CheckInForm = () => {
             </div>
             {locationsList.length > 0 && selectedLocation && (
               <p className="mt-2 text-xs text-gray-500">
-                Selected: {locationsList.find(loc => loc.id === selectedLocation)?.name}
+                Selected: {locationsList.find(loc => loc.id === parseInt(selectedLocation))?.name}
               </p>
             )}
           </div>

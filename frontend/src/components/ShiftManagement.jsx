@@ -1,7 +1,7 @@
 // frontend/src/components/ShiftManagement.jsx
 import React, { useState, useEffect } from 'react';
 import { Calendar, Plus, ArrowLeft, ArrowRight, Check, X, AlertCircle } from 'lucide-react';
-import api from '../utils/api';
+import enhancedApi from '../utils/enhancedApi';
 
 const ShiftManagement = () => {
   // State hooks for shifts and related data

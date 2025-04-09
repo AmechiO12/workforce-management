@@ -76,3 +76,35 @@
 2025-04-01 17:30:21,625 - WARNING - Redis connection failed, using in-memory rate limiting: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
 2025-04-01 23:00:31,164 - INFO - Application initialized successfully.
 2025-04-01 23:00:47,804 - INFO - Application initialized successfully.
+2025-04-08 17:47:59,458 - INFO - Application initialized successfully.
+2025-04-08 17:48:03,642 - WARNING - Redis connection failed, using in-memory rate limiting: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-04-08 17:48:03,726 - INFO - Database tables created or already exist.
+2025-04-08 17:48:03,745 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-08 17:48:03,745 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-08 17:48:34,640 - INFO - 127.0.0.1 - - [08/Apr/2025 17:48:34] "OPTIONS /dashboard/employee HTTP/1.1" 200 -
+2025-04-08 17:48:34,643 - INFO - 127.0.0.1 - - [08/Apr/2025 17:48:34] "OPTIONS /dashboard/employee HTTP/1.1" 200 -
+2025-04-08 17:48:34,647 - INFO - 127.0.0.1 - - [08/Apr/2025 17:48:34] "[31m[1mGET /dashboard/employee HTTP/1.1[0m" 401 -
+2025-04-08 17:48:34,656 - INFO - 127.0.0.1 - - [08/Apr/2025 17:48:34] "[31m[1mGET /dashboard/employee HTTP/1.1[0m" 401 -
+2025-04-08 17:48:34,666 - INFO - 127.0.0.1 - - [08/Apr/2025 17:48:34] "[31m[1mGET /users/ HTTP/1.1[0m" 401 -
+2025-04-08 17:48:34,686 - INFO - 127.0.0.1 - - [08/Apr/2025 17:48:34] "[31m[1mGET /users/ HTTP/1.1[0m" 401 -
+2025-04-08 17:48:34,699 - INFO - 127.0.0.1 - - [08/Apr/2025 17:48:34] "[31m[1mGET /locations/ HTTP/1.1[0m" 401 -
+2025-04-08 17:48:34,723 - INFO - 127.0.0.1 - - [08/Apr/2025 17:48:34] "[31m[1mGET /locations/ HTTP/1.1[0m" 401 -
+2025-04-08 17:52:38,113 - INFO - 127.0.0.1 - - [08/Apr/2025 17:52:38] "OPTIONS /auth/login HTTP/1.1" 200 -
+2025-04-08 17:52:38,142 - INFO - 127.0.0.1 - - [08/Apr/2025 17:52:38] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2025-04-08 17:52:39,835 - INFO - 127.0.0.1 - - [08/Apr/2025 17:52:39] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2025-04-08 17:52:40,815 - INFO - 127.0.0.1 - - [08/Apr/2025 17:52:40] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2025-04-08 17:52:41,729 - INFO - 127.0.0.1 - - [08/Apr/2025 17:52:41] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2025-04-08 17:52:58,420 - INFO - 127.0.0.1 - - [08/Apr/2025 17:52:58] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2025-04-08 17:53:02,513 - INFO - 127.0.0.1 - - [08/Apr/2025 17:53:02] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2025-04-08 17:53:15,898 - INFO - 127.0.0.1 - - [08/Apr/2025 17:53:15] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2025-04-08 17:53:17,849 - INFO - 127.0.0.1 - - [08/Apr/2025 17:53:17] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2025-04-08 17:54:05,433 - INFO - 127.0.0.1 - - [08/Apr/2025 17:54:05] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2025-04-08 17:54:06,699 - INFO - 127.0.0.1 - - [08/Apr/2025 17:54:06] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2025-04-08 17:54:14,861 - INFO - 127.0.0.1 - - [08/Apr/2025 17:54:14] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2025-04-08 17:59:17,203 - INFO - 127.0.0.1 - - [08/Apr/2025 17:59:17] "OPTIONS /auth/login HTTP/1.1" 200 -
+2025-04-08 17:59:17,211 - INFO - 127.0.0.1 - - [08/Apr/2025 17:59:17] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2025-04-08 17:59:18,198 - INFO - 127.0.0.1 - - [08/Apr/2025 17:59:18] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2025-04-08 17:59:21,052 - INFO - 127.0.0.1 - - [08/Apr/2025 17:59:21] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2025-04-08 17:59:34,709 - INFO - 127.0.0.1 - - [08/Apr/2025 17:59:34] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2025-04-08 17:59:48,738 - INFO - 127.0.0.1 - - [08/Apr/2025 17:59:48] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
