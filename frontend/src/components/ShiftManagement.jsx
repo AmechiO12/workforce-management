@@ -1,9 +1,9 @@
-// frontend/src/components/ShiftManagement.jsx
+// Updated ShiftManagement.jsx properly using enhancedApi
 import React, { useState, useEffect } from 'react';
 import { Calendar, Plus, ArrowLeft, ArrowRight, Check, X, AlertCircle } from 'lucide-react';
 import enhancedApi from '../utils/enhancedApi';
 
-const ShiftManagement = () => {
+const ShiftManagement = ({ onDataChange }) => {
   // State hooks for shifts and related data
   const [isLoading, setIsLoading] = useState(true);
   const [employees, setEmployees] = useState([]);
@@ -62,8 +62,8 @@ const ShiftManagement = () => {
           params.user_id = filters.employeeId;
         }
         
-        const response = await api.shifts.getAll(params);
-        setShifts(response || []);
+        const response = await enhancedApi.shifts.getAll(params);
+        setShifts(Array.isArray(response) ? response : []);
       } catch (error) {
         console.error("Error fetching shifts:", error);
         setError("Failed to load shifts. Please try again.");
@@ -84,10 +84,10 @@ const ShiftManagement = () => {
     
     try {
       // Fetch employees
-      const employeesResponse = await api.users.getAll();
+      const employeesResponse = await enhancedApi.users.getAll();
       
       // Fetch locations
-      const locationsResponse = await api.locations.getAll();
+      const locationsResponse = await enhancedApi.locations.getAll();
       
       if (Array.isArray(employeesResponse)) {
         // Filter to only include employees (not admins)
@@ -169,7 +169,7 @@ const ShiftManagement = () => {
     setIsLoading(true);
   };
 
-  // Add new shift
+  // Add new shift with conflict validation
   const handleAddShift = async (e) => {
     e.preventDefault();
     setError('');
@@ -192,6 +192,20 @@ const ShiftManagement = () => {
         return;
       }
       
+      // Check for conflicts using the enhanced API
+      const { hasConflicts, conflicts } = await enhancedApi.shifts.checkConflicts(
+        shiftForm.employeeId,
+        startDateTime,
+        endDateTime
+      );
+      
+      // If conflicts exist, show error message
+      if (hasConflicts) {
+        setError(`Scheduling conflict detected. This employee already has a shift during this time.`);
+        return;
+      }
+      
+      // Prepare shift data
       const shiftData = {
         user_id: parseInt(shiftForm.employeeId),
         location_id: parseInt(shiftForm.locationId),
@@ -200,7 +214,8 @@ const ShiftManagement = () => {
         notes: shiftForm.notes
       };
       
-      const response = await api.shifts.create(shiftData);
+      // Use enhanced API to create shift
+      const response = await enhancedApi.shifts.create(shiftData);
       
       if (response && response.id) {
         setSuccess("Shift scheduled successfully!");
@@ -214,8 +229,13 @@ const ShiftManagement = () => {
         }));
         
         // Refresh shifts
-        const updatedShifts = await api.shifts.getAll();
-        setShifts(updatedShifts || []);
+        const updatedShifts = await enhancedApi.shifts.getAll();
+        setShifts(Array.isArray(updatedShifts) ? updatedShifts : []);
+        
+        // Notify parent component of data change if callback exists
+        if (onDataChange) {
+          onDataChange();
+        }
         
         // Close modal if user wants
         setTimeout(() => {
@@ -224,7 +244,7 @@ const ShiftManagement = () => {
           }
         }, 500);
       } else {
-        setError("Failed to schedule shift.");
+        setError(response?.error || "Failed to schedule shift.");
       }
     } catch (error) {
       console.error("Error adding shift:", error);
@@ -239,12 +259,21 @@ const ShiftManagement = () => {
     }
     
     try {
-      await api.shifts.delete(shiftId);
+      const response = await enhancedApi.shifts.delete(shiftId);
       
-      // Remove from local state
-      setShifts(shifts.filter(shift => shift.id !== shiftId));
-      
-      setSuccess("Shift deleted successfully!");
+      if (response && response.message) {
+        // Remove from local state
+        setShifts(shifts.filter(shift => shift.id !== shiftId));
+        
+        setSuccess("Shift deleted successfully!");
+        
+        // Notify parent component of data change if callback exists
+        if (onDataChange) {
+          onDataChange();
+        }
+      } else {
+        setError(response?.error || "Failed to delete shift.");
+      }
     } catch (error) {
       console.error("Error deleting shift:", error);
       setError("Failed to delete shift. Please try again.");
@@ -544,7 +573,7 @@ const ShiftManagement = () => {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusClasses(shift.status)}`}>
-                        {shift.status}
+                        {shift.status || 'Scheduled'}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">

@@ -1,3 +1,4 @@
+// Updated CheckInForm.jsx using enhancedApi
 import React, { useState, useEffect, useCallback } from 'react';
 import enhancedApi from '../utils/enhancedApi';
 
@@ -35,7 +36,7 @@ const CheckInForm = ({ onCheckInComplete }) => {
         } else {
           setStatusMessage('warning', 'No locations available for check-in.');
         }
-      } else if (response.error) {
+      } else if (response?.error) {
         setStatusMessage('error', response.error);
       } else {
         setStatusMessage('error', 'Failed to load locations. Please try again.');

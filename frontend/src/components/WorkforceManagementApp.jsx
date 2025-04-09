@@ -9,7 +9,6 @@ import LocationsManagement from './LocationsManagement';
 import UserManagement from './UserManagement';
 import ShiftManagement from './ShiftManagement';
 import PayrollManagement from './PayrollManagement';
-import EnhancedShiftManagement from './EnhancedShiftManagement';
 import EnhancedEmployeeDashboard from './EnhancedEmployeeDashboard';
 import AdminAnalyticsDashboard from './AdminAnalyticsDashboard';
 import enhancedApi from '../utils/enhancedApi';
@@ -32,26 +31,26 @@ const WorkforceManagementApp = () => {
     const checkAuth = async () => {
       const token = localStorage.getItem('access_token');
       const role = localStorage.getItem('user_role');
-      const username = localStorage.getItem('username');
       
-      if (token) {
-        setIsAuthenticated(true);
-        setUserRole(role || 'Employee');
-        
-        // Fetch user data - this will also validate if the token is still valid
-        try {
-          // We'll use the dashboard data to get user info
-          await fetchDashboardData();
-        } catch (error) {
-          console.error("Authentication error:", error);
-          // If there's an auth error, redirect to login
-          handleLogout();
-        }
-        
-        setIsLoading(false);
-      } else {
+      if (!token) {
         // Redirect to login if no token found
         navigate('/login');
+        return;
+      }
+      
+      // Set initial auth state
+      setIsAuthenticated(true);
+      setUserRole(role || 'Employee');
+      
+      // Fetch user data to validate the token and get initial data
+      try {
+        // Use the enhanced API to get dashboard data
+        await fetchDashboardData();
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Authentication error:", error);
+        // If there's an auth error, redirect to login
+        handleLogout();
       }
     };
     
@@ -62,13 +61,17 @@ const WorkforceManagementApp = () => {
   const fetchDashboardData = async () => {
     try {
       setIsLoading(true);
+      setError(null);
+      
       const data = await enhancedApi.dashboard.getUnifiedDashboardData();
       
-      if (data.error) {
+      if (data && data.error) {
         setError(data.error);
-      } else {
+      } else if (data) {
         setDashboardData(data);
         setUserData(data.userData);
+      } else {
+        setError("Failed to fetch dashboard data");
       }
     } catch (error) {
       console.error("Error fetching dashboard data:", error);
@@ -111,6 +114,7 @@ const WorkforceManagementApp = () => {
     );
   }
 
+  // Render the appropriate content based on user role and current page
   const renderContent = () => {
     // Admin view
     if (userRole === 'Admin') {
@@ -129,7 +133,6 @@ const WorkforceManagementApp = () => {
           return (
             <CheckInForm 
               onCheckInComplete={handleDataUpdate}
-              enhancedApi={enhancedApi}
             />
           );
         case 'locations':
@@ -146,8 +149,7 @@ const WorkforceManagementApp = () => {
           );
         case 'shifts':
           return (
-            <EnhancedShiftManagement 
-              enhancedApi={enhancedApi}
+            <ShiftManagement 
               onDataChange={handleDataUpdate}
             />
           );
@@ -179,7 +181,6 @@ const WorkforceManagementApp = () => {
           return (
             <CheckInForm 
               onCheckInComplete={handleDataUpdate}
-              enhancedApi={enhancedApi}
             />
           );
         default:
@@ -197,6 +198,7 @@ const WorkforceManagementApp = () => {
 
   return (
     <div className="min-h-screen bg-gray-100">
+      {/* Display any error messages at the top of the page */}
       {error && (
         <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
           <p className="font-bold">Error</p>
@@ -204,6 +206,7 @@ const WorkforceManagementApp = () => {
         </div>
       )}
       
+      {/* Navigation bar with user role and page selection */}
       <Navbar
         isAuthenticated={isAuthenticated}
         userRole={userRole}
@@ -213,6 +216,7 @@ const WorkforceManagementApp = () => {
         onLogout={handleLogout}
       />
       
+      {/* Main content area */}
       <main className="container mx-auto px-4 py-8">
         {renderContent()}
       </main>

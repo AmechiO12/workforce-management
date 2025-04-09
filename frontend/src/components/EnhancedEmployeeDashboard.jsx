@@ -1,38 +1,30 @@
 // frontend/src/components/EnhancedEmployeeDashboard.jsx
 import React, { useState, useEffect } from 'react';
 import { Calendar, CheckCircle, Clock, DollarSign, TrendingUp, User, Repeat, Bell, MessageSquare, Plus } from 'lucide-react';
-import api from '../utils/api';
+import enhancedApi from '../utils/enhancedApi';
 
 // Shift Requests Component
 const ShiftRequests = () => {
-  const [requests, setRequests] = useState([
-    { 
-      id: 1, 
-      requestType: 'swap',
-      date: '2025-04-10',
-      shift: '09:00 - 17:00',
-      requestedBy: 'John Smith',
-      status: 'pending' 
-    },
-    {
-      id: 2,
-      requestType: 'coverage',
-      date: '2025-04-15',
-      shift: '13:00 - 21:00',
-      requestedBy: 'Sarah Johnson',
-      status: 'pending'
-    }
-  ]);
-  
+  const [requests, setRequests] = useState([]);
   const [activeTab, setActiveTab] = useState('incoming');
+  const [isLoading, setIsLoading] = useState(false);
   
-  const handleAccept = (requestId) => {
+  // Fetch shift requests data when the component mounts
+  useEffect(() => {
+    // Future implementation: fetch actual shift requests from API
+    // For now, this will just initialize with an empty array
+    setRequests([]);
+  }, []);
+  
+  const handleAccept = async (requestId) => {
+    // Future implementation: accept request via API
     setRequests(requests.map(req => 
       req.id === requestId ? {...req, status: 'accepted'} : req
     ));
   };
   
-  const handleDecline = (requestId) => {
+  const handleDecline = async (requestId) => {
+    // Future implementation: decline request via API
     setRequests(requests.map(req => 
       req.id === requestId ? {...req, status: 'declined'} : req
     ));
@@ -68,7 +60,12 @@ const ShiftRequests = () => {
         </button>
       </div>
       
-      {requests.length === 0 ? (
+      {isLoading ? (
+        <div className="text-center py-8">
+          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-purple-500 mx-auto"></div>
+          <p className="mt-2 text-gray-500">Loading requests...</p>
+        </div>
+      ) : requests.length === 0 ? (
         <div className="text-center py-8 text-gray-500">
           No active shift requests
         </div>
@@ -140,37 +137,24 @@ const ShiftRequests = () => {
 
 // Notifications Component
 const Notifications = () => {
-  const [notifications, setNotifications] = useState([
-    {
-      id: 1,
-      type: 'schedule',
-      message: 'New shift has been added to your schedule',
-      time: '2 hours ago',
-      isRead: false
-    },
-    {
-      id: 2,
-      type: 'swap',
-      message: 'John Smith accepted your shift swap request',
-      time: 'Yesterday',
-      isRead: true
-    },
-    {
-      id: 3,
-      type: 'system',
-      message: 'Your timesheet has been approved',
-      time: '3 days ago',
-      isRead: true
-    }
-  ]);
+  const [notifications, setNotifications] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   
-  const markAsRead = (id) => {
+  useEffect(() => {
+    // Future implementation: fetch actual notifications from API
+    // For now, this will just initialize with an empty array
+    setNotifications([]);
+  }, []);
+  
+  const markAsRead = async (id) => {
+    // Future implementation: mark as read via API
     setNotifications(notifications.map(note => 
       note.id === id ? {...note, isRead: true} : note
     ));
   };
   
-  const markAllAsRead = () => {
+  const markAllAsRead = async () => {
+    // Future implementation: mark all as read via API
     setNotifications(notifications.map(note => ({...note, isRead: true})));
   };
   
@@ -248,35 +232,24 @@ const Notifications = () => {
 
 // Team Chat Component
 const TeamChat = () => {
-  const [messages, setMessages] = useState([
-    {
-      id: 1,
-      sender: 'Sarah Johnson',
-      content: 'Can someone cover my shift on Friday?',
-      time: '10:30 AM'
-    },
-    {
-      id: 2,
-      sender: 'John Smith',
-      content: 'I can take it if needed',
-      time: '10:45 AM'
-    },
-    {
-      id: 3,
-      sender: 'Manager',
-      content: 'The staff meeting is moved to 3PM tomorrow',
-      time: '11:15 AM'
-    }
-  ]);
-  
+  const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   
-  const handleSendMessage = (e) => {
+  useEffect(() => {
+    // Future implementation: fetch actual team messages from API
+    // For now, this will just initialize with an empty array
+    setMessages([]);
+  }, []);
+  
+  const handleSendMessage = async (e) => {
     e.preventDefault();
     if (!newMessage.trim()) return;
     
+    // Future implementation: send message via API
+    // For testing, we'll just add it locally
     const message = {
-      id: messages.length + 1,
+      id: Date.now(), // Temporary ID
       sender: 'You',
       content: newMessage,
       time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
@@ -325,68 +298,68 @@ const TeamChat = () => {
 };
 
 // Main Enhanced Employee Dashboard Component
-const EnhancedEmployeeDashboard = ({ onPageChange }) => {
+const EnhancedEmployeeDashboard = ({ onPageChange, userData, dashboardData, onDataUpdate }) => {
   // State hooks for different data points
   const [isLoading, setIsLoading] = useState(true);
-  const [userData, setUserData] = useState(null);
+  const [employeeData, setEmployeeData] = useState(null);
   const [earningsData, setEarningsData] = useState(null);
   const [activityData, setActivityData] = useState([]);
   const [scheduleData, setScheduleData] = useState([]);
   const [currentMonth, setCurrentMonth] = useState(new Date());
   
-  // Fetch all employee data on component mount
+  // Effect to handle dashboard data from props
   useEffect(() => {
-    const fetchDashboardData = async () => {
-      setIsLoading(true);
-      
-      try {
-        // Make real API calls
-        const userDataResponse = await api.dashboard.getEmployeeData();
-        const earningsResponse = await api.dashboard.getEarningsData();
-        const activityResponse = await api.dashboard.getRecentActivity(5); // Reduced to 5 for main view
-        
-        const yearMonth = `${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, '0')}`;
-        const scheduleResponse = await api.dashboard.getScheduleData(
-          currentMonth.getFullYear(), 
-          currentMonth.getMonth() + 1
-        );
-        
-        if (userDataResponse.error) {
-          console.error("Error fetching user data:", userDataResponse.error);
-        } else {
-          setUserData(userDataResponse);
-        }
-        
-        if (earningsResponse.error) {
-          console.error("Error fetching earnings data:", earningsResponse.error);
-        } else {
-          setEarningsData(earningsResponse);
-        }
-        
-        if (activityResponse.error) {
-          console.error("Error fetching activity data:", activityResponse.error);
-        } else {
-          setActivityData(activityResponse);
-        }
-        
-        if (scheduleResponse.error) {
-          console.error("Error fetching schedule data:", scheduleResponse.error);
-        } else {
-          setScheduleData(scheduleResponse);
-        }
-        
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Error fetching dashboard data:", error);
-        setIsLoading(false);
+    if (dashboardData) {
+      setEmployeeData(userData || dashboardData.userData);
+      setEarningsData(dashboardData.earnings);
+      setActivityData(dashboardData.activityData || []);
+      setScheduleData(dashboardData.schedule || []);
+      setIsLoading(false);
+    } else {
+      // If no dashboard data is provided, fetch it directly
+      fetchDashboardData();
+    }
+  }, [dashboardData, userData]);
+  
+  // Fetch dashboard data if not provided through props
+  const fetchDashboardData = async () => {
+    setIsLoading(true);
+    try {
+      // Get user data
+      const userDataResponse = await enhancedApi.dashboard.getEmployeeData();
+      if (!userDataResponse.error) {
+        setEmployeeData(userDataResponse);
       }
-    };
-    
-    fetchDashboardData();
-  }, [currentMonth]);
+      
+      // Get earnings data
+      const earningsResponse = await enhancedApi.dashboard.getEarningsData();
+      if (!earningsResponse.error) {
+        setEarningsData(earningsResponse);
+      }
+      
+      // Get recent activity
+      const activityResponse = await enhancedApi.dashboard.getRecentActivity(5);
+      if (Array.isArray(activityResponse)) {
+        setActivityData(activityResponse);
+      }
+      
+      // Get schedule data for current month
+      const year = currentMonth.getFullYear();
+      const month = currentMonth.getMonth() + 1;
+      const scheduleResponse = await enhancedApi.dashboard.getScheduleData(year, month);
+      if (Array.isArray(scheduleResponse)) {
+        setScheduleData(scheduleResponse);
+      }
+    } catch (error) {
+      console.error("Error fetching dashboard data:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   // Format currency values
   const formatCurrency = (value) => {
+    if (!value && value !== 0) return '$0.00';
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD'
@@ -395,6 +368,7 @@ const EnhancedEmployeeDashboard = ({ onPageChange }) => {
   
   // Format dates in a friendly way
   const formatDate = (dateString) => {
+    if (!dateString) return 'Not scheduled';
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(dateString).toLocaleDateString('en-US', options);
   };
@@ -424,8 +398,8 @@ const EnhancedEmployeeDashboard = ({ onPageChange }) => {
       <div className="bg-white rounded-lg shadow-md p-6">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-bold text-gray-800">Welcome, {userData?.name}!</h2>
-            <p className="text-gray-600">{userData?.role} - {userData?.department}</p>
+            <h2 className="text-2xl font-bold text-gray-800">Welcome, {employeeData?.name}!</h2>
+            <p className="text-gray-600">{employeeData?.role} - {employeeData?.department}</p>
           </div>
           <button 
             onClick={handleCheckIn}
@@ -450,7 +424,7 @@ const EnhancedEmployeeDashboard = ({ onPageChange }) => {
               {formatCurrency(earningsData?.currentPay)}
             </div>
             <div className="text-sm text-gray-600 mb-4">
-              Current pay period ({earningsData?.hoursThisPeriod} hours)
+              Current pay period ({earningsData?.hoursThisPeriod || 0} hours)
             </div>
             
             <div className="space-y-3">
@@ -460,7 +434,7 @@ const EnhancedEmployeeDashboard = ({ onPageChange }) => {
               </div>
               <div className="flex justify-between items-center text-sm">
                 <span className="text-gray-600">Overtime Hours:</span>
-                <span className="font-medium text-gray-800">{earningsData?.overtimeHours} hrs</span>
+                <span className="font-medium text-gray-800">{earningsData?.overtimeHours || 0} hrs</span>
               </div>
               <div className="flex justify-between items-center text-sm">
                 <span className="text-gray-600">YTD Earnings:</span>
@@ -486,8 +460,8 @@ const EnhancedEmployeeDashboard = ({ onPageChange }) => {
             <div className="p-6">
               {scheduleData && scheduleData.length > 0 ? (
                 <div className="space-y-3">
-                  {scheduleData.slice(0, 7).map((item) => (
-                    <div key={item.date} className="flex justify-between items-center border-b border-gray-100 pb-2">
+                  {scheduleData.slice(0, 7).map((item, index) => (
+                    <div key={index} className="flex justify-between items-center border-b border-gray-100 pb-2">
                       <div>
                         <div className="font-medium">
                           {new Date(item.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
@@ -532,8 +506,8 @@ const EnhancedEmployeeDashboard = ({ onPageChange }) => {
           {activityData && activityData.length > 0 ? (
             <div className="flow-root">
               <ul className="divide-y divide-gray-200">
-                {activityData.map((activity) => (
-                  <li key={activity.id} className="py-4">
+                {activityData.map((activity, index) => (
+                  <li key={activity.id || index} className="py-4">
                     <div className="flex items-start space-x-3">
                       <div className="flex-shrink-0">
                         {activity.type === 'check-in' && (
@@ -554,9 +528,9 @@ const EnhancedEmployeeDashboard = ({ onPageChange }) => {
                       </div>
                       <div className="min-w-0 flex-1">
                         <p className="text-sm font-medium text-gray-900">
-                          {activity.type === 'check-in' && `Checked in at ${activity.location}`}
-                          {activity.type === 'check-out' && `Checked out from ${activity.location}`}
-                          {activity.type === 'payroll' && activity.description}
+                          {activity.type === 'check-in' && `Checked in at ${activity.location || 'work'}`}
+                          {activity.type === 'check-out' && `Checked out from ${activity.location || 'work'}`}
+                          {activity.type === 'payroll' && (activity.description || 'Payroll processed')}
                         </p>
                         <p className="text-sm text-gray-500">
                           {new Date(activity.time).toLocaleString()}
@@ -572,6 +546,43 @@ const EnhancedEmployeeDashboard = ({ onPageChange }) => {
               <p>No recent activity to display</p>
             </div>
           )}
+        </div>
+      </div>
+      
+      {/* Quick Stats Section */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="bg-white rounded-lg shadow-md p-6 flex items-center space-x-4">
+          <div className="p-3 rounded-full bg-blue-100 text-blue-600">
+            <TrendingUp className="h-6 w-6" />
+          </div>
+          <div>
+            <p className="text-sm text-gray-500">Hours This Week</p>
+            <p className="text-xl font-bold">{earningsData?.weeklyHours || '0'} / 40</p>
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-lg shadow-md p-6 flex items-center space-x-4">
+          <div className="p-3 rounded-full bg-green-100 text-green-600">
+            <DollarSign className="h-6 w-6" />
+          </div>
+          <div>
+            <p className="text-sm text-gray-500">Last Paycheck</p>
+            <p className="text-xl font-bold">{formatCurrency(earningsData?.lastPaycheck)}</p>
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-lg shadow-md p-6 flex items-center space-x-4">
+          <div className="p-3 rounded-full bg-purple-100 text-purple-600">
+            <Calendar className="h-6 w-6" />
+          </div>
+          <div>
+            <p className="text-sm text-gray-500">Next Scheduled Shift</p>
+            <p className="text-xl font-bold">
+              {scheduleData && scheduleData.length > 0 
+                ? new Date(scheduleData[0].date).toLocaleDateString('en-US', {month: 'short', day: 'numeric'})
+                : 'None'}
+            </p>
+          </div>
         </div>
       </div>
     </div>
