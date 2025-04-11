@@ -1,30 +1,38 @@
-// frontend/src/components/EnhancedEmployeeDashboard.jsx
+// EnhancedEmployeeDashboard.jsx
 import React, { useState, useEffect } from 'react';
 import { Calendar, CheckCircle, Clock, DollarSign, TrendingUp, User, Repeat, Bell, MessageSquare, Plus } from 'lucide-react';
 import enhancedApi from '../utils/enhancedApi';
 
 // Shift Requests Component
 const ShiftRequests = () => {
-  const [requests, setRequests] = useState([]);
+  const [requests, setRequests] = useState([
+    { 
+      id: 1, 
+      requestType: 'swap',
+      date: '2025-04-10',
+      shift: '09:00 - 17:00',
+      requestedBy: 'John Smith',
+      status: 'pending' 
+    },
+    {
+      id: 2,
+      requestType: 'coverage',
+      date: '2025-04-15',
+      shift: '13:00 - 21:00',
+      requestedBy: 'Sarah Johnson',
+      status: 'pending'
+    }
+  ]);
+  
   const [activeTab, setActiveTab] = useState('incoming');
-  const [isLoading, setIsLoading] = useState(false);
   
-  // Fetch shift requests data when the component mounts
-  useEffect(() => {
-    // Future implementation: fetch actual shift requests from API
-    // For now, this will just initialize with an empty array
-    setRequests([]);
-  }, []);
-  
-  const handleAccept = async (requestId) => {
-    // Future implementation: accept request via API
+  const handleAccept = (requestId) => {
     setRequests(requests.map(req => 
       req.id === requestId ? {...req, status: 'accepted'} : req
     ));
   };
   
-  const handleDecline = async (requestId) => {
-    // Future implementation: decline request via API
+  const handleDecline = (requestId) => {
     setRequests(requests.map(req => 
       req.id === requestId ? {...req, status: 'declined'} : req
     ));
@@ -60,12 +68,7 @@ const ShiftRequests = () => {
         </button>
       </div>
       
-      {isLoading ? (
-        <div className="text-center py-8">
-          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-purple-500 mx-auto"></div>
-          <p className="mt-2 text-gray-500">Loading requests...</p>
-        </div>
-      ) : requests.length === 0 ? (
+      {requests.length === 0 ? (
         <div className="text-center py-8 text-gray-500">
           No active shift requests
         </div>
@@ -137,24 +140,37 @@ const ShiftRequests = () => {
 
 // Notifications Component
 const Notifications = () => {
-  const [notifications, setNotifications] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [notifications, setNotifications] = useState([
+    {
+      id: 1,
+      type: 'schedule',
+      message: 'New shift has been added to your schedule',
+      time: '2 hours ago',
+      isRead: false
+    },
+    {
+      id: 2,
+      type: 'swap',
+      message: 'John Smith accepted your shift swap request',
+      time: 'Yesterday',
+      isRead: true
+    },
+    {
+      id: 3,
+      type: 'system',
+      message: 'Your timesheet has been approved',
+      time: '3 days ago',
+      isRead: true
+    }
+  ]);
   
-  useEffect(() => {
-    // Future implementation: fetch actual notifications from API
-    // For now, this will just initialize with an empty array
-    setNotifications([]);
-  }, []);
-  
-  const markAsRead = async (id) => {
-    // Future implementation: mark as read via API
+  const markAsRead = (id) => {
     setNotifications(notifications.map(note => 
       note.id === id ? {...note, isRead: true} : note
     ));
   };
   
-  const markAllAsRead = async () => {
-    // Future implementation: mark all as read via API
+  const markAllAsRead = () => {
     setNotifications(notifications.map(note => ({...note, isRead: true})));
   };
   
@@ -232,24 +248,35 @@ const Notifications = () => {
 
 // Team Chat Component
 const TeamChat = () => {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([
+    {
+      id: 1,
+      sender: 'Sarah Johnson',
+      content: 'Can someone cover my shift on Friday?',
+      time: '10:30 AM'
+    },
+    {
+      id: 2,
+      sender: 'John Smith',
+      content: 'I can take it if needed',
+      time: '10:45 AM'
+    },
+    {
+      id: 3,
+      sender: 'Manager',
+      content: 'The staff meeting is moved to 3PM tomorrow',
+      time: '11:15 AM'
+    }
+  ]);
+  
   const [newMessage, setNewMessage] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
   
-  useEffect(() => {
-    // Future implementation: fetch actual team messages from API
-    // For now, this will just initialize with an empty array
-    setMessages([]);
-  }, []);
-  
-  const handleSendMessage = async (e) => {
+  const handleSendMessage = (e) => {
     e.preventDefault();
     if (!newMessage.trim()) return;
     
-    // Future implementation: send message via API
-    // For testing, we'll just add it locally
     const message = {
-      id: Date.now(), // Temporary ID
+      id: messages.length + 1,
       sender: 'You',
       content: newMessage,
       time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
@@ -325,36 +352,89 @@ const EnhancedEmployeeDashboard = ({ onPageChange, userData, dashboardData, onDa
   const fetchDashboardData = async () => {
     setIsLoading(true);
     try {
-      // Get user data
-      const userDataResponse = await enhancedApi.dashboard.getEmployeeData();
-      if (!userDataResponse.error) {
-        setEmployeeData(userDataResponse);
-      }
+      // Try to use the unified dashboard endpoint first
+      const unifiedData = await enhancedApi.dashboard.getUnifiedDashboardData();
       
-      // Get earnings data
-      const earningsResponse = await enhancedApi.dashboard.getEarningsData();
-      if (!earningsResponse.error) {
-        setEarningsData(earningsResponse);
-      }
-      
-      // Get recent activity
-      const activityResponse = await enhancedApi.dashboard.getRecentActivity(5);
-      if (Array.isArray(activityResponse)) {
-        setActivityData(activityResponse);
-      }
-      
-      // Get schedule data for current month
-      const year = currentMonth.getFullYear();
-      const month = currentMonth.getMonth() + 1;
-      const scheduleResponse = await enhancedApi.dashboard.getScheduleData(year, month);
-      if (Array.isArray(scheduleResponse)) {
-        setScheduleData(scheduleResponse);
+      if (!unifiedData.error) {
+        // Set all data from unified endpoint
+        setEmployeeData(unifiedData.userData);
+        setEarningsData(unifiedData.earnings);
+        setActivityData(Array.isArray(unifiedData.activityData) ? unifiedData.activityData : []);
+        setScheduleData(Array.isArray(unifiedData.schedule) ? unifiedData.schedule : []);
+      } else {
+        // Fallback to individual API calls if unified endpoint fails
+        const userDataResponse = await enhancedApi.dashboard.getEmployeeData();
+        if (!userDataResponse.error) {
+          setEmployeeData(userDataResponse);
+        }
+        
+        const earningsResponse = await enhancedApi.dashboard.getEarningsData();
+        if (!earningsResponse.error) {
+          setEarningsData(earningsResponse);
+        }
+        
+        const activityResponse = await enhancedApi.dashboard.getRecentActivity(5);
+        if (Array.isArray(activityResponse)) {
+          setActivityData(activityResponse);
+        }
+        
+        const year = currentMonth.getFullYear();
+        const month = currentMonth.getMonth() + 1;
+        const scheduleResponse = await enhancedApi.dashboard.getScheduleData(year, month);
+        if (Array.isArray(scheduleResponse)) {
+          setScheduleData(scheduleResponse);
+        }
       }
     } catch (error) {
       console.error("Error fetching dashboard data:", error);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  // Effect to handle updates in current month
+  useEffect(() => {
+    if (!dashboardData) {
+      // If month changes and we're not using props data, fetch new schedule
+      const fetchScheduleForMonth = async () => {
+        try {
+          const year = currentMonth.getFullYear();
+          const month = currentMonth.getMonth() + 1;
+          const scheduleResponse = await enhancedApi.dashboard.getScheduleData(year, month);
+          if (Array.isArray(scheduleResponse)) {
+            setScheduleData(scheduleResponse);
+          }
+        } catch (error) {
+          console.error("Error fetching schedule data:", error);
+        }
+      };
+      
+      fetchScheduleForMonth();
+    }
+  }, [currentMonth, dashboardData]);
+
+  // Effect to refresh data based on onDataUpdate trigger
+  useEffect(() => {
+    if (onDataUpdate && !dashboardData) {
+      fetchDashboardData();
+    }
+  }, [onDataUpdate]);
+
+  // Current month navigation
+  const handlePrevMonth = () => {
+    setCurrentMonth(prev => {
+      const newMonth = new Date(prev);
+      newMonth.setMonth(prev.getMonth() - 1);
+      return newMonth;
+    });
+  };
+
+  const handleNextMonth = () => {
+    setCurrentMonth(prev => {
+      const newMonth = new Date(prev);
+      newMonth.setMonth(prev.getMonth() + 1);
+      return newMonth;
+    });
   };
 
   // Format currency values
@@ -398,8 +478,8 @@ const EnhancedEmployeeDashboard = ({ onPageChange, userData, dashboardData, onDa
       <div className="bg-white rounded-lg shadow-md p-6">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-bold text-gray-800">Welcome, {employeeData?.name}!</h2>
-            <p className="text-gray-600">{employeeData?.role} - {employeeData?.department}</p>
+            <h2 className="text-2xl font-bold text-gray-800">Welcome, {employeeData?.name || 'Employee'}!</h2>
+            <p className="text-gray-600">{employeeData?.role || ''} {employeeData?.department ? `- ${employeeData.department}` : ''}</p>
           </div>
           <button 
             onClick={handleCheckIn}
@@ -448,14 +528,35 @@ const EnhancedEmployeeDashboard = ({ onPageChange, userData, dashboardData, onDa
           </div>
         </div>
         
-        {/* Enhanced Dashboard Features */}
+        {/* Schedule Summary */}
         <div className="lg:col-span-2">
           <div className="bg-white rounded-lg shadow-md overflow-hidden">
-            <div className="bg-blue-600 px-6 py-4">
+            <div className="bg-blue-600 px-6 py-4 flex justify-between items-center">
               <h3 className="text-lg font-medium text-white flex items-center">
                 <Calendar className="h-5 w-5 mr-2" />
                 Work Schedule
               </h3>
+              <div className="flex space-x-2">
+                <button 
+                  onClick={handlePrevMonth}
+                  className="p-1 rounded text-white hover:bg-blue-500 focus:outline-none"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+                <span className="text-white font-medium">
+                  {currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                </span>
+                <button 
+                  onClick={handleNextMonth}
+                  className="p-1 rounded text-white hover:bg-blue-500 focus:outline-none"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div className="p-6">
               {scheduleData && scheduleData.length > 0 ? (
@@ -494,13 +595,22 @@ const EnhancedEmployeeDashboard = ({ onPageChange, userData, dashboardData, onDa
       
       <TeamChat />
       
-      {/* Recent Activity Section */}
+      {/* Activity feed */}
       <div className="bg-white rounded-lg shadow-md overflow-hidden">
-        <div className="bg-purple-600 px-6 py-4">
+        <div className="bg-purple-600 px-6 py-4 flex justify-between items-center">
           <h3 className="text-lg font-medium text-white flex items-center">
             <Clock className="h-5 w-5 mr-2" />
             Recent Activity
           </h3>
+          <button 
+            onClick={() => fetchDashboardData()}
+            className="p-1 rounded-full bg-purple-500 text-white hover:bg-purple-400 focus:outline-none"
+            title="Refresh Activity"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+          </button>
         </div>
         <div className="p-4">
           {activityData && activityData.length > 0 ? (
@@ -533,7 +643,7 @@ const EnhancedEmployeeDashboard = ({ onPageChange, userData, dashboardData, onDa
                           {activity.type === 'payroll' && (activity.description || 'Payroll processed')}
                         </p>
                         <p className="text-sm text-gray-500">
-                          {new Date(activity.time).toLocaleString()}
+                          {activity.time ? new Date(activity.time).toLocaleString() : 'N/A'}
                         </p>
                       </div>
                     </div>

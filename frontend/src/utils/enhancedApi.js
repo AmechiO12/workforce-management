@@ -36,6 +36,8 @@ apiClient.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       localStorage.removeItem('access_token');
       localStorage.removeItem('user_role');
+      localStorage.removeItem('user_id');
+      localStorage.removeItem('username');
       window.location.href = '/login';
     }
     
@@ -256,6 +258,7 @@ const enhancedApi = {
         
         // Proceed with check-in
         const response = await apiClient.post('/checkins/', checkInData);
+        
         return {
           ...response,
           success: true,
@@ -393,73 +396,10 @@ const enhancedApi = {
         console.error(`Error deleting shift ${shiftId}:`, error);
         return { error: error.error || 'Failed to delete shift' };
       }
-    },
-    
-    // Get shifts in calendar view format
-    getCalendarView: async (year, month) => {
-      try {
-        // Calculate date range for the month
-        const startDate = new Date(year, month - 1, 1);
-        const endDate = new Date(year, month, 0); // Last day of month
-        
-        // Format dates for API
-        const startFormatted = startDate.toISOString().split('T')[0];
-        const endFormatted = endDate.toISOString().split('T')[0];
-        
-        // Get shifts within date range
-        const shifts = await enhancedApi.shifts.getAll({
-          start_date: startFormatted,
-          end_date: endFormatted
-        });
-        
-        if (!Array.isArray(shifts)) {
-          return {};
-        }
-        
-        // Get users and locations for mapping
-        const [users, locations] = await Promise.all([
-          enhancedApi.users.getAll(),
-          enhancedApi.locations.getAll()
-        ]);
-        
-        // Organize shifts by date
-        const calendar = {};
-        
-        // Initialize all days of the month
-        for (let day = 1; day <= endDate.getDate(); day++) {
-          const dateStr = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-          calendar[dateStr] = [];
-        }
-        
-        // Add shifts to calendar
-        shifts.forEach(shift => {
-          const shiftDate = new Date(shift.start_time);
-          const dateStr = shiftDate.toISOString().split('T')[0];
-          
-          // Add user and location info
-          const user = Array.isArray(users) ? users.find(u => u.id === shift.user_id) : null;
-          const location = Array.isArray(locations) ? locations.find(l => l.id === shift.location_id) : null;
-          
-          const enhancedShift = {
-            ...shift,
-            userName: user ? user.username : 'Unknown',
-            locationName: location ? location.name : 'Unknown'
-          };
-          
-          if (calendar[dateStr]) {
-            calendar[dateStr].push(enhancedShift);
-          }
-        });
-        
-        return calendar;
-      } catch (error) {
-        console.error('Error getting calendar view:', error);
-        return { error: error.error || 'Failed to get calendar view' };
-      }
     }
   },
   
-  // Dashboard
+  // Dashboard - Matching your existing API structure
   dashboard: {
     // Get employee data
     getEmployeeData: async () => {
@@ -501,7 +441,7 @@ const enhancedApi = {
       }
     },
     
-    // Get unified dashboard data for both admin and employee views
+    // New unified method that works with your existing data structure
     getUnifiedDashboardData: async () => {
       try {
         const userData = await enhancedApi.dashboard.getEmployeeData();
@@ -519,16 +459,10 @@ const enhancedApi = {
             enhancedApi.shifts.getAll()
           ]);
           
-          // Get recent check-ins
-          const checkins = await enhancedApi.checkins.getRecent(20);
-          
           roleSpecificData = {
             employees: Array.isArray(employees) ? employees : [],
             locations: Array.isArray(locations) ? locations : [],
-            shifts: Array.isArray(shifts) ? shifts : [],
-            checkins: Array.isArray(checkins) ? checkins : [],
-            totalEmployees: Array.isArray(employees) ? employees.length : 0,
-            totalLocations: Array.isArray(locations) ? locations.length : 0
+            shifts: Array.isArray(shifts) ? shifts : []
           };
         } else {
           // For employee, get earnings and schedule
@@ -540,7 +474,7 @@ const enhancedApi = {
           
           roleSpecificData = {
             earnings: earningsData,
-            schedule: scheduleData
+            schedule: Array.isArray(scheduleData) ? scheduleData : []
           };
         }
         
@@ -576,21 +510,7 @@ const enhancedApi = {
           responseType: 'blob'
         });
         
-        // Create download link
-        const url = window.URL.createObjectURL(new Blob([response]));
-        const link = document.createElement('a');
-        link.href = url;
-        
-        // Generate filename with date
-        const date = new Date().toISOString().split('T')[0];
-        link.setAttribute('download', `payroll_report_${date}.xlsx`);
-        
-        // Trigger download
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-        
-        return { success: true };
+        return response;
       } catch (error) {
         console.error('Error exporting payroll:', error);
         return { error: error.error || 'Failed to export payroll' };
