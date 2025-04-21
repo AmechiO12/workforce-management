@@ -21,11 +21,12 @@ import logging
 bp = Blueprint('checkins', __name__, url_prefix='/checkins')
 
 
+
 @bp.route('/', methods=['POST'])
 @jwt_required()
-def check_in():
+def check_in_out():
     """
-    Record a user's check-in and verify their proximity to a location.
+    Record a user's check-in or check-out and verify their proximity to a location.
     """
     try:
         # Get user identity from JWT and retrieve user from the database
@@ -33,7 +34,7 @@ def check_in():
         user = db.session.get(User, user_identity.get('id'))
 
         if not user:
-            logging.warning("Unauthorized check-in attempt - user not found")
+            logging.warning("Unauthorized check-in/out attempt - user not found")
             return jsonify({'error': 'Unauthorized access'}), 401
 
         # Parse and validate JSON request
@@ -41,6 +42,7 @@ def check_in():
         latitude = data.get('latitude')
         longitude = data.get('longitude')
         location_id = data.get('location_id')
+        check_type = data.get('check_type', 'in')  # Default to check-in if not specified
 
         if latitude is None or longitude is None or location_id is None:
             logging.warning("Missing required fields: latitude, longitude, location_id")
@@ -66,40 +68,42 @@ def check_in():
         distance = geodesic(user_coords, facility_coords).km
         print(f"DEBUG: Distance calculated: {distance} km, Location radius: {location.radius} km")
 
-
         # Check if the user is within the allowed radius
         if distance > location.radius:
-            logging.info(f"Check-in failed for user {user.username}: Distance {distance:.2f} km exceeds radius {location.radius:.2f} km")
+            logging.info(f"{check_type.capitalize()}-check failed for user {user.username}: Distance {distance:.2f} km exceeds radius {location.radius:.2f} km")
             return jsonify({
                 'success': False,
-                'error': 'Check-in failed. You are outside the allowed radius.',
+                'error': f'Check-{check_type} failed. You are outside the allowed radius.',
                 'distance_km': round(distance, 2)
             }), 400
 
-        # Record the successful check-in
+        # Record the successful check-in/out
         checkin = CheckIn(
             user_id=user.id,
             location_id=location.id,
             latitude=latitude,
             longitude=longitude,
-            is_verified=True
+            is_verified=True,
+            check_type=check_type
         )
         db.session.add(checkin)
         db.session.commit()
 
-        logging.info(f"User {user.username} successfully checked in at location {location.name}")
+        action_type = "checked in" if check_type == "in" else "checked out"
+        logging.info(f"User {user.username} successfully {action_type} at location {location.name}")
         return jsonify({
             'success': True,
             'is_verified': True,
+            'check_type': check_type,
             'distance_km': round(distance, 2)
         }), 201
 
     except SQLAlchemyError as db_error:
         db.session.rollback()
-        logging.exception(f"Database error during check-in: {str(db_error)}")
+        logging.exception(f"Database error during check-in/out: {str(db_error)}")
         return jsonify({'error': 'Database error occurred. Please try again later.'}), 500
     except Exception as e:
-        logging.exception(f"Error during check-in: {str(e)}")
+        logging.exception(f"Error during check-in/out: {str(e)}")
         return jsonify({'error': 'Internal Server Error'}), 500
 
 

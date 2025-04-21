@@ -5694,3 +5694,68 @@ sqlalchemy.exc.AmbiguousForeignKeysError: Could not determine join condition bet
 2025-04-13 12:03:58,062 - INFO - 127.0.0.1 - - [13/Apr/2025 12:03:58] "GET /locations/ HTTP/1.1" 200 -
 2025-04-13 12:03:58,063 - INFO - 127.0.0.1 - - [13/Apr/2025 12:03:58] "GET /dashboard/activity/recent?limit=10 HTTP/1.1" 200 -
 2025-04-13 12:03:58,071 - INFO - 127.0.0.1 - - [13/Apr/2025 12:03:58] "GET /locations/ HTTP/1.1" 200 -
+2025-04-21 21:02:04,910 - INFO - Application initialized successfully.
+2025-04-21 21:02:09,084 - WARNING - Redis connection failed, using in-memory rate limiting: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-04-21 21:02:09,120 - INFO - Database tables created or already exist.
+2025-04-21 21:02:09,143 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-21 21:02:09,143 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-21 21:02:21,351 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:21] "OPTIONS /dashboard/employee HTTP/1.1" 200 -
+2025-04-21 21:02:21,353 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:21] "OPTIONS /dashboard/employee HTTP/1.1" 200 -
+2025-04-21 21:02:21,360 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:21] "[31m[1mGET /dashboard/employee HTTP/1.1[0m" 401 -
+2025-04-21 21:02:21,369 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:21] "[31m[1mGET /dashboard/employee HTTP/1.1[0m" 401 -
+2025-04-21 21:02:21,395 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:21] "[31m[1mGET /dashboard/activity/recent?limit=10 HTTP/1.1[0m" 401 -
+2025-04-21 21:02:21,407 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:21] "[31m[1mGET /dashboard/activity/recent?limit=10 HTTP/1.1[0m" 401 -
+2025-04-21 21:02:21,428 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:21] "[31m[1mGET /dashboard/earnings HTTP/1.1[0m" 401 -
+2025-04-21 21:02:21,431 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:21] "[31m[1mGET /dashboard/schedule/2025/4 HTTP/1.1[0m" 401 -
+2025-04-21 21:02:21,443 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:21] "[31m[1mGET /dashboard/earnings HTTP/1.1[0m" 401 -
+2025-04-21 21:02:21,453 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:21] "[31m[1mGET /dashboard/schedule/2025/4 HTTP/1.1[0m" 401 -
+2025-04-21 21:02:23,321 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:23] "OPTIONS /auth/login HTTP/1.1" 200 -
+2025-04-21 21:02:23,570 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:23] "POST /auth/login HTTP/1.1" 200 -
+2025-04-21 21:02:23,592 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:23] "GET /dashboard/employee HTTP/1.1" 200 -
+2025-04-21 21:02:23,600 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:23] "GET /dashboard/employee HTTP/1.1" 200 -
+2025-04-21 21:02:23,601 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:23] "OPTIONS /dashboard/activity/recent?limit=10 HTTP/1.1" 200 -
+2025-04-21 21:02:23,613 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:23] "GET /dashboard/activity/recent?limit=10 HTTP/1.1" 200 -
+2025-04-21 21:02:23,620 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:23] "OPTIONS /dashboard/earnings HTTP/1.1" 200 -
+2025-04-21 21:02:23,621 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:23] "GET /dashboard/activity/recent?limit=10 HTTP/1.1" 200 -
+2025-04-21 21:02:23,622 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:23] "OPTIONS /dashboard/schedule/2025/4 HTTP/1.1" 200 -
+2025-04-21 21:02:23,638 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:23] "GET /dashboard/earnings HTTP/1.1" 200 -
+2025-04-21 21:02:23,638 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:23] "GET /dashboard/schedule/2025/4 HTTP/1.1" 200 -
+2025-04-21 21:02:23,649 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:23] "GET /dashboard/earnings HTTP/1.1" 200 -
+2025-04-21 21:02:23,649 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:23] "GET /dashboard/schedule/2025/4 HTTP/1.1" 200 -
+2025-04-21 21:02:25,252 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:25] "OPTIONS /locations/ HTTP/1.1" 200 -
+2025-04-21 21:02:25,253 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:25] "OPTIONS /dashboard/activity/recent?limit=1 HTTP/1.1" 200 -
+2025-04-21 21:02:25,253 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:25] "OPTIONS /locations/ HTTP/1.1" 200 -
+2025-04-21 21:02:25,254 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:25] "OPTIONS /dashboard/activity/recent?limit=1 HTTP/1.1" 200 -
+2025-04-21 21:02:25,263 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:25] "GET /locations/ HTTP/1.1" 200 -
+2025-04-21 21:02:25,265 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:25] "GET /dashboard/activity/recent?limit=1 HTTP/1.1" 200 -
+2025-04-21 21:02:25,273 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:25] "GET /locations/ HTTP/1.1" 200 -
+2025-04-21 21:02:25,273 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:25] "GET /dashboard/activity/recent?limit=1 HTTP/1.1" 200 -
+2025-04-21 21:02:32,754 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:32] "OPTIONS /locations/4 HTTP/1.1" 200 -
+2025-04-21 21:02:32,759 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:32] "GET /locations/4 HTTP/1.1" 200 -
+2025-04-21 21:02:32,764 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:32] "OPTIONS /checkins/ HTTP/1.1" 200 -
+2025-04-21 21:02:32,780 - INFO - User employee1 successfully checked in at location home
+2025-04-21 21:02:32,781 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:32] "[35m[1mPOST /checkins/ HTTP/1.1[0m" 201 -
+2025-04-21 21:02:32,790 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:32] "GET /dashboard/activity/recent?limit=1 HTTP/1.1" 200 -
+2025-04-21 21:02:32,792 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:32] "GET /dashboard/employee HTTP/1.1" 200 -
+2025-04-21 21:02:32,799 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:32] "GET /dashboard/activity/recent?limit=10 HTTP/1.1" 200 -
+2025-04-21 21:02:32,810 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:32] "GET /dashboard/schedule/2025/4 HTTP/1.1" 200 -
+2025-04-21 21:02:32,810 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:32] "GET /dashboard/earnings HTTP/1.1" 200 -
+2025-04-21 21:02:32,822 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:32] "GET /locations/ HTTP/1.1" 200 -
+2025-04-21 21:02:32,823 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:32] "GET /dashboard/activity/recent?limit=1 HTTP/1.1" 200 -
+2025-04-21 21:02:32,831 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:32] "GET /dashboard/activity/recent?limit=1 HTTP/1.1" 200 -
+2025-04-21 21:02:32,832 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:32] "GET /locations/ HTTP/1.1" 200 -
+2025-04-21 21:02:34,682 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:34] "GET /dashboard/activity/recent?limit=10 HTTP/1.1" 200 -
+2025-04-21 21:02:34,690 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:34] "GET /locations/ HTTP/1.1" 200 -
+2025-04-21 21:02:34,691 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:34] "GET /dashboard/activity/recent?limit=10 HTTP/1.1" 200 -
+2025-04-21 21:02:34,698 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:34] "GET /locations/ HTTP/1.1" 200 -
+2025-04-21 21:02:38,377 - INFO - User employee1 successfully checked in at location home
+2025-04-21 21:02:38,378 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:38] "[35m[1mPOST /checkins/ HTTP/1.1[0m" 201 -
+2025-04-21 21:02:38,387 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:38] "GET /dashboard/employee HTTP/1.1" 200 -
+2025-04-21 21:02:38,394 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:38] "GET /dashboard/activity/recent?limit=10 HTTP/1.1" 200 -
+2025-04-21 21:02:38,404 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:38] "GET /dashboard/schedule/2025/4 HTTP/1.1" 200 -
+2025-04-21 21:02:38,404 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:38] "GET /dashboard/earnings HTTP/1.1" 200 -
+2025-04-21 21:02:38,413 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:38] "GET /dashboard/activity/recent?limit=10 HTTP/1.1" 200 -
+2025-04-21 21:02:38,422 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:38] "GET /dashboard/activity/recent?limit=10 HTTP/1.1" 200 -
+2025-04-21 21:02:38,422 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:38] "GET /locations/ HTTP/1.1" 200 -
+2025-04-21 21:02:38,429 - INFO - 127.0.0.1 - - [21/Apr/2025 21:02:38] "GET /locations/ HTTP/1.1" 200 -

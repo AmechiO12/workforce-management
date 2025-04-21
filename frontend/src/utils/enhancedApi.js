@@ -232,84 +232,130 @@ const enhancedApi = {
     }
   },
   
-  // Check-ins
-  checkins: {
-    // Create new check-in or check-out
-    create: async (checkInData) => {
-      try {
-        return await apiClient.post('/checkins/', checkInData);
-      } catch (error) {
-        console.error('Error creating check-in/check-out:', error);
-        const actionType = checkInData.check_type === 'out' ? 'check out' : 'check in';
-        return { error: error.error || `Failed to ${actionType}` };
-      }
-    },
-    
-    // Create check-in or check-out with location validation
-    createWithValidation: async (checkInData) => {
-      try {
-        // Validate required fields
-        if (!checkInData.location_id || !checkInData.latitude || !checkInData.longitude) {
-          return { error: 'Missing required check-in fields' };
-        }
-        
-        // Determine if this is a check-in or check-out
-        const checkType = checkInData.check_type || 'in';
-        
-        // Get location details to verify distance
-        const location = await enhancedApi.locations.getById(checkInData.location_id);
-        
-        if (!location || location.error) {
-          return { error: 'Invalid location' };
-        }
-        
-        // Calculate distance
-        const distance = calculateDistance(
-          { lat: checkInData.latitude, lng: checkInData.longitude },
-          { lat: location.latitude, lng: location.longitude }
-        );
-        
-        // Check if within radius
-        if (distance > location.radius) {
-          return {
-            success: false,
-            error: `You are too far from the ${checkType === 'in' ? 'check-in' : 'check-out'} location (${distance.toFixed(2)} km)`,
-            distance_km: distance
-          };
-        }
-        
-        // Add check_type to data if provided
-        const requestData = {
-          ...checkInData,
-          check_type: checkType // Include check_type in the request
-        };
-        
-        // Proceed with check-in or check-out
-        const response = await apiClient.post('/checkins/', requestData);
-        return {
-          ...response,
-          success: true,
-          distance_km: distance
-        };
-      } catch (error) {
-        console.error(`Error during ${checkInData.check_type === 'out' ? 'check-out' : 'check-in'} validation:`, error);
-        return { 
-          success: false,
-          error: error.error || `Failed to validate ${checkInData.check_type === 'out' ? 'check-out' : 'check-in'}` 
-        };
-      }
-    },
-    
-    // Get recent check-ins
-    getRecent: async (limit = 10) => {
-      try {
-        return await apiClient.get(`/checkins/?limit=${limit}`);
-      } catch (error) {
-        console.error('Error fetching check-ins:', error);
-        return { error: error.error || 'Failed to fetch check-ins' };
-      }
+// Updated enhancedApi.checkins methods for both check-in and check-out functionality
+
+// This is a partial file showing just the checkins section of the enhancedApi.js utility
+// Integrate this into your existing enhancedApi.js file
+
+// Check-ins
+checkins: {
+  // Create new check-in or check-out
+  create: async (checkData) => {
+    try {
+      return await apiClient.post('/checkins/', checkData);
+    } catch (error) {
+      console.error('Error creating check-in/out:', error);
+      return { error: error.error || 'Failed to process check-in/out' };
     }
   },
+  
+  // Enhanced check-in/out with location validation
+  createWithValidation: async (checkData) => {
+    try {
+      // Validate required fields
+      if (!checkData.location_id || !checkData.latitude || !checkData.longitude) {
+        return { error: 'Missing required fields' };
+      }
+      
+      // If check_type not specified, default to check-in
+      if (!checkData.check_type) {
+        checkData.check_type = 'in';
+      }
+      
+      // Ensure check_type is valid
+      if (checkData.check_type !== 'in' && checkData.check_type !== 'out') {
+        return { error: 'Invalid check type. Must be "in" or "out"' };
+      }
+      
+      // Get location details to verify distance
+      const location = await enhancedApi.locations.getById(checkData.location_id);
+      
+      if (!location || location.error) {
+        return { error: 'Invalid location' };
+      }
+      
+      // Calculate distance
+      const distance = calculateDistance(
+        { lat: checkData.latitude, lng: checkData.longitude },
+        { lat: location.latitude, lng: location.longitude }
+      );
+      
+      // Check if within radius
+      if (distance > location.radius) {
+        return {
+          success: false,
+          error: `You are too far from the ${checkData.check_type === 'in' ? 'check-in' : 'check-out'} location (${distance.toFixed(2)} km)`,
+          distance_km: distance
+        };
+      }
+      
+      // Proceed with check-in/out
+      const response = await apiClient.post('/checkins/', checkData);
+      
+      // Update recent activity in the background
+      try {
+        // No need to await this, just refresh in the background
+        enhancedApi.dashboard.getRecentActivity(5);
+      } catch (e) {
+        // Ignore errors during background refresh
+      }
+      
+      return {
+        ...response,
+        success: true,
+        check_type: checkData.check_type,
+        distance_km: distance
+      };
+    } catch (error) {
+      console.error('Error during check-in/out validation:', error);
+      return { 
+        success: false,
+        error: error.error || 'Failed to validate check-in/out' 
+      };
+    }
+  },
+  
+  // Get recent check-ins/outs
+  getRecent: async (limit = 10) => {
+    try {
+      return await apiClient.get(`/checkins/?limit=${limit}`);
+    } catch (error) {
+      console.error('Error fetching check-ins:', error);
+      return { error: error.error || 'Failed to fetch check-ins' };
+    }
+  },
+  
+  // Get user's current check status (in/out)
+  getCurrentStatus: async () => {
+    try {
+      // Get recent activity to determine current status
+      const activity = await enhancedApi.dashboard.getRecentActivity(5);
+      
+      if (!Array.isArray(activity) || activity.length === 0) {
+        return { status: 'out', lastActivity: null };
+      }
+      
+      // Find most recent check-in or check-out
+      const checkActivity = activity.find(item => 
+        item.type === 'check-in' || item.type === 'check-out'
+      );
+      
+      if (!checkActivity) {
+        return { status: 'out', lastActivity: null };
+      }
+      
+      // Return status based on most recent activity
+      return {
+        status: checkActivity.type === 'check-in' ? 'in' : 'out',
+        lastActivity: checkActivity
+      };
+    } catch (error) {
+      console.error('Error fetching check status:', error);
+      // Default to out if there's an error
+      return { status: 'out', error: error.error || 'Failed to get current status' };
+    }
+  }
+},
   
   // Shifts
   shifts: {
