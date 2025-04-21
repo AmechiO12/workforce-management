@@ -1,6 +1,6 @@
 // frontend/src/components/Navbar.jsx
 import React, { useState, useEffect } from 'react';
-import { Calendar, Users, Map, DollarSign, Clock, LogOut, Menu, X, TrendingUp, User, Bell } from 'lucide-react';
+import { Calendar, Users, Map, DollarSign, Clock, LogOut, Menu, X, TrendingUp, User, Bell, LogIn } from 'lucide-react';
 
 const Navbar = ({ isAuthenticated, userRole, username, currentPage, setCurrentPage, onLogout }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -35,7 +35,8 @@ const Navbar = ({ isAuthenticated, userRole, username, currentPage, setCurrentPa
     ]
   : [
       { id: 'dashboard', label: 'Dashboard', icon: <Clock className="h-5 w-5" /> },
-      { id: 'checkin', label: 'Check-in', icon: <Map className="h-5 w-5" /> }
+      { id: 'checkin', label: 'Check-in', icon: <LogIn className="h-5 w-5" /> },
+      { id: 'checkout', label: 'Check-out', icon: <LogOut className="h-5 w-5" /> }
     ];
   
   // Handle notification toggle

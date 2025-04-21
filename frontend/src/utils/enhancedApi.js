@@ -48,6 +48,24 @@ apiClient.interceptors.response.use(
   }
 );
 
+// Helper function to calculate distance between two points
+function calculateDistance(point1, point2) {
+  // Simple Haversine formula implementation
+  const toRad = value => value * Math.PI / 180;
+  const R = 6371; // Earth's radius in km
+  
+  const dLat = toRad(point2.lat - point1.lat);
+  const dLon = toRad(point2.lng - point1.lng);
+  
+  const a = 
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(toRad(point1.lat)) * Math.cos(toRad(point2.lat)) * 
+    Math.sin(dLon/2) * Math.sin(dLon/2);
+  
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  return R * c; // Distance in km
+}
+
 /**
  * Enhanced API service that improves connectivity between admin and employee components
  * This extends the base API with additional methods and error handling
@@ -216,23 +234,27 @@ const enhancedApi = {
   
   // Check-ins
   checkins: {
-    // Create new check-in
+    // Create new check-in or check-out
     create: async (checkInData) => {
       try {
         return await apiClient.post('/checkins/', checkInData);
       } catch (error) {
-        console.error('Error creating check-in:', error);
-        return { error: error.error || 'Failed to check in' };
+        console.error('Error creating check-in/check-out:', error);
+        const actionType = checkInData.check_type === 'out' ? 'check out' : 'check in';
+        return { error: error.error || `Failed to ${actionType}` };
       }
     },
     
-    // Enhanced check-in with location validation
+    // Create check-in or check-out with location validation
     createWithValidation: async (checkInData) => {
       try {
         // Validate required fields
         if (!checkInData.location_id || !checkInData.latitude || !checkInData.longitude) {
           return { error: 'Missing required check-in fields' };
         }
+        
+        // Determine if this is a check-in or check-out
+        const checkType = checkInData.check_type || 'in';
         
         // Get location details to verify distance
         const location = await enhancedApi.locations.getById(checkInData.location_id);
@@ -251,24 +273,29 @@ const enhancedApi = {
         if (distance > location.radius) {
           return {
             success: false,
-            error: `You are too far from the check-in location (${distance.toFixed(2)} km)`,
+            error: `You are too far from the ${checkType === 'in' ? 'check-in' : 'check-out'} location (${distance.toFixed(2)} km)`,
             distance_km: distance
           };
         }
         
-        // Proceed with check-in
-        const response = await apiClient.post('/checkins/', checkInData);
+        // Add check_type to data if provided
+        const requestData = {
+          ...checkInData,
+          check_type: checkType // Include check_type in the request
+        };
         
+        // Proceed with check-in or check-out
+        const response = await apiClient.post('/checkins/', requestData);
         return {
           ...response,
           success: true,
           distance_km: distance
         };
       } catch (error) {
-        console.error('Error during check-in validation:', error);
+        console.error(`Error during ${checkInData.check_type === 'out' ? 'check-out' : 'check-in'} validation:`, error);
         return { 
           success: false,
-          error: error.error || 'Failed to validate check-in' 
+          error: error.error || `Failed to validate ${checkInData.check_type === 'out' ? 'check-out' : 'check-in'}` 
         };
       }
     },
@@ -518,23 +545,5 @@ const enhancedApi = {
     }
   }
 };
-
-// Helper function to calculate distance between two points
-function calculateDistance(point1, point2) {
-  // Simple Haversine formula implementation
-  const toRad = value => value * Math.PI / 180;
-  const R = 6371; // Earth's radius in km
-  
-  const dLat = toRad(point2.lat - point1.lat);
-  const dLon = toRad(point2.lng - point1.lng);
-  
-  const a = 
-    Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(toRad(point1.lat)) * Math.cos(toRad(point2.lat)) * 
-    Math.sin(dLon/2) * Math.sin(dLon/2);
-  
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-  return R * c; // Distance in km
-}
 
 export default enhancedApi;

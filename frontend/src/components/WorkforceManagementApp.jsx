@@ -5,6 +5,7 @@ import Navbar from './Navbar';
 import AdminDashboard from './AdminDashboard';
 import EmployeeDashboard from './EmployeeDashboard';
 import CheckInForm from './CheckInForm';
+import CheckOutForm from './CheckOutForm';  // Import the new CheckOutForm component
 import LocationsManagement from './LocationsManagement';
 import UserManagement from './UserManagement';
 import ShiftManagement from './ShiftManagement';
@@ -63,56 +64,15 @@ const WorkforceManagementApp = () => {
       setIsLoading(true);
       setError(null);
       
-      // First check if we need to use the unified dashboard method or fallback to separate calls
-      if (enhancedApi.dashboard && typeof enhancedApi.dashboard.getUnifiedDashboardData === 'function') {
-        // Use the enhanced unified method
-        const data = await enhancedApi.dashboard.getUnifiedDashboardData();
-        
-        if (data && data.error) {
-          setError(data.error);
-        } else if (data) {
-          setDashboardData(data);
-          setUserData(data.userData);
-        } else {
-          setError("Failed to fetch dashboard data");
-        }
+      const data = await enhancedApi.dashboard.getUnifiedDashboardData();
+      
+      if (data && data.error) {
+        setError(data.error);
+      } else if (data) {
+        setDashboardData(data);
+        setUserData(data.userData);
       } else {
-        // Fallback to separate API calls if enhanced method is not available
-        const userDataResponse = await enhancedApi.dashboard.getEmployeeData();
-        setUserData(userDataResponse);
-        
-        // Fetch role-specific data
-        if (userRole === 'Admin') {
-          // For admin, fetch employee and location data
-          const employees = await enhancedApi.users.getAll();
-          const locations = await enhancedApi.locations.getAll();
-          const recentActivity = await enhancedApi.dashboard.getRecentActivity(5);
-          
-          setDashboardData({
-            userData: userDataResponse,
-            employees: Array.isArray(employees) ? employees : [],
-            locations: Array.isArray(locations) ? locations : [],
-            activityData: Array.isArray(recentActivity) ? recentActivity : []
-          });
-        } else {
-          // For employee, fetch earnings and schedule data
-          const earningsData = await enhancedApi.dashboard.getEarningsData();
-          const recentActivity = await enhancedApi.dashboard.getRecentActivity(5);
-          
-          // Get schedule for current month
-          const today = new Date();
-          const scheduleData = await enhancedApi.dashboard.getScheduleData(
-            today.getFullYear(),
-            today.getMonth() + 1
-          );
-          
-          setDashboardData({
-            userData: userDataResponse,
-            earnings: earningsData,
-            schedule: Array.isArray(scheduleData) ? scheduleData : [],
-            activityData: Array.isArray(recentActivity) ? recentActivity : []
-          });
-        }
+        setError("Failed to fetch dashboard data");
       }
     } catch (error) {
       console.error("Error fetching dashboard data:", error);
@@ -176,6 +136,12 @@ const WorkforceManagementApp = () => {
               onCheckInComplete={handleDataUpdate}
             />
           );
+        case 'checkout':
+          return (
+            <CheckOutForm 
+              onCheckOutComplete={handleDataUpdate}
+            />
+          );
         case 'locations':
           return (
             <LocationsManagement 
@@ -222,6 +188,12 @@ const WorkforceManagementApp = () => {
           return (
             <CheckInForm 
               onCheckInComplete={handleDataUpdate}
+            />
+          );
+        case 'checkout':
+          return (
+            <CheckOutForm 
+              onCheckOutComplete={handleDataUpdate}
             />
           );
         default:
