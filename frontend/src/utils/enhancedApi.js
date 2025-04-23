@@ -54,16 +54,28 @@ function calculateDistance(point1, point2) {
   const toRad = value => value * Math.PI / 180;
   const R = 6371; // Earth's radius in km
   
-  const dLat = toRad(point2.lat - point1.lat);
-  const dLon = toRad(point2.lng - point1.lng);
+  // Handle different possible coordinate formats
+  const lat1 = point1.lat || point1.latitude || 0;
+  const lng1 = point1.lng || point1.longitude || 0;
+  const lat2 = point2.lat || point2.latitude || 0;
+  const lng2 = point2.lng || point2.longitude || 0;
+  
+  console.log("Calculating distance between points:", 
+    { point1: { lat: lat1, lng: lng1 }, point2: { lat: lat2, lng: lng2 } });
+  
+  const dLat = toRad(lat2 - lat1);
+  const dLon = toRad(lng2 - lng1);
   
   const a = 
     Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(toRad(point1.lat)) * Math.cos(toRad(point2.lat)) * 
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * 
     Math.sin(dLon/2) * Math.sin(dLon/2);
   
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-  return R * c; // Distance in km
+  const distance = R * c; // Distance in km
+  
+  console.log("Calculated distance:", distance, "km");
+  return distance;
 }
 
 /**
@@ -494,15 +506,72 @@ checkins: {
       }
     },
     
-    // Get recent activity
-    getRecentActivity: async (limit = 10) => {
-      try {
-        return await apiClient.get(`/dashboard/activity/recent?limit=${limit}`);
-      } catch (error) {
-        console.error('Error fetching activity data:', error);
-        return { error: error.error || 'Failed to fetch activity data' };
+// Add this improved method to your enhancedApi.dashboard object in enhancedApi.js
+
+// Get recent activity with cache-busting option
+getRecentActivity: async (limit = 10, forceRefresh = false) => {
+  try {
+    // Add a cache-busting parameter when forceRefresh is true
+    const url = forceRefresh 
+      ? `/dashboard/activity/recent?limit=${limit}&_t=${new Date().getTime()}` 
+      : `/dashboard/activity/recent?limit=${limit}`;
+    
+    console.log(`Fetching recent activity with ${forceRefresh ? 'forced refresh' : 'standard request'}`);
+    
+    // Add no-cache headers if forcing refresh
+    const config = forceRefresh ? {
+      headers: {
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0'
       }
-    },
+    } : {};
+    
+    const response = await apiClient.get(url, config);
+    
+    if (Array.isArray(response)) {
+      console.log(`Retrieved ${response.length} activity items`);
+      
+      // Check if check-out activity exists in the response
+      const hasCheckOut = response.some(item => item.type === 'check-out');
+      console.log(`Activity contains check-out: ${hasCheckOut}`);
+      
+      if (forceRefresh) {
+        // Store in localStorage to have a reference of latest data
+        localStorage.setItem('recent_activity_data', JSON.stringify(response));
+        localStorage.setItem('recent_activity_timestamp', new Date().getTime().toString());
+      }
+      
+      return response;
+    } else {
+      console.warn('Activity response is not an array:', response);
+      
+      // If we got an error response but have cached data and not forcing refresh, return cached data
+      if (!forceRefresh) {
+        const cachedData = localStorage.getItem('recent_activity_data');
+        if (cachedData) {
+          console.log('Returning cached activity data');
+          return JSON.parse(cachedData);
+        }
+      }
+      
+      return { error: response.error || 'Invalid activity data format' };
+    }
+  } catch (error) {
+    console.error('Error fetching activity data:', error);
+    
+    // If we have cached data and not forcing refresh, return cached data on error
+    if (!forceRefresh) {
+      const cachedData = localStorage.getItem('recent_activity_data');
+      if (cachedData) {
+        console.log('Returning cached activity data after error');
+        return JSON.parse(cachedData);
+      }
+    }
+    
+    return { error: error.error || 'Failed to fetch activity data' };
+  }
+},
     
     // Get schedule data
     getScheduleData: async (year, month) => {

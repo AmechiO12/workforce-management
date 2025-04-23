@@ -5,7 +5,7 @@ import Navbar from './Navbar';
 import AdminDashboard from './AdminDashboard';
 import EmployeeDashboard from './EmployeeDashboard';
 import CheckInForm from './CheckInForm';
-import CheckOutForm from './CheckOutForm';  // Import the new CheckOutForm component
+import CheckOutForm from './CheckOutForm';
 import LocationsManagement from './LocationsManagement';
 import UserManagement from './UserManagement';
 import ShiftManagement from './ShiftManagement';
@@ -56,7 +56,16 @@ const WorkforceManagementApp = () => {
     };
     
     checkAuth();
-  }, [navigate, reload]);
+  }, [navigate]);
+  
+  // Fetch dashboard data - THIS IS THE KEY CHANGE
+  // Now it will ALWAYS fetch new data when reload changes
+  useEffect(() => {
+    if (isAuthenticated) {
+      console.log("Reload triggered, fetching new dashboard data...");
+      fetchDashboardData();
+    }
+  }, [reload, isAuthenticated]);
   
   // Fetch dashboard data
   const fetchDashboardData = async () => {
@@ -64,7 +73,9 @@ const WorkforceManagementApp = () => {
       setIsLoading(true);
       setError(null);
       
+      console.log("Fetching dashboard data...");
       const data = await enhancedApi.dashboard.getUnifiedDashboardData();
+      console.log("Dashboard data received:", data);
       
       if (data && data.error) {
         setError(data.error);
@@ -102,6 +113,7 @@ const WorkforceManagementApp = () => {
   
   // Handle data refresh for modules
   const handleDataUpdate = () => {
+    console.log("Data update requested. Triggering reload...");
     // Increment reload to trigger useEffect
     setReload(prev => prev + 1);
   };

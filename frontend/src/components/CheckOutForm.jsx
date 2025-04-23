@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { MapPin, Clock, CheckCircle, AlertCircle } from 'lucide-react';
-import api from '../utils/api';
+import enhancedApi from '../utils/enhancedApi';
 
 const CheckOutForm = ({ onCheckOutComplete }) => {
   // State hooks for component data
@@ -15,7 +15,8 @@ const CheckOutForm = ({ onCheckOutComplete }) => {
   const [debugInfo, setDebugInfo] = useState({
     buttonClicked: false,
     apiCallAttempted: false,
-    apiResponse: null
+    apiResponse: null,
+    rawActivity: null
   });
 
   // Fetch the user's latest check-in on component mount
@@ -40,34 +41,52 @@ const CheckOutForm = ({ onCheckOutComplete }) => {
       setIsLoading(prev => ({ ...prev, checkInData: true }));
       
       // Get recent activity to find the latest check-in
-      const activity = await api.dashboard.getRecentActivity(10);
+      const activity = await enhancedApi.dashboard.getRecentActivity(10);
       console.log("Recent activity data:", activity);
       
-      if (Array.isArray(activity)) {
-        // Find the latest check-in that doesn't have a corresponding check-out
+      // Debug: Store raw activity data
+      setDebugInfo(prev => ({
+        ...prev,
+        rawActivity: activity
+      }));
+      
+      if (Array.isArray(activity) && activity.length > 0) {
+        // Find the latest check-in (not check-out)
         const checkIn = activity.find(item => item.type === 'check-in');
         console.log("Latest check-in found:", checkIn);
         
         if (checkIn) {
-          // Get the location details
-          const locations = await api.locations.getAll();
+          // Get all locations first
+          const locations = await enhancedApi.locations.getAll();
           console.log("Available locations:", locations);
           
-          const location = Array.isArray(locations) ? 
-            locations.find(loc => loc.name === checkIn.location) : null;
-          
-          console.log("Matched location for check-in:", location);
-          
-          setLatestCheckIn({
-            ...checkIn,
-            locationData: location
-          });
+          if (Array.isArray(locations) && locations.length > 0) {
+            // Try to find the location by name from the check-in
+            const location = locations.find(loc => loc.name === checkIn.location);
+            console.log("Matched location for check-in:", location);
+            
+            if (location) {
+              setLatestCheckIn({
+                ...checkIn,
+                locationData: location
+              });
+            } else {
+              console.error("Location not found by name, using first location");
+              // If location not found by name, use the first one as a fallback
+              setLatestCheckIn({
+                ...checkIn,
+                locationData: locations[0]
+              });
+            }
+          } else {
+            setStatusMessage('warning', 'No locations available. Please contact an administrator.');
+          }
         } else {
           setStatusMessage('warning', 'No active check-in found. Please check in first.');
         }
       } else {
-        console.error("Activity data is not an array:", activity);
-        setStatusMessage('error', 'Failed to load check-in data.');
+        console.error("Activity data is not an array or is empty:", activity);
+        setStatusMessage('error', 'No recent activity found. Please check in first.');
       }
     } catch (error) {
       console.error('Error fetching check-in data:', error);
@@ -170,6 +189,7 @@ const CheckOutForm = ({ onCheckOutComplete }) => {
         apiCallAttempted: true
       }));
       
+      // Create check-out data
       const checkOutData = {
         location_id: latestCheckIn.locationData.id,
         latitude: coordinates.latitude,
@@ -179,9 +199,21 @@ const CheckOutForm = ({ onCheckOutComplete }) => {
       
       console.log("Sending check-out request:", checkOutData);
       
-      // Use the API to submit check-out
-      const response = await api.checkins.create(checkOutData);
-      console.log("Check-out API response:", response);
+      // Try both methods to ensure it works
+      let response;
+      
+      // First try the enhanced validation API
+      try {
+        console.log("Attempting check-out with validation...");
+        response = await enhancedApi.checkins.createWithValidation(checkOutData);
+        console.log("Validation API response:", response);
+      } catch (validationError) {
+        console.error("Validation API error:", validationError);
+        // If validation fails, try the standard API
+        console.log("Falling back to standard API...");
+        response = await enhancedApi.checkins.create(checkOutData);
+        console.log("Standard API response:", response);
+      }
       
       // Update debug info with API response
       setDebugInfo(prev => ({
@@ -189,34 +221,95 @@ const CheckOutForm = ({ onCheckOutComplete }) => {
         apiResponse: response
       }));
       
-      if (response && !response.error) {
-        setStatusMessage(
-          'success', 
-          `Check-out successful from ${latestCheckIn.location}!`
-        );
+// Enhanced check-out function that focuses on updating recent activity
+// Add this to your handleCheckOut function in CheckOutForm.jsx
+// Right after a successful check-out response
+
+if (response && (response.success || response.id)) {
+  console.log("Check-out successful!");
+  setStatusMessage('success', `Check-out successful from ${latestCheckIn.location}!`);
+  
+  // Reset coordinates after successful check-out
+  setCoordinates(null);
+  
+  // ACTIVITY FOCUSED REFRESH STRATEGY
+  // 1. First, force clear any cached activity data
+  localStorage.removeItem('recent_activity_cache');
+  
+  // 2. Make multiple attempts to refresh activity data with increasing delays
+  const refreshActivityWithRetry = async (attempt = 1) => {
+    console.log(`Refreshing activity data - attempt ${attempt}...`);
+    
+    try {
+      // Clear any previous in-memory activity cache by forcing a server refetch
+      const freshActivity = await enhancedApi.dashboard.getRecentActivity(10, true);
+      console.log(`Attempt ${attempt}: Fetched fresh activity data:`, freshActivity);
+      
+      // If successful and we got data, we're done
+      if (Array.isArray(freshActivity) && freshActivity.length > 0) {
+        console.log(`Activity refresh successful on attempt ${attempt}`);
+        return;
+      }
+      
+      // If not successful and we haven't tried too many times, retry with exponential backoff
+      if (attempt < 5) {
+        const delay = Math.min(1000 * Math.pow(2, attempt - 1), 10000); // Exponential backoff, max 10 seconds
+        console.log(`Activity data not yet updated, retrying in ${delay}ms...`);
         
-        // Reset coordinates after successful check-out
-        setCoordinates(null);
-        
-        // Notify parent component of successful check-out
-        if (onCheckOutComplete) {
-          console.log("Calling onCheckOutComplete callback");
-          onCheckOutComplete();
-        }
-        
-        // Reset latest check-in
-        setLatestCheckIn(null);
-      } else {
-        console.error("Check-out failed:", response?.error);
-        setStatusMessage('error', response?.error || 'Check-out failed. Please try again.');
+        setTimeout(() => {
+          refreshActivityWithRetry(attempt + 1);
+        }, delay);
       }
     } catch (error) {
-      console.error('Check-out error:', error);
-      setStatusMessage('error', error.message || 'Error connecting to server. Please try again later.');
-    } finally {
-      setIsLoading(prev => ({ ...prev, checkOut: false }));
+      console.error(`Error refreshing activity on attempt ${attempt}:`, error);
+      
+      // Retry with backoff if we haven't tried too many times
+      if (attempt < 5) {
+        const delay = Math.min(1000 * Math.pow(2, attempt - 1), 10000);
+        setTimeout(() => {
+          refreshActivityWithRetry(attempt + 1);
+        }, delay);
+      }
     }
   };
+  
+  // Start the refresh process immediately
+  refreshActivityWithRetry();
+  
+  // 3. Force a complete dashboard data refresh after a delay
+  setTimeout(async () => {
+    try {
+      console.log("Performing full dashboard refresh...");
+      const freshDashboardData = await enhancedApi.dashboard.getUnifiedDashboardData(true); // Force refresh
+      console.log("Fresh dashboard data received:", freshDashboardData);
+    } catch (error) {
+      console.error("Error in full dashboard refresh:", error);
+    }
+    
+    // 4. Now call the callback to update the UI
+    if (onCheckOutComplete) {
+      console.log("Calling onCheckOutComplete callback to update UI");
+      onCheckOutComplete();
+    }
+  }, 2000); // Wait 2 seconds before full refresh
+  
+  // Reset latest check-in
+  setLatestCheckIn(null);
+  
+  // 5. Offer to return to dashboard after all refreshes
+  setTimeout(() => {
+    if (window.confirm("Check-out successful! Return to dashboard?")) {
+      window.location.href = '/dashboard'; // Adjust this as needed for your routing
+    }
+  }, 3000); // Wait 3 seconds before showing the dialog
+}
+      } catch (error) {
+        console.error("Error during check-out:", error);
+        setStatusMessage('error', `Check-out failed: ${error.message || 'Unknown error'}`);
+      } finally {
+        setIsLoading(prev => ({ ...prev, checkOut: false }));
+      }
+    };
 
   // Loading state
   if (isLoading.checkInData) {
@@ -299,6 +392,9 @@ const CheckOutForm = ({ onCheckOutComplete }) => {
                     <p className="font-medium">{latestCheckIn.location}</p>
                     <p className="text-sm text-gray-600">
                       Checked in at {new Date(latestCheckIn.time).toLocaleTimeString()}
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      Location ID: {latestCheckIn.locationData?.id || 'Unknown'}
                     </p>
                   </div>
                 </div>

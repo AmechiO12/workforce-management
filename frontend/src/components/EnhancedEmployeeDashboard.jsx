@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Calendar, CheckCircle, Clock, DollarSign, TrendingUp, User, Repeat, Bell, MessageSquare, Plus } from 'lucide-react';
 import enhancedApi from '../utils/enhancedApi';
 
+
 // Shift Requests Component
 const ShiftRequests = () => {
   const [requests, setRequests] = useState([
@@ -333,6 +334,9 @@ const EnhancedEmployeeDashboard = ({ onPageChange, userData, dashboardData, onDa
   const [activityData, setActivityData] = useState([]);
   const [scheduleData, setScheduleData] = useState([]);
   const [currentMonth, setCurrentMonth] = useState(new Date());
+
+
+  
   
   // Effect to handle dashboard data from props
   useEffect(() => {
@@ -459,6 +463,8 @@ const EnhancedEmployeeDashboard = ({ onPageChange, userData, dashboardData, onDa
       onPageChange('checkin');
     }
   };
+
+
 
   // Display loading state while fetching data
   if (isLoading) {
